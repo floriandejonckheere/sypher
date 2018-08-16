@@ -58,6 +58,27 @@ group :development, :test do
 
   # Detect code smells
   gem 'reek', :require => false
+
+  # BDD testing for Ruby
+  gem 'rspec'
+  gem 'rspec-rails'
+
+  # Coverage report
+  gem 'coveralls', :require => false
+  gem 'simplecov', :require => false
+
+  # Rails RSpec matchers
+  gem 'shoulda-matchers', :git => 'https://github.com/thoughtbot/shoulda-matchers.git', :branch => 'rails-5'
+
+  # Factory pattern for testing
+  gem 'factory_bot'
+  gem 'factory_bot_rails'
+
+  # Fake data generator
+  gem 'faker'
+
+  # Reset database
+  gem 'database_cleaner'
 end
 
 group :development do
