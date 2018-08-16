@@ -16,8 +16,12 @@ class User < ApplicationRecord
   ##
   # Validations
   #
+  phony_normalize :phone,
+                  :default_country_code => 'BE'
+
   validates :phone,
-            :presence => true
+            :presence => true,
+            :phony_plausible => true
 
   validates :name,
             :presence => true
