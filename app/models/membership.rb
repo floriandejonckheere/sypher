@@ -20,7 +20,7 @@ class Membership < ApplicationRecord
   # Validations
   #
   validates :admin,
-            :presence => true
+            :inclusion => { :in => [true, false] }
 
   ##
   # Callbacks
