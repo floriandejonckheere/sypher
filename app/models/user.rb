@@ -17,7 +17,8 @@ class User < ApplicationRecord
            :dependent => :destroy,
            :foreign_key => 'receiver_id'
 
-  has_many :memberships
+  has_many :memberships,
+           :dependent => :destroy
 
   has_many :groups,
            :through => :memberships
