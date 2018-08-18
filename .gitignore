@@ -38,3 +38,5 @@ yarn-debug.log*
 
 *.vpp
 *.vpp.*
+
+coverage/
