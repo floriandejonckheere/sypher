@@ -17,6 +17,11 @@ class User < ApplicationRecord
            :dependent => :destroy,
            :inverse_of => :receiver
 
+  has_many :memberships
+
+  has_many :groups,
+           :through => :memberships
+
   ##
   # Validations
   #

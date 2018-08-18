@@ -1,26 +1,25 @@
 # frozen_string_literal: true
 
 ##
-# Group chat
+# User account
 #
-class Group < ApplicationRecord
+class Membership < ApplicationRecord
   ##
   # Properties
   #
-  property :name
+  property :admin,
+           :type => Boolean
 
   ##
   # Associations
   #
-  has_many :memberships
-
-  has_many :users,
-           :through => :memberships
+  belongs_to :user
+  belongs_to :group
 
   ##
   # Validations
   #
-  validates :name,
+  validates :admin,
             :presence => true
 
   ##

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ##
-# User account
+# Message sent to user or group
 #
 class Message < ApplicationRecord
   ##
