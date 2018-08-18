@@ -5,7 +5,7 @@ FactoryBot.define do
     ##
     # Attributes
     #
-    phone { Faker::PhoneNumber.phone_number }
+    phone { "#{['0032', '+32'].sample}4#{[7, 8, 9].sample}#{rand.to_s[2..8]}" }
     name { Faker::Name.name }
 
     ##
