@@ -12,13 +12,13 @@ class Message < ApplicationRecord
   ##
   # Associations
   #
-  has_one :sender,
-          :required => true,
-          :class_name => 'User'
+  belongs_to :sender,
+             :required => true,
+             :class_name => 'User'
 
-  has_one :receiver,
-          :required => true,
-          :class_name => 'User'
+  belongs_to :receiver,
+             :required => true,
+             :class_name => 'User'
 
   ##
   # Validations

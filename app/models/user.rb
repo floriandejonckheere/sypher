@@ -15,7 +15,7 @@ class User < ApplicationRecord
   #
   has_many :messages,
            :dependent => :destroy,
-           :inverse_of => :receiver
+           :foreign_key => 'receiver_id'
 
   has_many :memberships
 
@@ -30,6 +30,7 @@ class User < ApplicationRecord
 
   validates :phone,
             :presence => true,
+            :uniqueness => true,
             :phony_plausible => true
 
   validates :name,

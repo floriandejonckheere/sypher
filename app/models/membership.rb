@@ -8,7 +8,7 @@ class Membership < ApplicationRecord
   # Properties
   #
   property :admin,
-           :type => Boolean
+           :type => :boolean
 
   ##
   # Associations
