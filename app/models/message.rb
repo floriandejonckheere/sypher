@@ -13,11 +13,9 @@ class Message < ApplicationRecord
   # Associations
   #
   belongs_to :sender,
-             :required => true,
              :class_name => 'User'
 
   belongs_to :receiver,
-             :required => true,
              :class_name => 'User'
 
   ##
