@@ -9,6 +9,10 @@ module Types
           String,
           :null => false
 
+    field :uuid,
+          String,
+          :null => false
+
     field :sender,
           UserType,
           :null => false

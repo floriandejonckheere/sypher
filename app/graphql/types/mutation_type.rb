@@ -16,5 +16,8 @@ module Types
 
     field :update_user,
           :mutation => Mutations::UpdateUser
+
+    field :send_message,
+          :mutation => Mutations::SendMessage
   end
 end
