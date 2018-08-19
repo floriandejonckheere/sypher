@@ -30,7 +30,7 @@ class User < ApplicationRecord
   # Validations
   #
   phony_normalize :phone,
-                  :default_country_code => 'BE'
+                  :default_country_code => Rails.configuration.default_country_code
 
   validates :phone,
             :presence => true,
