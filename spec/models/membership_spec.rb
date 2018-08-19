@@ -22,6 +22,7 @@ RSpec.describe Membership do
   # Tests
   #
   describe 'attributes' do
+    it { is_expected.to validate_inclusion_of(:admin).in_array [true, false] }
     it { is_expected.not_to allow_value(nil).for :admin }
     it { is_expected.not_to allow_value('').for :admin }
 

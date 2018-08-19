@@ -22,9 +22,12 @@ RSpec.describe User do
   # Tests
   #
   describe 'attributes' do
+    it { is_expected.to validate_presence_of :name }
     it { is_expected.not_to allow_value(nil).for :name }
     it { is_expected.not_to allow_value('').for :name }
 
+    it { is_expected.to validate_presence_of :phone }
+    it { is_expected.to validate_uniqueness_of(:phone).case_insensitive }
     it { is_expected.not_to allow_value(nil).for :phone }
     it { is_expected.not_to allow_value('').for :phone }
     it { is_expected.not_to allow_value(0).for :phone }

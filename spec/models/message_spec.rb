@@ -22,6 +22,7 @@ RSpec.describe Message do
   # Tests
   #
   describe 'attributes' do
+    it { is_expected.to validate_presence_of :text }
     it { is_expected.not_to allow_value(nil).for :text }
     it { is_expected.not_to allow_value('').for :text }
 

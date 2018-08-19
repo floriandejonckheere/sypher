@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
   validates :phone,
             :presence => true,
-            :uniqueness => true,
+            :uniqueness => { :case_sensitive => false },
             :phony_plausible => true
 
   validates :name,
