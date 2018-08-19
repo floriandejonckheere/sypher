@@ -58,6 +58,10 @@ class User < ApplicationRecord
   ##
   # Methods
   #
+  def self.find_by_phone(phone)
+    User.find_by :phone => PhonyRails.normalize_number(phone, :country_code => Rails.configuration.default_country_code)
+  end
+
   ##
   # Overrides
   #

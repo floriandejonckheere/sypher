@@ -87,4 +87,18 @@ RSpec.describe User do
       end
     end
   end
+
+  describe 'methods' do
+    describe '#find_by_phone' do
+      let(:user) { create :user, :phone => '+32474123456' }
+
+      # Make sure the user is created
+      before { user }
+
+      it 'normalizes phone number' do
+        expect(User.find_by_phone '0032474123456').to eq user
+        expect(User.find_by_phone '474123456').to eq user
+      end
+    end
+  end
 end
