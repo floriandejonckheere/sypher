@@ -4,6 +4,8 @@
 # User account
 #
 class User < ApplicationRecord
+  include JWT::Auth::Authenticatable
+
   ##
   # Properties
   #
@@ -118,6 +120,10 @@ class User < ApplicationRecord
   ##
   # Overrides
   #
+  def find_by_token(params)
+    User.verified.find_by params
+  end
+
   ##
   # Helpers and callback methods
   #

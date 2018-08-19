@@ -24,6 +24,8 @@ gem 'webpacker'
 gem 'phony_rails'
 # GraphQL API
 gem 'graphql'
+# JWT as authentication mechanism
+gem 'jwt-auth'
 
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
