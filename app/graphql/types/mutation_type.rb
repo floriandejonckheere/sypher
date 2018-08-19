@@ -10,5 +10,8 @@ module Types
 
     field :verify_user,
           :mutation => Mutations::VerifyUser
+
+    field :request_verify_user,
+          :mutation => Mutations::RequestVerifyUser
   end
 end
