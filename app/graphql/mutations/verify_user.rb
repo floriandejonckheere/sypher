@@ -39,7 +39,7 @@ module Mutations
         }
       else
         {
-          :user => user,
+          :user => nil,
           :errors => user.errors.full_messages
         }
       end
