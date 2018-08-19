@@ -147,6 +147,20 @@ RSpec.describe User do
       end
     end
 
+    describe '#verify_with_pin' do
+      before { user.send_verification_pin }
+
+      it 'returns false on invalid pin' do
+        expect(user.verify_with_pin(123_456)).to eq false
+        expect(user).not_to be_verified
+      end
+
+      it 'returns true on invalid pin' do
+        expect(user.verify_with_pin(user.pin)).to eq true
+        expect(user).to be_verified
+      end
+    end
+
     describe '#send_verification_pin' do
       it 'sets pin and pin_sent_at on the user' do
         expect(user.pin).to be_nil

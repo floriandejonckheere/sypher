@@ -69,10 +69,13 @@ class User < ApplicationRecord
   end
 
   def verify
-    return false if verified?
+    if verified?
+      errors.add :phone, :already_verified
+      return false
+    end
 
     if pin_expired?
-      errors.add :pin, :verification_pin_expired
+      errors.add :pin, :expired
       return false
     end
 
@@ -80,13 +83,23 @@ class User < ApplicationRecord
     save
   end
 
+  def verify_with_pin(sent_pin)
+    if sent_pin.to_i != pin
+      errors.add :pin, :invalid
+      return false
+    end
+
+    verify
+  end
+
   def send_verification_pin
-    self.pin = rand.to_s[2..8].to_i
+    self.pin = rand.to_s[2..7].to_i
     self.pin_sent_at = Time.now.utc
 
     save
 
     # TODO: call SMS API
+    Rails.logger.info "Sent verification PIN #{pin} to #{phone}"
   end
 
   private

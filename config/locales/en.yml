@@ -30,4 +30,13 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            phone:
+              already_verified: "is already verified"
+            pin:
+              expired: "has expired"
+              invalid: "is invalid"
