@@ -22,6 +22,8 @@ gem 'webpacker'
 
 # Validate phone numbers
 gem 'phony_rails'
+# GraphQL API
+gem 'graphql'
 
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
@@ -94,6 +96,9 @@ group :development do
 
   # Security vulnerability scanner
   gem 'brakeman', :require => false
+
+  # GraphQL
+  gem 'graphiql-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
