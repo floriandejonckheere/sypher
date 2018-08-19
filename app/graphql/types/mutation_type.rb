@@ -8,8 +8,7 @@ module Types
     field :create_user,
           :mutation => Mutations::CreateUser
 
-    ##
-    # Mutation methods
-    #
+    field :verify_user,
+          :mutation => Mutations::VerifyUser
   end
 end
