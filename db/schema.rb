@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2018_08_19_073605) do
     t.integer "pin"
     t.datetime "pin_sent_at"
     t.index ["phone"], name: "index_users_on_phone", unique: true
-    t.index ["pin"], name: "index_users_on_pin"
   end
 
 end
