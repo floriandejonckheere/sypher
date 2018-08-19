@@ -112,5 +112,39 @@ RSpec.describe User do
         end
       end
     end
+
+    describe '#verify' do
+      describe 'expired pin' do
+        let(:user) { create :user, :pin_sent_at => 1.day.ago }
+
+        it 'returns false' do
+          expect(user).not_to be_verified
+          expect(user.verify).to eq false
+          expect(user).not_to be_verified
+        end
+      end
+
+      describe 'valid pin' do
+        describe 'unverified user' do
+          let(:user) { create :user, :pin_sent_at => 1.minute.ago }
+
+          it 'returns true and verifies the user' do
+            expect(user).not_to be_verified
+            expect(user.verify).to eq true
+            expect(user).to be_verified
+          end
+        end
+
+        describe 'verified user' do
+          let(:user) { create :user, :verified, :pin_sent_at => 1.minute.ago }
+
+          it 'returns false' do
+            expect(user).to be_verified
+            expect(user.verify).to eq false
+            expect(user).to be_verified
+          end
+        end
+      end
+    end
   end
 end

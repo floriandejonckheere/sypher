@@ -69,6 +69,24 @@ class User < ApplicationRecord
     !verified_at.nil?
   end
 
+  def verify
+    return false if verified?
+
+    if pin_expired?
+      errors.add :pin, :verification_pin_expired
+      return false
+    end
+
+    self.verified_at = Time.now.utc
+    save
+  end
+
+  def pin_expired?
+    true unless pin_sent_at
+
+    Time.now.utc > (pin_sent_at + Rails.configuration.pin_expiration_period)
+  end
+
   ##
   # Overrides
   #
