@@ -31,7 +31,10 @@ class Message < ApplicationRecord
   # Callbacks
   #
   ##
-  # Methods
+  # Class methods
+  #
+  ##
+  # Instance methods
   #
   ##
   # Overrides

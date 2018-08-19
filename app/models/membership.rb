@@ -28,7 +28,10 @@ class Membership < ApplicationRecord
   # Callbacks
   #
   ##
-  # Methods
+  # Class methods
+  #
+  ##
+  # Instance methods
   #
   ##
   # Overrides

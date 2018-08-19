@@ -56,10 +56,17 @@ class User < ApplicationRecord
   # Callbacks
   #
   ##
-  # Methods
+  # Class methods
   #
   def self.find_by_phone(phone)
     User.find_by :phone => PhonyRails.normalize_number(phone, :country_code => Rails.configuration.default_country_code)
+  end
+
+  ##
+  # Instance methods
+  #
+  def verified?
+    !verified_at.nil?
   end
 
   ##

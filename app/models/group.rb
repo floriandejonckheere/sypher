@@ -31,7 +31,10 @@ class Group < ApplicationRecord
   # Callbacks
   #
   ##
-  # Methods
+  # Class methods
+  #
+  ##
+  # Instance methods
   #
   ##
   # Overrides

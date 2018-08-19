@@ -99,6 +99,18 @@ RSpec.describe User do
         expect(User.find_by_phone '0032474123456').to eq user
         expect(User.find_by_phone '474123456').to eq user
       end
+
+      describe '#verified?' do
+        describe 'unverified user' do
+          it { is_expected.not_to be_verified }
+        end
+
+        describe 'verified user' do
+          let(:user) { create :user, :verified }
+
+          it { is_expected.to be_verified }
+        end
+      end
     end
   end
 end
