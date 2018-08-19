@@ -68,4 +68,18 @@ RSpec.describe User do
     it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:groups).through(:memberships) }
   end
+
+  describe 'scopes' do
+    describe 'verified' do
+      before do
+        create :user
+        create :user, :verified
+      end
+
+      it 'returns only users with a verified_at timestamp' do
+        expect(User.count).to eq 2
+        expect(User.verified.count).to eq 1
+      end
+    end
+  end
 end

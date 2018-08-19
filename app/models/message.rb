@@ -25,6 +25,9 @@ class Message < ApplicationRecord
             :presence => true
 
   ##
+  # Scopes
+  #
+  ##
   # Callbacks
   #
   ##

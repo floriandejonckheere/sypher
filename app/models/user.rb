@@ -38,6 +38,12 @@ class User < ApplicationRecord
             :presence => true
 
   ##
+  # Scopes
+  #
+  scope :verified,
+        -> { where.not(:verified_at => nil) }
+
+  ##
   # Callbacks
   #
   ##

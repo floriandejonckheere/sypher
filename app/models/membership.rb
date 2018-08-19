@@ -22,6 +22,9 @@ class Membership < ApplicationRecord
             :inclusion => { :in => [true, false] }
 
   ##
+  # Scopes
+  #
+  ##
   # Callbacks
   #
   ##

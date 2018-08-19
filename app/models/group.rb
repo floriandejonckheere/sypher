@@ -25,6 +25,9 @@ class Group < ApplicationRecord
             :presence => true
 
   ##
+  # Scopes
+  #
+  ##
   # Callbacks
   #
   ##
