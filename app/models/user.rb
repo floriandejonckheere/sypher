@@ -110,7 +110,7 @@ class User < ApplicationRecord
   private
 
   def pin_expired?
-    true unless pin_sent_at
+    return true unless pin_sent_at
 
     Time.now.utc > (pin_sent_at + Rails.configuration.pin_expiration_period)
   end
