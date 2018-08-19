@@ -162,14 +162,30 @@ RSpec.describe User do
     end
 
     describe '#send_verification_pin' do
-      it 'sets pin and pin_sent_at on the user' do
-        expect(user.pin).to be_nil
-        expect(user.pin_sent_at).to be_nil
+      describe 'unverified user' do
+        it 'sets pin and pin_sent_at on the user' do
+          expect(user.pin).to be_nil
+          expect(user.pin_sent_at).to be_nil
 
-        user.send_verification_pin
+          user.send_verification_pin
 
-        expect(user.pin).not_to be_nil
-        expect(user.pin_sent_at).not_to be_nil
+          expect(user.pin).not_to be_nil
+          expect(user.pin_sent_at).not_to be_nil
+        end
+      end
+
+      describe 'verified user' do
+        let(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 2.months.ago }
+
+        it 'return false' do
+          expect(user.pin).not_to be_nil
+          expect(user.pin_sent_at).not_to be_nil
+
+          expect(user.send_verification_pin).to eq false
+
+          expect(user.pin).not_to be_nil
+          expect(user.pin_sent_at).not_to be_nil
+        end
       end
     end
   end

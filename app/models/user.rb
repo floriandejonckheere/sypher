@@ -93,6 +93,11 @@ class User < ApplicationRecord
   end
 
   def send_verification_pin
+    if verified?
+      errors.add :phone, :already_verified
+      return false
+    end
+
     self.pin = rand.to_s[2..7].to_i
     self.pin_sent_at = Time.now.utc
 
