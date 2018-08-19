@@ -10,6 +10,9 @@ class User < ApplicationRecord
   property :phone
   property :name
 
+  # Phone verification PIN
+  property :pin
+
   ##
   # Associations
   #
@@ -36,6 +39,12 @@ class User < ApplicationRecord
 
   validates :name,
             :presence => true
+
+  validates :pin,
+            :format => {
+              :allow_blank => true,
+              :with => /\A[0-9]{6}\z/
+            }
 
   ##
   # Scopes

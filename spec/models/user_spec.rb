@@ -12,7 +12,7 @@ RSpec.describe User do
   ##
   # Test variables
   #
-  let(:user) { build :user }
+  let(:user) { create :user }
   ##
   # Subject
   #
@@ -36,6 +36,11 @@ RSpec.describe User do
     it { is_expected.to allow_value('032494456789').for :phone }
     it { is_expected.to allow_value('+32494456789').for :phone }
     it { is_expected.to allow_value('494456789').for :phone }
+
+    it { is_expected.to allow_value(nil).for :pin }
+    it { is_expected.not_to allow_value(0).for :pin }
+    it { is_expected.not_to allow_value(38_493).for :pin }
+    it { is_expected.to allow_value(294_432).for :pin }
 
     describe 'has a default country code' do
       let(:user) { create :user, :phone => '494456789' }

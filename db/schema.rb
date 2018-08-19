@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_16_201307) do
+ActiveRecord::Schema.define(version: 2018_08_19_073605) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
@@ -43,7 +43,11 @@ ActiveRecord::Schema.define(version: 2018_08_16_201307) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "verified_at"
+    t.integer "pin"
+    t.datetime "pin_sent_at"
     t.index ["phone"], name: "index_users_on_phone", unique: true
+    t.index ["pin"], name: "index_users_on_pin"
   end
 
 end
