@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_073605) do
+ActiveRecord::Schema.define(version: 2018_08_19_131001) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
@@ -34,8 +34,10 @@ ActiveRecord::Schema.define(version: 2018_08_19_073605) do
     t.integer "receiver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uuid", default: "", null: false
     t.index ["receiver_id"], name: "index_messages_on_receiver_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["uuid"], name: "index_messages_on_uuid", unique: true
   end
 
   create_table "users", force: :cascade do |t|

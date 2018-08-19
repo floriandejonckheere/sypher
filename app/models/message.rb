@@ -8,6 +8,7 @@ class Message < ApplicationRecord
   # Properties
   #
   property :text
+  property :uuid
 
   ##
   # Associations
@@ -24,12 +25,17 @@ class Message < ApplicationRecord
   validates :text,
             :presence => true
 
+  validates :uuid,
+            :presence => true
+
   ##
   # Scopes
   #
   ##
   # Callbacks
   #
+  after_initialize :generate_uuid
+
   ##
   # Class methods
   #
@@ -42,4 +48,7 @@ class Message < ApplicationRecord
   ##
   # Helpers and callback methods
   #
+  def generate_uuid
+    self.uuid = SecureRandom.uuid
+  end
 end

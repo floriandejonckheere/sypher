@@ -26,6 +26,11 @@ RSpec.describe Message do
     it { is_expected.not_to allow_value(nil).for :text }
     it { is_expected.not_to allow_value('').for :text }
 
+    it { is_expected.to validate_presence_of :uuid }
+    it { is_expected.not_to allow_value(nil).for :uuid }
+    it { is_expected.not_to allow_value('').for :uuid }
+    it { is_expected.to allow_value('7e28b8c7-6311-46e9-b83e-f0a782cf73be').for :uuid }
+
     it 'is valid with all attributes' do
       expect(build :message).to be_valid
     end
