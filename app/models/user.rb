@@ -29,8 +29,7 @@ class User < ApplicationRecord
   ##
   # Validations
   #
-  phony_normalize :phone,
-                  :default_country_code => Rails.configuration.default_country_code
+  phony_normalize :phone
 
   validates :phone,
             :presence => true,
@@ -59,7 +58,7 @@ class User < ApplicationRecord
   # Class methods
   #
   def self.find_by_phone(phone)
-    User.find_by :phone => PhonyRails.normalize_number(phone, :country_code => Rails.configuration.default_country_code)
+    User.find_by :phone => PhonyRails.normalize_number(phone)
   end
 
   ##
