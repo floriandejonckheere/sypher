@@ -13,6 +13,7 @@ RSpec.describe Message do
   # Test variables
   #
   let(:message) { build :message }
+
   ##
   # Subject
   #
@@ -37,6 +38,11 @@ RSpec.describe Message do
 
     it 'is invalid without text' do
       expect(build :message, :text => nil).not_to be_valid
+    end
+
+    it 'is invalid when sender is the same as receiver' do
+      user = build :user
+      expect(build :message, :sender => user, :receiver => user).not_to be_valid
     end
   end
 

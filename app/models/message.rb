@@ -28,6 +28,8 @@ class Message < ApplicationRecord
   validates :uuid,
             :presence => true
 
+  validate :sender_is_not_receiver
+
   ##
   # Scopes
   #
@@ -50,5 +52,11 @@ class Message < ApplicationRecord
   #
   def generate_uuid
     self.uuid = SecureRandom.uuid
+  end
+
+  def sender_is_not_receiver
+    return unless sender == receiver
+
+    errors.add :base, :sender_is_not_receiver
   end
 end
