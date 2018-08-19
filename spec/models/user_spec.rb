@@ -146,5 +146,17 @@ RSpec.describe User do
         end
       end
     end
+
+    describe '#send_verification_pin' do
+      it 'sets pin and pin_sent_at on the user' do
+        expect(user.pin).to be_nil
+        expect(user.pin_sent_at).to be_nil
+
+        user.send_verification_pin
+
+        expect(user.pin).not_to be_nil
+        expect(user.pin_sent_at).not_to be_nil
+      end
+    end
   end
 end

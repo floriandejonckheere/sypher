@@ -80,6 +80,17 @@ class User < ApplicationRecord
     save
   end
 
+  def send_verification_pin
+    self.pin = rand.to_s[2..8].to_i
+    self.pin_sent_at = Time.now.utc
+
+    save
+
+    # TODO: call SMS API
+  end
+
+  private
+
   def pin_expired?
     true unless pin_sent_at
 
