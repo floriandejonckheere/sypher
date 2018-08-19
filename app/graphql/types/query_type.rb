@@ -15,7 +15,7 @@ module Types
     # Field methods
     #
     def user(args)
-      User.find_by :phone => args[:phone]
+      User.verified.find_by :phone => PhonyRails.normalize_number(args[:phone])
     end
   end
 end
