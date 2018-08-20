@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
+  # Authenticates user from request header
+  before_action :authenticate_user
+
+  # Renew token and set response header
+  after_action :renew_token
+
+  ##
+  # GraphQL endpoint
+  #
   def execute
     variables = ensure_hash params[:variables]
     query = params[:query]
@@ -19,7 +28,9 @@ class GraphqlController < ApplicationController
 
   private
 
+  ##
   # Handle form data, JSON body, or a blank value
+  #
   def ensure_hash(ambiguous_param)
     case ambiguous_param
     when String
@@ -37,6 +48,9 @@ class GraphqlController < ApplicationController
     end
   end
 
+  ##
+  # Development logging
+  #
   def handle_error_in_development(e)
     logger.error e.message
     logger.error e.backtrace.join("\n")
