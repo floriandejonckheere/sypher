@@ -18,7 +18,7 @@ describe UserPolicy do
   ##
   # Subject
   #
-  subject { described_class.new record, user }
+  subject { described_class.new user, record }
 
   ##
   # Tests
