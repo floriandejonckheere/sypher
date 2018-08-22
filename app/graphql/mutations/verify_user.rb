@@ -26,6 +26,10 @@ module Mutations
           [String],
           :null => true
 
+    field :token,
+          String,
+          :null => true
+
     ##
     # Resolver
     #
@@ -35,12 +39,14 @@ module Mutations
       if user.verify_with_pin params[:pin]
         {
           :user => user,
-          :errors => []
+          :errors => [],
+          :token => JWT::Auth::Token.from_user(user).to_jwt
         }
       else
         {
           :user => nil,
-          :errors => user.errors.full_messages
+          :errors => user.errors.full_messages,
+          :token => nil
         }
       end
     end

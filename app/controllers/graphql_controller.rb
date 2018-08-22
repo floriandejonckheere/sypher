@@ -1,12 +1,6 @@
 # frozen_string_literal: true
 
 class GraphqlController < ApplicationController
-  # Authenticates user from request header
-  before_action :authenticate_user
-
-  # Renew token and set response header
-  after_action :renew_token
-
   ##
   # GraphQL endpoint
   #
@@ -17,7 +11,11 @@ class GraphqlController < ApplicationController
     context = {
       :current_user => current_user
     }
-    result = SypherSchema.execute query, :variables => variables, :context => context, :operation_name => operation_name
+
+    result = SypherSchema.execute query,
+                                  :variables => variables,
+                                  :context => context,
+                                  :operation_name => operation_name
 
     render :json => result
   rescue StandardError => e
@@ -50,10 +48,16 @@ class GraphqlController < ApplicationController
   ##
   # Development logging
   #
-  def handle_error_in_development(e)
-    logger.error e.message
-    logger.error e.backtrace.join("\n")
+  def handle_error_in_development(error)
+    logger.error error.message
+    logger.error error.backtrace.join("\n")
 
-    render :json => { :error => { :message => e.message, :backtrace => e.backtrace }, :data => {} }, :status => 500
+    render :json => {
+      :error => {
+        :message => error.message,
+        :backtrace => error.backtrace
+      },
+      :data => {}
+    }, :status => :internal_server_error
   end
 end

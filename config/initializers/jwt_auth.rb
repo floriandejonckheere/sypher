@@ -4,7 +4,7 @@ JWT::Auth.configure do |config|
   ##
   # Token lifetime
   #
-  config.token_lifetime = 48.hours
+  config.token_lifetime = 1000.years
 
   ##
   # JWT secret
