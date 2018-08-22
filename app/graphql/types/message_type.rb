@@ -20,5 +20,12 @@ module Types
     field :receiver,
           UserType,
           :null => false
+
+    ##
+    # Authorization
+    #
+    def self.authorized?(record, context)
+      Pundit.policy!(context[:current_user], record).show?
+    end
   end
 end
