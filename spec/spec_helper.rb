@@ -2,6 +2,7 @@
 
 require 'simplecov'
 require 'coveralls'
+require 'pundit/matchers'
 
 Coveralls.wear! 'rails'
 

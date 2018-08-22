@@ -16,5 +16,12 @@ module Types
     field :messages,
           [MessageType],
           :null => true
+
+    ##
+    # Authorization
+    #
+    def self.authorized?(record, context)
+      Pundit.policy(record, context[:current_user]).show?
+    end
   end
 end

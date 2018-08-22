@@ -26,6 +26,8 @@ gem 'phony_rails'
 gem 'graphql'
 # JWT as authentication mechanism
 gem 'jwt-auth'
+# Pundit as authorization mechanism
+gem 'pundit'
 
 # Use CoffeeScript for .coffee assets and views
 # gem 'coffee-rails', '~> 4.2'
@@ -70,6 +72,9 @@ group :development, :test do
 
   # Rails RSpec matchers
   gem 'shoulda-matchers', :git => 'https://github.com/thoughtbot/shoulda-matchers.git', :branch => 'rails-5'
+
+  # Pundit RSpec matchers
+  gem 'pundit-matchers'
 
   # Factory pattern for testing
   gem 'factory_bot'
