@@ -1,15 +1,14 @@
-/* eslint no-console:0 */
-
 import Vue from 'vue'
-import App from '../components/app.vue'
+
+import App from '../App.vue'
+import router from '../router';
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.body.appendChild(document.createElement('app'))
-  const app = new Vue({
-    el: 'app',
-    template: '<App/>',
-    components: { App }
-  })
+  const el = document.body.appendChild(document.createElement('app'))
 
-  console.log(app)
+  const app = new Vue({
+    el,
+    render: h => h(App),
+    router,
+  })
 })
