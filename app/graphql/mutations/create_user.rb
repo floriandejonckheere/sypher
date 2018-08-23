@@ -27,6 +27,14 @@ module Mutations
           :null => true
 
     ##
+    # Authorization
+    #
+    def self.authorized?(record, context)
+      record = User.new if record.nil?
+      Pundit.policy!(context[:current_user], record).create?
+    end
+
+    ##
     # Resolver
     #
     def resolve(params)
