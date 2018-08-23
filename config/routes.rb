@@ -10,4 +10,9 @@ Rails.application.routes.draw do
   # GraphQL endpoint
   #
   post '/graphql', :to => 'graphql#execute'
+
+  ##
+  # Root path
+  #
+  root :to => 'application#index'
 end

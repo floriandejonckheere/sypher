@@ -5,4 +5,9 @@ class ApplicationController < ActionController::Base
   include Pundit
 
   protect_from_forgery
+
+  ##
+  # GET /
+  #
+  def index; end
 end

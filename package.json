@@ -8,6 +8,7 @@
     "vue-template-compiler": "^2.5.17"
   },
   "devDependencies": {
+    "eslint": "^5.4.0",
     "webpack-dev-server": "2.11.2"
   }
 }
