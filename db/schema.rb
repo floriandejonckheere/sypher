@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_160316) do
+ActiveRecord::Schema.define(version: 2018_08_24_184637) do
 
-  create_table "groups", force: :cascade do |t|
+  create_table "blocked", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "blocked_user_id", null: false
+    t.index ["blocked_user_id"], name: "index_blocked_on_blocked_user_id"
+    t.index ["user_id"], name: "index_blocked_on_user_id"
+  end
+
+  create_table "channels", force: :cascade do |t|
+    t.string "type", null: false
+    t.string "topic"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -20,36 +29,39 @@ ActiveRecord::Schema.define(version: 2018_08_19_160316) do
 
   create_table "memberships", force: :cascade do |t|
     t.boolean "admin", default: false, null: false
+    t.string "nickname"
     t.integer "user_id"
-    t.integer "group_id"
+    t.integer "channel_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["channel_id"], name: "index_memberships_on_channel_id"
+    t.index ["user_id", "channel_id"], name: "index_memberships_on_user_id_and_channel_id", unique: true
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|
     t.string "text"
-    t.integer "sender_id"
-    t.integer "receiver_id"
+    t.string "uuid"
+    t.integer "user_id"
+    t.integer "channel_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "uuid", default: "", null: false
-    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
-    t.index ["sender_id"], name: "index_messages_on_sender_id"
-    t.index ["uuid"], name: "index_messages_on_uuid", unique: true
+    t.index ["channel_id"], name: "index_messages_on_channel_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "phone", null: false
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.datetime "verified_at"
+    t.string "phone", default: "", null: false
+    t.string "name", default: "", null: false
+    t.datetime "last_seen_at"
     t.integer "pin"
     t.datetime "pin_sent_at"
+    t.datetime "verified_at"
     t.integer "token_version", default: 1, null: false
-    t.index ["phone"], name: "index_users_on_phone", unique: true
+    t.string "read_scope"
+    t.string "seen_scope"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end
