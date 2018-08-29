@@ -13,6 +13,7 @@ RSpec.describe Membership do
   # Test variables
   #
   let(:membership) { build :membership }
+
   ##
   # Subject
   #
@@ -40,6 +41,14 @@ RSpec.describe Membership do
 
   describe 'associations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to belong_to :group }
+    it { is_expected.to belong_to :channel }
+
+    describe 'two memberships with the same user and channel' do
+      let(:membership) { create :membership }
+
+      it 'raises ActiveRecord::RecordInvalid' do
+        expect { create :membership, :user => membership.user, :channel => membership.channel }.to raise_error ActiveRecord::RecordInvalid
+      end
+    end
   end
 end

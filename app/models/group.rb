@@ -3,7 +3,7 @@
 ##
 # Group chat
 #
-class Group < ApplicationRecord
+class Group < Channel
   ##
   # Properties
   #
@@ -12,18 +12,9 @@ class Group < ApplicationRecord
   ##
   # Associations
   #
-  has_many :memberships,
-           :dependent => :destroy
-
-  has_many :users,
-           :through => :memberships
-
   ##
   # Validations
   #
-  validates :name,
-            :presence => true
-
   ##
   # Scopes
   #

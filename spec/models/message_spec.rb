@@ -40,14 +40,23 @@ RSpec.describe Message do
       expect(build :message, :text => nil).not_to be_valid
     end
 
-    it 'is invalid when sender is the same as receiver' do
-      user = build :user
-      expect(build :message, :sender => user, :receiver => user).not_to be_valid
+    it 'is invalid without user' do
+      expect(build :message, :user => nil).not_to be_valid
+    end
+
+    it 'is invalid without channel' do
+      expect(build :message, :channel => nil).not_to be_valid
+    end
+
+    describe 'has a default uuid' do
+      let(:message) { create :message }
+
+      it { is_expected.to have_attribute :uuid }
     end
   end
 
   describe 'associations' do
-    it { is_expected.to belong_to :sender }
-    it { is_expected.to belong_to :receiver }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :channel }
   end
 end

@@ -13,6 +13,7 @@ RSpec.describe User do
   # Test variables
   #
   let(:user) { create :user }
+
   ##
   # Subject
   #
@@ -37,10 +38,50 @@ RSpec.describe User do
     it { is_expected.to allow_value('+32494456789').for :phone }
     it { is_expected.to allow_value('494456789').for :phone }
 
+    it { is_expected.to allow_value(nil).for :last_seen_at }
+    it { is_expected.to allow_value(Time.now).for :last_seen_at }
+
     it { is_expected.to allow_value(nil).for :pin }
     it { is_expected.not_to allow_value(0).for :pin }
     it { is_expected.not_to allow_value(38_493).for :pin }
     it { is_expected.to allow_value(294_432).for :pin }
+
+    it { is_expected.to allow_value(:nobody).for :read_scope }
+    it { is_expected.to allow_value(:contacts).for :read_scope }
+    it 'raises ArgumentError on invalid read_scope values' do
+      expect { subject.read_scope = :everyone }.to raise_error ArgumentError
+    end
+
+    it { is_expected.to allow_value(:nobody).for :seen_scope }
+    it { is_expected.to allow_value(:contacts).for :seen_scope }
+    it { is_expected.to allow_value(:everyone).for :seen_scope }
+    it 'raises ArgumentError on invalid read_scope values' do
+      expect { subject.seen_scope = :foobar }.to raise_error ArgumentError
+    end
+
+    describe 'has a default last_seen_at' do
+      let(:user) { create :user }
+
+      it { is_expected.to have_attributes :last_seen_at => subject.created_at }
+    end
+
+    describe 'has a default read scope' do
+      let(:user) { create :user }
+
+      # Reload user from database to ensure default values are set
+      before { user.reload }
+
+      it { is_expected.to have_attributes :read_scope => 'contacts' }
+    end
+
+    describe 'has a default seen scope' do
+      let(:user) { create :user }
+
+      # Reload user from database to ensure default values are set
+      before { user.reload }
+
+      it { is_expected.to have_attributes :seen_scope => 'everyone' }
+    end
 
     describe 'has a default country code' do
       let(:user) { create :user, :phone => '494456789' }
@@ -71,7 +112,7 @@ RSpec.describe User do
   describe 'associations' do
     it { is_expected.to have_many(:messages).dependent(:destroy) }
     it { is_expected.to have_many(:memberships).dependent(:destroy) }
-    it { is_expected.to have_many(:groups).through(:memberships) }
+    it { is_expected.to have_many(:channels).through(:memberships) }
   end
 
   describe 'scopes' do
@@ -114,50 +155,56 @@ RSpec.describe User do
     end
 
     describe '#verify' do
-      describe 'expired pin' do
-        let(:user) { create :user, :pin_sent_at => 1.day.ago }
+      let(:user) { create :user, :verified_at => nil }
+
+      it 'sets verified_at' do
+        user.verify
+        expect(user).to be_valid
+        expect(user.verified_at).not_to be nil
+      end
+    end
+
+    describe '#verify_with_pin' do
+      describe 'invalid pin' do
+        let(:user) { create :user, :pin => 123_456 }
 
         it 'returns false' do
           expect(user).not_to be_verified
-          expect(user.verify).to eq false
+          expect(user.verify_with_pin 654_321).to eq false
+          expect(user).not_to be_verified
+        end
+      end
+
+      describe 'expired pin' do
+        let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.day.ago }
+
+        it 'returns false' do
+          expect(user).not_to be_verified
+          expect(user.verify_with_pin user.pin).to eq false
           expect(user).not_to be_verified
         end
       end
 
       describe 'valid pin' do
         describe 'unverified user' do
-          let(:user) { create :user, :pin_sent_at => 1.minute.ago }
+          let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.minute.ago }
 
           it 'returns true and verifies the user' do
             expect(user).not_to be_verified
-            expect(user.verify).to eq true
+            expect(user.verify_with_pin user.pin).to eq true
             expect(user).to be_verified
           end
         end
 
         describe 'verified user' do
-          let(:user) { create :user, :verified, :pin_sent_at => 1.minute.ago }
+          let(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 1.minute.ago }
 
           it 'returns false' do
             expect(user).to be_verified
-            expect(user.verify).to eq false
+            expect(user.verify_with_pin user.pin).to eq false
             expect(user).to be_verified
           end
         end
-      end
-    end
-
-    describe '#verify_with_pin' do
-      before { user.send_verification_pin }
-
-      it 'returns false on invalid pin' do
-        expect(user.verify_with_pin(123_456)).to eq false
-        expect(user).not_to be_verified
-      end
-
-      it 'returns true on invalid pin' do
-        expect(user.verify_with_pin(user.pin)).to eq true
-        expect(user).to be_verified
       end
     end
 

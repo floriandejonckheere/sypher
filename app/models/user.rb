@@ -9,21 +9,26 @@ class User < ApplicationRecord
   #
   property :phone
   property :name
+  property :last_seen_at
+
+  # Privacy settings (read notifications and last seen at)
+  enum :read_scope => %i[nobody contacts], :_prefix => :read_by
+  enum :seen_scope => %i[nobody contacts everyone], :_prefix => :seen_by
 
   # Phone verification PIN
   property :pin
+  property :pin_sent_at
 
   ##
   # Associations
   #
   has_many :messages,
-           :dependent => :destroy,
-           :foreign_key => 'receiver_id'
+           :dependent => :destroy
 
   has_many :memberships,
            :dependent => :destroy
 
-  has_many :groups,
+  has_many :channels,
            :through => :memberships
 
   ##
@@ -54,6 +59,11 @@ class User < ApplicationRecord
   ##
   # Callbacks
   #
+  after_initialize :set_default_read_scope,
+                   :set_default_seen_scope
+
+  after_create :set_last_seen_at
+
   ##
   # Class methods
   #
@@ -69,16 +79,6 @@ class User < ApplicationRecord
   end
 
   def verify
-    if verified?
-      errors.add :phone, :already_verified
-      return false
-    end
-
-    if pin_expired?
-      errors.add :pin, :expired
-      return false
-    end
-
     self.verified_at = Time.now.utc
     save
   end
@@ -86,6 +86,16 @@ class User < ApplicationRecord
   def verify_with_pin(sent_pin)
     if sent_pin.to_i != pin
       errors.add :pin, :invalid
+      return false
+    end
+
+    if verified?
+      errors.add :phone, :already_verified
+      return false
+    end
+
+    if pin_expired?
+      errors.add :pin, :expired
       return false
     end
 
@@ -107,8 +117,6 @@ class User < ApplicationRecord
     Rails.logger.info "Sent verification PIN #{pin} to #{phone}"
   end
 
-  private
-
   def pin_expired?
     return true unless pin_sent_at
 
@@ -125,4 +133,15 @@ class User < ApplicationRecord
   ##
   # Helpers and callback methods
   #
+  def set_default_read_scope
+    self.read_scope = :contacts unless read_scope?
+  end
+
+  def set_default_seen_scope
+    self.seen_scope = :everyone unless seen_scope?
+  end
+
+  def set_last_seen_at
+    self.last_seen_at = created_at
+  end
 end

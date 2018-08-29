@@ -6,11 +6,12 @@ FactoryBot.define do
     # Attributes
     #
     text { Faker::Lorem.words(10).join(' ') }
+    uuid { SecureRandom.uuid }
 
     ##
     # Associations
     #
-    sender { build :user }
-    receiver { build :user }
+    user { build :user }
+    channel { build :channel }
   end
 end

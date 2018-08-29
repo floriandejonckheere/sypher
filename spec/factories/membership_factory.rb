@@ -11,6 +11,6 @@ FactoryBot.define do
     # Associations
     #
     user { build :user }
-    group { build :group }
+    channel { build :channel }
   end
 end

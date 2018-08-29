@@ -13,11 +13,8 @@ class Message < ApplicationRecord
   ##
   # Associations
   #
-  belongs_to :sender,
-             :class_name => 'User'
-
-  belongs_to :receiver,
-             :class_name => 'User'
+  belongs_to :user
+  belongs_to :channel
 
   ##
   # Validations
@@ -28,15 +25,13 @@ class Message < ApplicationRecord
   validates :uuid,
             :presence => true
 
-  validate :sender_is_not_receiver
-
   ##
   # Scopes
   #
   ##
   # Callbacks
   #
-  after_initialize :generate_uuid
+  after_initialize :set_random_uuid
 
   ##
   # Class methods
@@ -50,13 +45,7 @@ class Message < ApplicationRecord
   ##
   # Helpers and callback methods
   #
-  def generate_uuid
+  def set_random_uuid
     self.uuid = SecureRandom.uuid
-  end
-
-  def sender_is_not_receiver
-    return unless sender == receiver
-
-    errors.add :base, :sender_is_not_receiver
   end
 end

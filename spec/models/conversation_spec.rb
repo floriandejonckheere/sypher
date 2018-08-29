@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Group do
+RSpec.describe Conversation do
   ##
   # Configuration
   #
@@ -12,12 +12,12 @@ RSpec.describe Group do
   ##
   # Test variables
   #
-  let(:group) { build :group }
+  let(:conversation) { build :conversation }
 
   ##
   # Subject
   #
-  subject { group }
+  subject { conversation }
 
   ##
   # Tests
@@ -29,7 +29,7 @@ RSpec.describe Group do
 
     it { is_expected.to validate_presence_of :type }
     it { is_expected.to allow_value('Conversation').for :type }
-    it { is_expected.to allow_value('Group').for :type }
+    it { is_expected.to allow_value('Conversation').for :type }
   end
 
   describe 'associations' do
@@ -42,27 +42,24 @@ RSpec.describe Group do
       end
 
       describe 'one member' do
-        before { group.memberships << build(:membership, :channel => group) }
+        before { conversation.memberships << build(:membership, :channel => conversation) }
 
         it { is_expected.not_to be_valid }
       end
 
       describe 'two members' do
         before do
-          group.memberships << build_list(:membership, 2, :channel => group)
-          group.save
+          conversation.memberships << build_list(:membership, 2, :channel => conversation)
+          conversation.save
         end
 
         it { is_expected.to be_valid }
       end
 
       describe 'three members' do
-        before do
-          group.memberships << build_list(:membership, 3, :channel => group)
-          group.save
-        end
+        before { conversation.memberships << build_list(:membership, 3, :channel => conversation) }
 
-        it { is_expected.to be_valid }
+        it { is_expected.not_to be_valid }
       end
     end
   end

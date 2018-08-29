@@ -1,28 +1,19 @@
 # frozen_string_literal: true
 
 ##
-# User account
+# Conversation
 #
-class Membership < ApplicationRecord
+class Conversation < Channel
   ##
   # Properties
   #
-  property :admin
-
   ##
   # Associations
   #
-  belongs_to :user
-  belongs_to :channel
-
   ##
   # Validations
   #
-  validates :admin,
-            :inclusion => { :in => [true, false] }
-
-  validates_uniqueness_of :user_id,
-                          :scope => :channel_id
+  validate :maximum_members
 
   ##
   # Scopes
@@ -42,4 +33,9 @@ class Membership < ApplicationRecord
   ##
   # Helpers and callback methods
   #
+  def maximum_members
+    return if memberships.size <= 2
+
+    errors.add :memberships, :maximum_members
+  end
 end

@@ -44,3 +44,11 @@ en:
           attributes:
             base:
               sender_is_not_receiver: "Sender must not equal receiver"
+        channel:
+          attributes:
+            memberships:
+              minimum_members: "must contain at least two members"
+        group:
+          attributes:
+            memberships:
+              maximum_members: "must contain at most two members"
