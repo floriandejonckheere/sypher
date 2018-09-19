@@ -8,7 +8,7 @@ class MessagePolicy < ApplicationPolicy
 
   def show?
     # Only receiver users can show
-    !user.nil? && record.receiver == user
+    !user.nil? && record.channel.users.include?(user)
   end
 
   def update?

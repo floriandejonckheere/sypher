@@ -12,8 +12,8 @@ describe MembershipPolicy do
   ##
   # Test variables
   #
-  let(:user) { build :user }
-  let(:record) { build :membership }
+  let(:user) { create :user }
+  let(:record) { create :membership }
 
   ##
   # Subject
@@ -32,13 +32,13 @@ describe MembershipPolicy do
   context 'signed in user' do
     context 'member of the group' do
       context 'admins' do
-        before { create :membership, :user => user, :group => record.group, :admin => true }
+        before { create :membership, :user => user, :channel => record.channel, :admin => true }
 
         it { is_expected.to permit_actions %i[create show update destroy] }
       end
 
       context 'non-admins' do
-        before { create :membership, :user => user, :group => record.group, :admin => false }
+        before { create :membership, :user => user, :channel => record.channel, :admin => false }
 
         it { is_expected.to permit_action :show }
         it { is_expected.to forbid_actions %i[create update destroy] }

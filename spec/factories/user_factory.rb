@@ -17,14 +17,14 @@ FactoryBot.define do
     # Associations
     #
     trait :with_messages do
-      after :create do |u|
-        create_list :message, 10, :receiver => u
+      before :create do |u|
+        10.times { u.messages << build(:message, :user => u) }
       end
     end
 
     trait :with_memberships do
-      after :create do |u|
-        create_list :membership, 5, :user => u
+      before :create do |u|
+        5.times { u.memberships << build(:membership, :user => u) }
       end
     end
   end

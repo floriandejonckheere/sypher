@@ -12,8 +12,8 @@ describe GroupPolicy do
   ##
   # Test variables
   #
-  let(:user) { build :user }
-  let(:record) { build :group }
+  let(:user) { create :user }
+  let(:record) { create :group }
 
   ##
   # Subject
@@ -34,13 +34,13 @@ describe GroupPolicy do
 
     context 'member of the group' do
       context 'admins' do
-        before { create :membership, :user => user, :group => record, :admin => true }
+        before { create :membership, :user => user, :channel => record, :admin => true }
 
         it { is_expected.to permit_actions %i[show update destroy] }
       end
 
       context 'non-admins' do
-        before { create :membership, :user => user, :group => record, :admin => false }
+        before { create :membership, :user => user, :channel => record, :admin => false }
 
         it { is_expected.to permit_action :show }
         it { is_expected.to forbid_actions %i[update destroy] }

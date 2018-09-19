@@ -11,22 +11,36 @@ FactoryBot.define do
     ##
     # Associations
     #
-    trait :memberships do
-      before :create do |c|
-        build_list :membership, 5, :channel => c
-      end
-    end
-
     ##
     # Factories
     #
     factory :conversation, :class => Conversation do
+      ##
+      # Attributes
+      #
       type { 'Conversation' }
+
+      ##
+      # Associations
+      #
+      before :create do |c|
+        2.times { c.memberships << build(:membership, :channel => c) }
+      end
     end
 
     factory :group, :class => Group do
+      ##
+      # Attributes
+      #
       type { 'Group' }
       name { Faker::Lorem.words(4).join ' ' }
+
+      ##
+      # Associations
+      #
+      before :create do |g|
+        5.times { g.memberships << build(:membership, :channel => g) }
+      end
     end
   end
 end

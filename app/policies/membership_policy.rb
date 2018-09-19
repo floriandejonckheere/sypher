@@ -8,12 +8,12 @@ class MembershipPolicy < ApplicationPolicy
 
   def show?
     # Only members can show
-    !user.nil? && record.group.memberships.where(:user => user).any?
+    !user.nil? && record.channel.memberships.exists?(:user => user)
   end
 
   def update?
     # Only admin members can update
-    !user.nil? && record.group.memberships.where(:user => user, :admin => true).any?
+    !user.nil? && record.channel.memberships.exists?(:user => user, :admin => true)
   end
 
   def destroy?

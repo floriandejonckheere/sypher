@@ -12,7 +12,7 @@ RSpec.describe Conversation do
   ##
   # Test variables
   #
-  let(:conversation) { build :conversation }
+  let(:conversation) { create :conversation }
 
   ##
   # Subject
@@ -38,20 +38,19 @@ RSpec.describe Conversation do
 
     describe 'maximum members' do
       describe 'no members' do
+        before { conversation.memberships.clear }
+
         it { is_expected.not_to be_valid }
       end
 
       describe 'one member' do
-        before { conversation.memberships << build(:membership, :channel => conversation) }
+        before { conversation.users = [build(:user)] }
 
         it { is_expected.not_to be_valid }
       end
 
       describe 'two members' do
-        before do
-          conversation.memberships << build_list(:membership, 2, :channel => conversation)
-          conversation.save
-        end
+        before { conversation.users = build_list(:user, 2) }
 
         it { is_expected.to be_valid }
       end

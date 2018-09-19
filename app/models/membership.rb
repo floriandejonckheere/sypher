@@ -24,6 +24,8 @@ class Membership < ApplicationRecord
   validates_uniqueness_of :user_id,
                           :scope => :channel_id
 
+  # TODO: validation for membership count in groups and conversations
+
   ##
   # Scopes
   #

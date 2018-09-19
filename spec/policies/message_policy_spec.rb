@@ -12,8 +12,8 @@ describe MessagePolicy do
   ##
   # Test variables
   #
-  let(:user) { build :user }
-  let(:record) { build :message }
+  let(:user) { create :user }
+  let(:record) { create :message }
 
   ##
   # Subject
@@ -33,13 +33,13 @@ describe MessagePolicy do
     it { is_expected.to permit_action :create }
 
     context 'sender of the message' do
-      let(:user) { record.sender }
+      let(:user) { record.user }
 
       it { is_expected.to forbid_actions %i[show update destroy] }
     end
 
     context 'receiver of the message' do
-      let(:user) { record.receiver }
+      let(:user) { record.channel.users.first }
 
       it { is_expected.to permit_action :show }
       it { is_expected.to forbid_actions %i[update destroy] }

@@ -10,7 +10,7 @@ FactoryBot.define do
     ##
     # Associations
     #
-    user { build :user }
-    channel { build :channel }
+    user { create :user }
+    channel { create %i[group conversation].sample }
   end
 end
