@@ -37,6 +37,9 @@
               <span class="primary--text pa-1" v-if="item.count !== 0">
                 {{ item.count }}
               </span>
+              <span class="grey--text caption right">
+                {{ item.timestamp | moment('calendar') }}
+              </span>
             </v-list-tile-title>
             <v-list-tile-sub-title>
               {{ item.preview }}
@@ -62,13 +65,15 @@
             avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             title: 'Florian Dejonckheere',
             count: 1,
+            timestamp: 1537443112,
             preview: "I'll see what I can do about this Sypher thing. I assume it's well written.",
           },
           {
             id: 1,
             avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-            title: 'Sypher Development Team',
-            count: 1,
+            title: 'Sypher Development',
+            count: 23,
+            timestamp: 1537442112,
             preview: "People, please don't use the dev server as your personal playground.",
           },
           {
@@ -80,6 +85,7 @@
             avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
             title: 'Ex',
             count: 0,
+            timestamp: 1536818613,
             preview: "I'll come round to pick up my stuff tomorrow",
           },
         ]
