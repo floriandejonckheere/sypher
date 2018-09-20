@@ -8,6 +8,8 @@ import Welcome from 'components/Authentication/Welcome'
 import VerifyPhone from 'components/Authentication/VerifyPhone'
 import VerifyPIN from 'components/Authentication/VerifyPIN'
 
+import Channels from 'components/Channels/Channels'
+
 Vue.use(Router);
 
 export default new Router({
@@ -15,6 +17,10 @@ export default new Router({
     {
       path: '/',
       component: Home,
+    },
+    {
+      path: '/channels',
+      component: Channels,
     },
     {
       path: '/auth',
