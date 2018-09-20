@@ -1,18 +1,89 @@
 <template>
-  <v-toolbar dark color="primary">
-    <v-toolbar-title>Sypher</v-toolbar-title>
-    <v-spacer></v-spacer>
+  <v-content>
+    <v-toolbar dark color="primary">
+      <v-toolbar-title>Sypher</v-toolbar-title>
+      <v-spacer></v-spacer>
 
-    <router-link to="#">
-      <v-btn icon>
-        <v-icon>search</v-icon>
-      </v-btn>
-    </router-link>
+      <router-link to="#">
+        <v-btn icon>
+          <v-icon>search</v-icon>
+        </v-btn>
+      </router-link>
 
-    <router-link to="#">
-      <v-btn icon>
-        <v-icon>settings</v-icon>
-      </v-btn>
-    </router-link>
-  </v-toolbar>
+      <router-link to="#">
+        <v-btn icon>
+          <v-icon>settings</v-icon>
+        </v-btn>
+      </router-link>
+    </v-toolbar>
+
+
+    <v-list two-line>
+      <template v-for="(item, index) in items">
+        <v-subheader v-if="item.type === 'header'" :key="item.title">
+          {{ item.title }}
+        </v-subheader>
+
+        <v-list-tile v-else :key="item.id" avatar @click="">
+          <v-list-tile-avatar>
+            <img :src="item.avatar">
+          </v-list-tile-avatar>
+
+          <v-list-tile-content>
+            <v-list-tile-title>
+              <span v-bind:class="{ 'font-weight-black': item.count !== 0 }">
+                {{ item.title }}
+              </span>
+              <span class="primary--text pa-1" v-if="item.count !== 0">
+                {{ item.count }}
+              </span>
+            </v-list-tile-title>
+            <v-list-tile-sub-title>
+              {{ item.preview }}
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
+  </v-content>
 </template>
+
+<script>
+  module.exports = {
+    data: function() {
+      return {
+        items: [
+          {
+            type: 'header',
+            title: 'Today',
+          },
+          {
+            id: 0,
+            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
+            title: 'Florian Dejonckheere',
+            count: 1,
+            preview: "I'll see what I can do about this Sypher thing. I assume it's well written.",
+          },
+          {
+            id: 1,
+            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
+            title: 'Sypher Development Team',
+            count: 1,
+            preview: "People, please don't use the dev server as your personal playground.",
+          },
+          {
+            type: 'header',
+            title: 'Last week',
+          },
+          {
+            id: 2,
+            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
+            title: 'Ex',
+            count: 0,
+            preview: "I'll come round to pick up my stuff tomorrow",
+          },
+        ]
+      }
+    }
+  }
+</script>
