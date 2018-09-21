@@ -17,6 +17,9 @@
               </v-flex>
             </v-layout>
           </v-container>
+          <div class="text-xs-center">
+            <a href="#" class="caption">Resend verification text</a>
+          </div>
         </v-flex>
         <v-flex xs1>
           <v-btn to="/auth/pin" block class="success">Next</v-btn>
