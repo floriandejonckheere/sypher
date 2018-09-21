@@ -61,6 +61,7 @@
             title: 'Today',
           },
           {
+            type: 'channel',
             id: 0,
             avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             title: 'Florian Dejonckheere',
@@ -69,6 +70,7 @@
             preview: "I'll see what I can do about this Sypher thing. I assume it's well written.",
           },
           {
+            type: 'channel',
             id: 1,
             avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
             title: 'Sypher Development',
@@ -81,6 +83,7 @@
             title: 'Last week',
           },
           {
+            type: 'channel',
             id: 2,
             avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
             title: 'Ex',
