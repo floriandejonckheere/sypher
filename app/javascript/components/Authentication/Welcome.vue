@@ -1,9 +1,9 @@
 <template>
-  <v-content fill-height>
-    <v-container fluid fill-height>
+  <v-content>
+    <v-container fill-height>
       <v-layout column justify-space-around align-center>
-        <v-flex>
-          <h1 class="text-xs-center">Welcome to Sypher</h1>
+        <v-flex class="text-xs-center">
+          <h1>Welcome to Sypher</h1>
         </v-flex>
         <v-flex>
           <v-icon color="primary" size="20em" class="sy-logo">fingerprint</v-icon>
