@@ -6,6 +6,7 @@ import AuthenticationFrame from 'components/Authentication/AuthenticationFrame'
 import Welcome from 'components/Authentication/Welcome'
 import VerifyPhone from 'components/Authentication/VerifyPhone'
 import VerifyPIN from 'components/Authentication/VerifyPIN'
+import Profile from 'components/Authentication/Profile'
 
 import ChannelsFrame from 'components/Channels/ChannelsFrame'
 import Channels from 'components/Channels/Channels'
@@ -53,6 +54,10 @@ export default new Router({
         {
           path: 'pin',
           component: VerifyPIN,
+        },
+        {
+          path: 'profile',
+          component: Profile,
         },
       ],
     },
