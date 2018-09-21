@@ -39,6 +39,10 @@ export default new Router({
       component: AuthenticationFrame,
       children: [
         {
+          path: '',
+          redirect: '/auth/welcome',
+        },
+        {
           path: 'welcome',
           component: Welcome,
         },
