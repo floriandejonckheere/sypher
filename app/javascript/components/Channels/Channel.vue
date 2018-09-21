@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <v-toolbar dark color="primary">
+    <v-toolbar fixed dark color="primary">
       <router-link to="/channels">
         <v-btn icon>
           <v-icon>arrow_back</v-icon>
@@ -13,7 +13,7 @@
       </v-toolbar-title>
     </v-toolbar>
 
-    <v-container fluid>
+    <v-container fluid class="mb-5 pb-5">
       <v-layout column>
         <template v-for="item in items">
           <v-flex>
@@ -25,11 +25,11 @@
               <v-layout row>
                 <v-flex xs9 :offset-xs3="item.user === 0">
                   <v-card :color="item.user === 0 ? '#C6DCF8' : 'white'">
-                    <v-card-text pt-0>
+                    <v-card-text>
                       <div class="caption font-weight-bold">{{ members.find(m => m.id === item.user).name }}</div>
                       {{ item.text }}
                       <div class="grey--text caption pb-2">
-                        <span class="right">{{ item.timestamp | moment('HH:MM') }}</span>
+                        <span class="right">{{ item.timestamp | moment('HH:mm') }}</span>
                       </div>
                     </v-card-text>
                   </v-card>
@@ -40,6 +40,28 @@
         </template>
       </v-layout>
     </v-container>
+
+    <v-footer fixed height="auto">
+      <div color="white">
+        <v-container fluid>
+          <v-layout row>
+            <v-flex>
+              <v-chip color="white" class="sy-message-input pa-1 pr-2" disabled>
+                <v-btn small fab flat class="ma-0 pa-0">
+                  <v-icon>insert_emoticon</v-icon>
+                </v-btn>
+                <v-text-field autofocus placeholder="Type a message"/>
+              </v-chip>
+            </v-flex>
+            <v-flex>
+              <v-btn color="blue" dark small fab depressed>
+                <v-icon>send</v-icon>
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </div>
+    </v-footer>
   </v-content>
 </template>
 

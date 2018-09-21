@@ -16,3 +16,7 @@
 
 @import "vuetify/dist/vuetify.min.css";
 @import "material-design-icons-iconfont/dist/material-design-icons.css";
+
+.sy-message-input > .v-chip__content {
+  padding-left: 0;
+}
