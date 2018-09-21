@@ -24,14 +24,14 @@
           {{ item.title }}
         </v-subheader>
 
-        <v-list-tile v-else :key="item.id" avatar @click="">
+        <v-list-tile v-else :key="item.id" avatar :to="`/channels/${item.id}`">
           <v-list-tile-avatar>
             <img :src="item.avatar">
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <span v-bind:class="{ 'font-weight-black': item.count !== 0 }">
+              <span class="black--text" v-bind:class="{ 'font-weight-black': item.count !== 0 }">
                 {{ item.title }}
               </span>
               <span class="primary--text pa-1" v-if="item.count !== 0">
