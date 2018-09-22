@@ -17,7 +17,6 @@
       </router-link>
     </v-toolbar>
 
-
     <v-list two-line>
       <template v-for="(item, index) in items">
         <v-subheader v-if="item.type === 'header'" :key="item.title">
@@ -48,6 +47,19 @@
         </v-list-tile>
       </template>
     </v-list>
+
+    <v-speed-dial fixed bottom right color="primary" transition="slide-y-reverse-transition" v-model="fab">
+      <v-btn slot="activator" color="primary" dark fab hover large v-model="fab">
+        <v-icon>message</v-icon>
+        <v-icon>close</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="secondary">
+        <v-icon>group_add</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="secondary">
+        <v-icon>person_add</v-icon>
+      </v-btn>
+    </v-speed-dial>
   </v-content>
 </template>
 
@@ -55,6 +67,7 @@
   module.exports = {
     data: function() {
       return {
+        fab: false,
         items: [
           {
             type: 'header',
