@@ -1,12 +1,7 @@
-import { dummyAuthState } from './dummyStates'
+import { dummyUsersState } from './dummyStates'
 
 // Initial state
-const state = {
-  // Signed in user (identifier
-  user: null,
-  // API token
-  token: null,
-}
+const state = []
 
 // Getters
 const getters = {
@@ -22,7 +17,7 @@ const mutations = {
 
 export default {
   namespaced: true,
-  state: dummyAuthState,
+  state: dummyUsersState,
   getters,
   actions,
   mutations,
