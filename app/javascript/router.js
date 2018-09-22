@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
 // Components
 import AuthenticationFrame from 'components/Authentication/AuthenticationFrame'
@@ -12,7 +12,7 @@ import ChannelsFrame from 'components/Channels/ChannelsFrame'
 import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
@@ -62,4 +62,4 @@ export default new Router({
       ],
     },
   ],
-});
+})
