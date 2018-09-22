@@ -64,3 +64,54 @@ export const dummyChannelsState = [
     topic: null,
   }
 ]
+
+export const dummyMessagesState = [
+  {
+    // Unique identifier
+    id: 0,
+    // Channel identifier
+    channel: 0,
+    // Contents
+    text: 'Did anyone reset the dev server? I can\'t seem to find my files on it anymore.',
+    // Sender
+    user: 1,
+    // Timestamp
+    timestamp: 1534961244,
+  },
+  {
+    // Unique identifier
+    id: 1,
+    // Channel identifier
+    channel: 0,
+    // Contents
+    text: 'I deployed the latest release again because the data was corrupt.',
+    // Sender
+    user: 2,
+    // Timestamp
+    timestamp: 1534961244,
+  },
+  {
+    // Unique identifier
+    id: 2,
+    // Channel identifier
+    channel: 0,
+    // Contents
+    text: 'I don\'t really care about the dev server, but I\'m just writing a very long message to all y\'all, probably to test out the text overflow and wrap, while also making a run-on sentence like you haven\'t seen before.',
+    // Sender
+    user: 3,
+    // Timestamp
+    timestamp: 1534961244,
+  },
+  {
+    // Unique identifier
+    id: 3,
+    // Channel identifier
+    channel: 0,
+    // Contents
+    text: 'People, please don\'t use the dev server as your personal playground.',
+    // Sender
+    user: 0,
+    // Timestamp
+    timestamp: 1534961244,
+  },
+]
