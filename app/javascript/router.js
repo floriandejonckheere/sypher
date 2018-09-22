@@ -12,6 +12,8 @@ import ChannelsFrame from 'components/Channels/ChannelsFrame'
 import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
 
+import CreateConversation from 'components/Channels/CreateConversation'
+
 Vue.use(Router)
 
 export default new Router({
@@ -30,9 +32,13 @@ export default new Router({
           component: Channels,
         },
         {
+          path: 'conversation',
+          component: CreateConversation,
+        },
+        {
           path: ':id',
           component: Channel,
-        }
+        },
       ],
     },
     {

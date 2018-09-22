@@ -1,8 +1,11 @@
 <template>
   <v-content>
     <v-toolbar dark color="primary">
-      <v-toolbar-title>Sypher</v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-toolbar-title>
+        Sypher
+        <div class="caption">online</div>
+      </v-toolbar-title>
+      <v-spacer />
 
       <router-link to="#">
         <v-btn icon>
@@ -25,7 +28,7 @@
 
         <v-list-tile v-else :key="item.id" avatar :to="`/channels/${item.id}`">
           <v-list-tile-avatar>
-            <img :src="item.avatar">
+            <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
@@ -53,10 +56,10 @@
         <v-icon>message</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
-      <v-btn fab dark small color="secondary">
+      <v-btn fab dark small color="secondary" to="/channels/group">
         <v-icon>group_add</v-icon>
       </v-btn>
-      <v-btn fab dark small color="secondary">
+      <v-btn fab dark small color="secondary" to="/channels/conversation">
         <v-icon>person_add</v-icon>
       </v-btn>
     </v-speed-dial>
@@ -76,7 +79,6 @@
           {
             type: 'channel',
             id: 0,
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
             title: 'Florian Dejonckheere',
             count: 1,
             timestamp: 1537443112,
@@ -85,7 +87,6 @@
           {
             type: 'channel',
             id: 1,
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
             title: 'Sypher Development',
             count: 23,
             timestamp: 1537442112,
@@ -98,7 +99,6 @@
           {
             type: 'channel',
             id: 2,
-            avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
             title: 'Ex',
             count: 0,
             timestamp: 1536818613,
