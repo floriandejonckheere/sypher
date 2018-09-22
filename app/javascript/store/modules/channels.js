@@ -1,12 +1,7 @@
-import { dummyAuthState } from './dummyStates'
+import { dummyChannelsState } from './dummyStates'
 
 // Initial state
-const state = {
-  // User object
-  user: null,
-  // Authentication token
-  token: null,
-}
+const state = []
 
 // Getters
 const getters = {
@@ -22,7 +17,7 @@ const mutations = {
 
 export default {
   namespaced: true,
-  state: dummyAuthState,
+  state: dummyChannelsState,
   getters,
   actions,
   mutations,
