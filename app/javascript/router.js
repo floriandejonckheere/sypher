@@ -13,6 +13,7 @@ import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
 
 import CreateConversation from 'components/Channels/CreateConversation'
+import CreateGroup from 'components/Channels/CreateGroup'
 
 Vue.use(Router)
 
@@ -34,6 +35,10 @@ export default new Router({
         {
           path: 'conversation',
           component: CreateConversation,
+        },
+        {
+          path: 'group',
+          component: CreateGroup,
         },
         {
           path: ':id',
