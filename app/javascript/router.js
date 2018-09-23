@@ -2,13 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Components
-import AuthenticationFrame from 'components/Authentication/AuthenticationFrame'
+import Frame from 'components/Frame'
+
 import Welcome from 'components/Authentication/Welcome'
 import VerifyPhone from 'components/Authentication/VerifyPhone'
 import VerifyPIN from 'components/Authentication/VerifyPIN'
 import Profile from 'components/Authentication/Profile'
 
-import ChannelsFrame from 'components/Channels/ChannelsFrame'
 import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
 
@@ -25,7 +25,7 @@ export default new Router({
     },
     {
       path: '/channels',
-      component: ChannelsFrame,
+      component: Frame,
       children: [
         {
           path: '',
@@ -48,7 +48,7 @@ export default new Router({
     },
     {
       path: '/auth',
-      component: AuthenticationFrame,
+      component: Frame,
       children: [
         {
           path: '',
