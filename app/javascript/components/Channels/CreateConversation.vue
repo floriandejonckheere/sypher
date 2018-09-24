@@ -20,15 +20,15 @@
     </v-toolbar>
 
     <v-list one-line>
-      <template v-for="(item, index) in items">
-        <v-list-tile avatar :to="`/channels/${item.id}`">
+      <template v-for="(user, index) in users">
+        <v-list-tile avatar :to="`/channels/${user.id}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <strong>{{ item.name }}</strong>
+              <strong>{{ user.name }}</strong>
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -38,44 +38,13 @@
 </template>
 
 <script>
-  module.exports = {
-    data: function() {
-      return {
-        items: [
-          {
-            // Unique identifier
-            id: 0,
-            // Phone number
-            phone: '+32000000000',
-            // Name
-            name: 'Florian',
-          },
-          {
-            // Unique identifier
-            id: 1,
-            // Phone number
-            phone: '+32000000001',
-            // Name
-            name: 'John',
-          },
-          {
-            // Unique identifier
-            id: 2,
-            // Phone number
-            phone: '+32000000002',
-            // Name
-            name: 'Jane',
-          },
-          {
-            // Unique identifier
-            id: 3,
-            // Phone number
-            phone: '+32000000003',
-            // Name
-            name: 'Thomas',
-          },
-        ]
-      }
+  import { mapGetters } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters({
+        users: 'users/getAllUsersAlphabetically',
+      })
     }
   }
 </script>
