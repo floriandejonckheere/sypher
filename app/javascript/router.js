@@ -12,6 +12,9 @@ import Profile from 'components/Authentication/Profile'
 import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
 
+import Contacts from 'components/Contacts/Contacts'
+import Contact from 'components/Contacts/Contact'
+
 import CreateConversation from 'components/Channels/CreateConversation'
 import CreateGroup from 'components/Channels/CreateGroup'
 
@@ -44,6 +47,20 @@ export default new Router({
           path: ':id',
           component: Channel,
         },
+      ],
+    },
+    {
+      path: '/contacts',
+      component: Frame,
+      children: [
+        {
+          path: '',
+          component: Contacts,
+        },
+        {
+          path: ':id',
+          component: Contact,
+        }
       ],
     },
     {
