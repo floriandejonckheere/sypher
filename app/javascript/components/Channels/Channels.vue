@@ -13,11 +13,20 @@
         </v-btn>
       </router-link>
 
-      <router-link to="#">
-        <v-btn icon>
-          <v-icon>settings</v-icon>
-        </v-btn>
-      </router-link>
+      <v-menu min-width="200">
+        <v-toolbar-title slot="activator">
+          <v-icon dark>more_vert</v-icon>
+        </v-toolbar-title>
+
+        <v-list>
+          <v-list-tile to="/contacts">
+            Contacts
+          </v-list-tile>
+          <v-list-tile to="/profile">
+            Settings
+          </v-list-tile>
+        </v-list>
+      </v-menu>
     </v-toolbar>
 
     <v-list two-line>
