@@ -25,6 +25,10 @@ RSpec.describe User do
   describe 'attributes' do
     it { is_expected.to allow_value(nil).for :name }
     it { is_expected.to allow_value('').for :name }
+    it { is_expected.to validate_length_of(:name).is_at_most(20) }
+
+    it { is_expected.to allow_value('12345678901234567890').for :name }
+    it { is_expected.not_to allow_value('123456789012345678901').for :name }
 
     it { is_expected.to validate_presence_of :phone }
     it { is_expected.to validate_uniqueness_of(:phone).case_insensitive }

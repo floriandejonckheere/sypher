@@ -6,7 +6,7 @@ FactoryBot.define do
     # Attributes
     #
     phone { "#{['0032', '+32'].sample}4#{[7, 8, 9].sample}#{rand.to_s[2..8]}" }
-    name { Faker::Name.name }
+    name { Faker::Name.name[0..19] }
     last_seen_at { Faker::Date.backward 14 }
 
     trait :verified do

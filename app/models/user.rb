@@ -41,6 +41,9 @@ class User < ApplicationRecord
             :uniqueness => { :case_sensitive => false },
             :phony_plausible => true
 
+  validates :name,
+            :length => { :maximum => 20 }
+
   validates :pin,
             :format => {
               :allow_blank => true,
