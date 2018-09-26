@@ -41,7 +41,6 @@ RSpec.describe User do
     it { is_expected.to allow_value('+32494456789').for :phone }
     it { is_expected.to allow_value('494456789').for :phone }
 
-    it { is_expected.to allow_value(nil).for :last_seen_at }
     it { is_expected.to allow_value(Time.now).for :last_seen_at }
 
     it { is_expected.to allow_value(nil).for :pin }
@@ -62,10 +61,12 @@ RSpec.describe User do
       expect { subject.seen_scope = :foobar }.to raise_error ArgumentError
     end
 
-    describe 'has a default last_seen_at' do
+    describe 'last_seen_at' do
       let(:user) { create :user }
 
-      it { is_expected.to have_attributes :last_seen_at => subject.created_at }
+      it 'is not nil' do
+        expect(user.last_seen_at).not_to be_nil
+      end
     end
 
     describe 'has a default read scope' do

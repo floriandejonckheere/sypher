@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_113623) do
+ActiveRecord::Schema.define(version: 2018_09_26_135622) do
 
   create_table "blocked", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 2018_09_26_113623) do
   create_table "users", force: :cascade do |t|
     t.string "phone", default: "", null: false
     t.string "name"
-    t.datetime "last_seen_at"
+    t.datetime "last_seen_at", null: false
     t.integer "pin"
     t.datetime "pin_sent_at"
     t.datetime "verified_at"

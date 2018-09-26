@@ -60,9 +60,8 @@ class User < ApplicationRecord
   # Callbacks
   #
   after_initialize :set_default_read_scope,
-                   :set_default_seen_scope
-
-  after_create :set_last_seen_at
+                   :set_default_seen_scope,
+                   :set_last_seen_at
 
   ##
   # Class methods
@@ -133,7 +132,7 @@ class User < ApplicationRecord
   def touch
     super
 
-    self.last_seen_at = Time.now.utc.to_i
+    self.last_seen_at = Time.now.utc
     save
   end
 
@@ -149,6 +148,6 @@ class User < ApplicationRecord
   end
 
   def set_last_seen_at
-    self.last_seen_at = created_at
+    self.last_seen_at = Time.now.utc
   end
 end
