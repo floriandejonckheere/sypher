@@ -30,7 +30,10 @@ module Mutations
     # Authorization
     #
     def self.authorized?(record, context)
-      record = User.new if record.nil?
+      # For an unknown reason this method sometimes gets called with a result hash
+      return true if record.is_a? Hash
+
+      record ||= User.new
       Pundit.policy!(context[:current_user], record).create?
     end
 
