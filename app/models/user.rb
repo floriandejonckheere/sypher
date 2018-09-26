@@ -130,6 +130,13 @@ class User < ApplicationRecord
     User.verified.find_by params
   end
 
+  def touch
+    super
+
+    self.last_seen_at = Time.now.utc.to_i
+    save
+  end
+
   ##
   # Helpers and callback methods
   #

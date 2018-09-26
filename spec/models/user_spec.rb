@@ -234,5 +234,21 @@ RSpec.describe User do
         end
       end
     end
+
+    describe '#touch' do
+      before do
+        user.update :updated_at => 10.minutes.ago,
+                    :last_seen_at => 10.minutes.ago
+      end
+
+      it 'updates `updated_at` and `last_seen_at`' do
+        updated_at = user.updated_at
+        last_seen_at = user.last_seen_at
+
+        user.touch
+        expect(user.updated_at).not_to eq updated_at
+        expect(user.last_seen_at).not_to eq last_seen_at
+      end
+    end
   end
 end
