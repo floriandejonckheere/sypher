@@ -15,6 +15,9 @@ class Group < Channel
   ##
   # Validations
   #
+  validates :name,
+            :length => { :maximum => 20 }
+
   ##
   # Scopes
   #

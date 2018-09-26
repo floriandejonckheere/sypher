@@ -33,7 +33,7 @@ FactoryBot.define do
       # Attributes
       #
       type { 'Group' }
-      name { Faker::Lorem.words(4).join ' ' }
+      name { Faker::Lorem.words(4).join(' ')[0..19] }
 
       ##
       # Associations
