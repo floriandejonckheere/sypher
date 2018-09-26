@@ -23,9 +23,8 @@ RSpec.describe User do
   # Tests
   #
   describe 'attributes' do
-    it { is_expected.to validate_presence_of :name }
-    it { is_expected.not_to allow_value(nil).for :name }
-    it { is_expected.not_to allow_value('').for :name }
+    it { is_expected.to allow_value(nil).for :name }
+    it { is_expected.to allow_value('').for :name }
 
     it { is_expected.to validate_presence_of :phone }
     it { is_expected.to validate_uniqueness_of(:phone).case_insensitive }
@@ -102,10 +101,6 @@ RSpec.describe User do
 
     it 'is invalid without phone' do
       expect(build :user, :phone => nil).not_to be_valid
-    end
-
-    it 'is invalid without name' do
-      expect(build :user, :name => nil).not_to be_valid
     end
   end
 
