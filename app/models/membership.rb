@@ -8,6 +8,7 @@ class Membership < ApplicationRecord
   # Properties
   #
   property :admin
+  property :nickname
 
   ##
   # Associations

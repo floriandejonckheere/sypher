@@ -27,6 +27,8 @@ RSpec.describe Membership do
     it { is_expected.not_to allow_value(nil).for :admin }
     it { is_expected.not_to allow_value('').for :admin }
 
+    it { is_expected.to allow_value('foobar').for :nickname }
+
     it { is_expected.to allow_value(true).for :admin }
     it { is_expected.to allow_value(false).for :admin }
 
