@@ -8,6 +8,7 @@ class Group < Channel
   # Properties
   #
   property :name
+  property :topic
 
   ##
   # Associations
@@ -17,6 +18,9 @@ class Group < Channel
   #
   validates :name,
             :length => { :maximum => 20 }
+
+  validates :topic,
+            :length => { :maximum => 50 }
 
   ##
   # Scopes

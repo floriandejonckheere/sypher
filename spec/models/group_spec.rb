@@ -28,6 +28,11 @@ RSpec.describe Group do
     it { is_expected.to allow_value('').for :name }
     it { is_expected.to validate_length_of(:name).is_at_most(20) }
 
+    it { is_expected.to allow_value(nil).for :topic }
+    it { is_expected.to allow_value('').for :topic }
+    it { is_expected.to allow_value('foobar').for :topic }
+    it { is_expected.to validate_length_of(:topic).is_at_most(50) }
+
     it { is_expected.to allow_value('12345678901234567890').for :name }
     it { is_expected.not_to allow_value('123456789012345678901').for :name }
 
