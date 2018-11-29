@@ -1,5 +1,5 @@
 <template>
-  <v-content>
+  <v-content class="white">
     <v-toolbar dark color="primary">
       <router-link to="/">
         <v-btn icon>

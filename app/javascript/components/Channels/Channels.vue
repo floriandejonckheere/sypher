@@ -1,9 +1,9 @@
 <template>
-  <v-content>
+  <v-content class="white">
     <v-toolbar dark color="primary">
       <v-toolbar-title>
         Sypher
-        <div class="caption">online</div>
+        <div class="caption">connected</div>
       </v-toolbar-title>
       <v-spacer />
 
@@ -31,11 +31,7 @@
 
     <v-list two-line>
       <template v-for="(item, index) in items">
-        <v-subheader v-if="item.type === 'header'" :key="item.title">
-          {{ item.title }}
-        </v-subheader>
-
-        <v-list-tile v-else :key="item.id" avatar :to="`/channels/${item.id}`">
+        <v-list-tile :key="item.id" avatar :to="`/channels/${item.id}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
@@ -53,10 +49,16 @@
               </span>
             </v-list-tile-title>
             <v-list-tile-sub-title>
+              <v-icon size="16px" v-if="item.state == 'sending'">access_time</v-icon>
+              <v-icon size="16px" v-if="item.state == 'sent'">done</v-icon>
+              <v-icon size="16px" v-if="item.state == 'delivered'">done_all</v-icon>
+              <v-icon size="16px" color="primary" v-if="item.state == 'read'">done_all</v-icon>
               {{ item.preview }}
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
+
+        <v-divider inset  v-if="index != Object.keys(items).length - 1" />
       </template>
     </v-list>
 
@@ -82,36 +84,48 @@
         fab: false,
         items: [
           {
-            type: 'header',
-            title: 'Today',
-          },
-          {
             type: 'channel',
             id: 0,
             title: 'Florian Dejonckheere',
-            count: 1,
+            count: 0,
             timestamp: 1537443112,
             preview: "I'll see what I can do about this Sypher thing. I assume it's well written.",
-          },
-          {
-            type: 'channel',
-            id: 1,
-            title: 'Sypher Development',
-            count: 23,
-            timestamp: 1537442112,
-            preview: "People, please don't use the dev server as your personal playground.",
-          },
-          {
-            type: 'header',
-            title: 'Last week',
+            state: 'read',
           },
           {
             type: 'channel',
             id: 2,
-            title: 'Ex',
+            title: 'John Doe',
             count: 0,
+            timestamp: 1537443112,
+            preview: "I do like these read notifications in the app",
+            state: 'delivered',
+          },
+          {
+            type: 'channel',
+            id: 3,
+            title: 'Sypher Development',
+            count: 23,
+            timestamp: 1537442112,
+            preview: "People, please don't use the dev server as your personal playground.",
+            state: 'sent',
+          },
+          {
+            type: 'channel',
+            id: 4,
+            title: 'Ex',
+            count: 1,
             timestamp: 1536818613,
             preview: "I'll come round to pick up my stuff tomorrow",
+          },
+          {
+            type: 'channel',
+            id: 5,
+            title: 'Neighbour',
+            count: 0,
+            timestamp: 1536818613,
+            preview: "That's not my dog",
+            state: 'sending',
           },
         ]
       }
