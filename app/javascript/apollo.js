@@ -4,7 +4,7 @@ import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
 
-import config from '../config'
+import config from './config'
 
 const httpLink = new HttpLink({
   uri: config.api.uri,
