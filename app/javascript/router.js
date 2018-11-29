@@ -7,7 +7,6 @@ import Frame from 'components/Frame'
 import Welcome from 'components/Authentication/Welcome'
 import VerifyPhone from 'components/Authentication/VerifyPhone'
 import VerifyPIN from 'components/Authentication/VerifyPIN'
-import Profile from 'components/Authentication/Profile'
 
 import Channels from 'components/Channels/Channels'
 import Channel from 'components/Channels/Channel'
@@ -17,6 +16,12 @@ import Contact from 'components/Contacts/Contact'
 
 import CreateConversation from 'components/Channels/CreateConversation'
 import CreateGroup from 'components/Channels/CreateGroup'
+
+import Settings from 'components/Settings/Settings'
+import Account from 'components/Settings/Account'
+import Notifications from 'components/Settings/Notifications'
+import Data from 'components/Settings/Data'
+import Profile from 'components/Settings/Profile'
 
 Vue.use(Router)
 
@@ -64,6 +69,32 @@ export default new Router({
       ],
     },
     {
+      path: '/settings',
+      component: Frame,
+      children: [
+        {
+          path: '',
+          component: Settings,
+        },
+        {
+          path: 'account',
+          component: Account,
+        },
+        {
+          path: 'notifications',
+          component: Notifications,
+        },
+        {
+          path: 'data',
+          component: Data,
+        },
+        {
+          path: 'profile',
+          component: Profile,
+        },
+      ],
+    },
+    {
       path: '/auth',
       component: Frame,
       children: [
@@ -82,10 +113,6 @@ export default new Router({
         {
           path: 'pin',
           component: VerifyPIN,
-        },
-        {
-          path: 'profile',
-          component: Profile,
         },
       ],
     },

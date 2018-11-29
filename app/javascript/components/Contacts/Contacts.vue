@@ -1,7 +1,7 @@
 <template>
   <v-content>
     <v-toolbar dark color="primary">
-      <router-link to="/channels">
+      <router-link to="/">
         <v-btn icon>
           <v-icon>arrow_back</v-icon>
         </v-btn>

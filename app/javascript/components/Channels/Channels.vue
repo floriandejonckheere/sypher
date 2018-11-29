@@ -22,7 +22,7 @@
           <v-list-tile to="/contacts">
             Contacts
           </v-list-tile>
-          <v-list-tile to="/profile">
+          <v-list-tile to="/settings">
             Settings
           </v-list-tile>
         </v-list>
