@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // Components
+import Initial from 'components/Initial'
+import Final from 'components/Final'
 import Frame from 'components/Frame'
 
 import Welcome from 'components/Authentication/Welcome'
@@ -25,12 +27,17 @@ import Profile from 'components/Settings/Profile'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/channels',
+      component: Initial,
     },
+    {
+      path: '/final',
+      component: Final,
+    },
+
     {
       path: '/channels',
       component: Frame,
@@ -118,3 +125,5 @@ export default new Router({
     },
   ],
 })
+
+export default router
