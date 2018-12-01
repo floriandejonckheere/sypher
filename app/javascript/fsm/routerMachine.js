@@ -1,5 +1,14 @@
 import { Machine } from 'xstate'
 
+const transitions = {
+  SIGNUP: 'routerMachine/SIGNUP',
+  SIGNIN: 'routerMachine/SIGNIN',
+  COMPLETE: 'routerMachine/COMPLETE',
+
+  BACK: 'routerMachine/BACK',
+  NEXT: 'routerMachine/NEXT',
+}
+
 const machine = Machine({
   // Identifier of the state machine
   id: 'router',
@@ -15,11 +24,11 @@ const machine = Machine({
     initial: {
       on: {
         // Start signup process
-        SIGNUP: 'welcome',
+        [transitions.SIGNUP]: 'welcome',
         // Redirect to channels page
-        SIGNIN: 'channels',
+        [transitions.SIGNIN]: 'channels',
         // Redirect to complete profile page
-        COMPLETE: 'complete',
+        [transitions.COMPLETE]: 'complete',
       },
     },
     // Final state, automatically exists the application
@@ -32,29 +41,29 @@ const machine = Machine({
     // Signup: welcome and ToS page
     welcome: {
       on: {
-        BACK: 'final',
-        NEXT: 'verify',
+        [transitions.BACK]: 'final',
+        [transitions.NEXT]: 'verify',
       },
     },
     // Signup: enter phone number
     verify: {
       on: {
-        BACK: 'welcome',
-        NEXT: 'pin',
+        [transitions.BACK]: 'welcome',
+        [transitions.NEXT]: 'pin',
       },
     },
     // Signup: enter verification code
     pin: {
       on: {
-        BACK: 'verify',
-        NEXT: 'profile',
+        [transitions.BACK]: 'verify',
+        [transitions.NEXT]: 'profile',
       },
     },
     // Signup: complete profile
     complete: {
       on: {
-        BACK: 'final',
-        NEXT: 'channels',
+        [transitions.BACK]: 'final',
+        [transitions.NEXT]: 'channels',
       },
     },
 
@@ -65,11 +74,11 @@ const machine = Machine({
     // Application: list of channels
     channels: {
       on: {
-        BACK: 'final',
-        CHANNEL: 'channel',
+        [transitions.BACK]: 'final',
       },
     },
   },
 })
 
+export { transitions }
 export default machine

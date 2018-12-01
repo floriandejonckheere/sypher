@@ -1,4 +1,4 @@
-import routerMachine from '../../fsm/routerMachine'
+import routerMachine  from '../../fsm/routerMachine'
 import transition from '../../fsm/transition'
 
 // Initial state
@@ -10,28 +10,27 @@ const state = {
 const getters = {
 }
 
+// Action types
+const actionTypes = {
+  TRANSITION: 'router/TRANSITION',
+}
+
 // Actions
 const actions = {
-  ROUTER_TRANSITION: transition.bind(null, routerMachine),
-  SIGNUP({ commit, dispatch }, { params: { query } }) {
-    // commit('updateItems', ['cat', 'dog', 'fish'])
-    // Do work
-    console.log('doing work');
-    dispatch('ROUTER_TRANSITION', { type: 'SUCCESS' })
-  },
+  [actionTypes.TRANSITION]: transition.bind(null, routerMachine),
 }
 
 // Mutations
 const mutations = {
-  updateRouterState(state, nextState) {
-    state.state = nextState
+  updateRouterState: function(state, nextState) {
+    state.currentState = nextState
   },
 }
 
 export default {
-  namespaced: true,
   state,
   getters,
+  actionTypes,
   actions,
   mutations,
 }
