@@ -30,6 +30,7 @@ const machine = Machine({
         // Redirect to complete profile page
         [transitions.COMPLETE]: 'complete',
       },
+      meta: { path: '/' },
     },
     // Final state, automatically exists the application
     final: {},
@@ -44,6 +45,7 @@ const machine = Machine({
         [transitions.BACK]: 'final',
         [transitions.NEXT]: 'verify',
       },
+      meta: { path: '/auth/welcome' },
     },
     // Signup: enter phone number
     verify: {

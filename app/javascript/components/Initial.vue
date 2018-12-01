@@ -2,8 +2,10 @@
   <div>
     <h2>Initial</h2>
 
-    <input type="button" value="signup" @click="signup" />
-    <input type="button" value="signin" @click="signin" />
+    <p>Current state is <strong v-text="getCurrentState"></strong></p>
+
+    <input type="button" value="signup" @click="signup" /> <br />
+    <input type="button" value="signin" @click="signin" /> <br />
     <input type="button" value="complete" @click="complete" />
   </div>
 </template>
@@ -20,6 +22,7 @@
       ...mapGetters([
         'isAuthenticated',
         'isComplete',
+        'getCurrentState',
       ]),
     },
     methods: {
