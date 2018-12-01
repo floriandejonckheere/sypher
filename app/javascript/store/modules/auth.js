@@ -2,7 +2,7 @@ import { dummyAuthState } from './dummyStates'
 
 // Initial state
 const state = {
-  // Signed in user (identifier
+  // Signed in user (identifier)
   user: null,
   // API token
   token: null,
@@ -12,11 +12,11 @@ const state = {
 const getters = {
   // State contains an authenticated user
   isAuthenticated: state => {
-    return state.user !== null
+    return state.user != null
   },
   // State contains an authenticated, complete user
   isComplete: state => {
-    return state.user !== null && state.user.name !== null
+    return state.user != null && state.user.name != null
   }
 }
 

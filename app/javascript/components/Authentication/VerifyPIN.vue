@@ -13,7 +13,7 @@
           </div>
         </v-flex>
         <v-flex xs1>
-          <v-btn to="/auth/profile" block class="success">Next</v-btn>
+          <v-btn to="/auth/complete" block class="primary">Next</v-btn>
         </v-flex>
       </v-layout>
     </v-container>

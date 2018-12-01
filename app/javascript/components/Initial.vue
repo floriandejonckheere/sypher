@@ -4,9 +4,7 @@
 
     <p>Current state is <strong v-text="getCurrentState"></strong></p>
 
-    <input type="button" value="signup" @click="signup" /> <br />
-    <input type="button" value="signin" @click="signin" /> <br />
-    <input type="button" value="complete" @click="complete" />
+    <input type="button" value="signup" @click="signup" />
   </div>
 </template>
 
@@ -19,21 +17,15 @@
 
   export default {
     computed: {
+      ...mapGetters('auth', ['isAuthenticated']),
       ...mapGetters([
-        'isAuthenticated',
         'isComplete',
         'getCurrentState',
       ]),
     },
     methods: {
       signup: function () {
-        this.$store.dispatch(router.actionTypes.TRANSITION, { type: transitions.SIGNUP })
-      },
-      signin: function () {
-        this.$store.dispatch(router.actionTypes.TRANSITION, { type: transitions.SIGNIN })
-      },
-      complete: function () {
-        this.$store.dispatch(router.actionTypes.TRANSITION, { type: transitions.COMPLETE })
+        this.$store.dispatch(router.actionTypes.TRANSITION, {type: transitions.SIGNUP})
       },
     },
   }

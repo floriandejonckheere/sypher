@@ -19,7 +19,7 @@
           </v-container>
         </v-flex>
         <v-flex xs1>
-          <v-btn to="/auth/pin" block class="success">Next</v-btn>
+          <v-btn to="/auth/pin" block class="primary">Next</v-btn>
         </v-flex>
       </v-layout>
     </v-container>

@@ -17,7 +17,7 @@
                 </span>
               </v-flex>
               <v-flex>
-                <v-btn to="/auth/verify" block class="success">Agree and continue</v-btn>
+                <v-btn to="/auth/verify" block class="primary">Agree and continue</v-btn>
               </v-flex>
             </v-layout>
           </v-container>

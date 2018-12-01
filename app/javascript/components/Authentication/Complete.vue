@@ -10,7 +10,7 @@
           <v-text-field autofocus placeholder="Your name" counter="20"/>
         </v-flex>
         <v-flex xs1>
-          <v-btn to="/channels" block class="success">Next</v-btn>
+          <v-btn to="/channels" block class="primary">Next</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
