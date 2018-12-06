@@ -12,11 +12,11 @@ const state = {
 const getters = {
   // State contains an authenticated user
   isAuthenticated: state => {
-    return state.user != null
+    return state.token != null
   },
   // State contains an authenticated, complete user
   isComplete: state => {
-    return state.user != null && state.user.name != null
+    return state.user != null && state.user.id != null
   }
 }
 

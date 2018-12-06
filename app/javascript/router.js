@@ -2,11 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import store from './store'
-import auth from './store/modules/auth'
 
 // Components
-import Initial from 'components/Initial'
-import Final from 'components/Final'
 import Frame from 'components/Frame'
 
 import Welcome from 'components/Authentication/Welcome'
@@ -31,33 +28,55 @@ import Profile from 'components/Settings/Profile'
 
 Vue.use(Router)
 
+/**
+ * Navigation guards
+ *
+ */
+// Navigation guard for application pages
+const applicationGuard = (to, from, next) => {
+  const authenticated = store.getters['auth/isAuthenticated']
+  const complete = store.getters['auth/isComplete']
+
+  if (authenticated) {
+    complete ? next() : next({ name: 'complete' })
+  } else next({ name: 'welcome' })
+}
+
+// Navigation guard for auth/{welcome,verify,pin} pages
+const authenticationGuard = (to, from, next) => {
+  const authenticated = store.getters['auth/isAuthenticated']
+  const complete = store.getters['auth/isComplete']
+
+  if (authenticated) {
+    complete ? next({ name: 'root' }) : next({ name: 'complete' })
+  } else next()
+}
+
+// Navigation guard for auth/complete page
+const authorizationGuard = (to, from, next) => {
+  const authenticated = store.getters['auth/isAuthenticated']
+  const complete = store.getters['auth/isComplete']
+
+  if (authenticated) {
+    complete ? next({ name: 'root' }) : next()
+  } else next({ name: 'welcome' })
+}
+
+/**
+ * Router
+ *
+ */
 const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'initial',
-      component: Initial,
-      meta: {
-        authorize: (store, next) => {
-          if (!store.getters['auth/isAuthenticated'])
-            return next({ name: 'welcome' })
-
-          if (!store.getters['auth/isComplete'])
-            return next({ name: 'complete' })
-
-          next()
-        },
-      },
+      name: 'root',
+      redirect: 'channels',
     },
-    {
-      path: '/final',
-      name: 'final',
-      component: Final,
-    },
-
     {
       path: '/channels',
       component: Frame,
+      beforeEnter: applicationGuard,
       children: [
         {
           path: '',
@@ -84,6 +103,7 @@ const router = new Router({
     {
       path: '/contacts',
       component: Frame,
+      beforeEnter: applicationGuard,
       children: [
         {
           path: '',
@@ -100,6 +120,7 @@ const router = new Router({
     {
       path: '/settings',
       component: Frame,
+      beforeEnter: applicationGuard,
       children: [
         {
           path: '',
@@ -136,31 +157,29 @@ const router = new Router({
           path: 'welcome',
           name: 'welcome',
           component: Welcome,
+          beforeEnter: authenticationGuard,
         },
         {
           path: 'verify',
           name: 'verify',
           component: VerifyPhone,
+          beforeEnter: authenticationGuard,
         },
         {
           path: 'pin',
           name: 'pin',
           component: VerifyPIN,
+          beforeEnter: authenticationGuard,
         },
         {
           path: 'complete',
           name: 'complete',
-          component: Complete
+          component: Complete,
+          beforeEnter: authorizationGuard,
         },
       ],
     },
   ],
-})
-
-router.beforeEach((to, from, next) => {
-  if (to.meta.authorize) {
-    to.meta.authorize(store, next)
-  } else next()
 })
 
 export default router

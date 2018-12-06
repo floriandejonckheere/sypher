@@ -1,6 +1,6 @@
 export const dummyAuthState = {
-  // Signed in user (identifier)
-  user: 0,
+  // Signed in user
+  user: { id: 0, phone: '+32000000000', name: 'Florian' },
   // API token
   token: 'mytoken',
 }
