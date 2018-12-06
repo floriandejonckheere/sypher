@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueMoment from 'vue-moment'
+import VueApollo from 'vue-apollo'
 
 import colors from 'vuetify/es5/util/colors'
 
@@ -17,6 +18,7 @@ Vue.use(Vuetify, {
   }
 })
 Vue.use(VueMoment)
+Vue.use(VueApollo)
 
 document.addEventListener('DOMContentLoaded', () => {
   const el = document.body.appendChild(document.createElement('app'))
