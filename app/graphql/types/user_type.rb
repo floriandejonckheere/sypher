@@ -13,10 +13,6 @@ module Types
           String,
           :null => false
 
-    field :messages,
-          [MessageType],
-          :null => true
-
     ##
     # Authorization
     #
