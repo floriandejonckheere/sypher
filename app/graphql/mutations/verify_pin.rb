@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class VerifyUser < BaseMutation
+  class VerifyPIN < BaseMutation
     null true
 
     ##
@@ -34,7 +34,7 @@ module Mutations
     # Resolver
     #
     def resolve(params)
-      user = User.find_by_phone params[:phone]
+      user = User.find_by_phone(params[:phone]) || User.new
 
       if user.verify_with_pin params[:pin]
         {

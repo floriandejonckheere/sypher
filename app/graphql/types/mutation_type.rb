@@ -8,8 +8,8 @@ module Types
     field :verify_phone,
           :mutation => Mutations::VerifyPhone
 
-    field :verify_user,
-          :mutation => Mutations::VerifyUser
+    field :verify_pin,
+          :mutation => Mutations::VerifyPIN
 
     field :request_verify_user,
           :mutation => Mutations::RequestVerifyUser
