@@ -1,17 +1,13 @@
 # frozen_string_literal: true
 
 module Mutations
-  class CreateUser < BaseMutation
+  class VerifyPhone < BaseMutation
     null true
 
     ##
     # Arguments
     #
     argument :phone,
-             String,
-             :required => true
-
-    argument :name,
              String,
              :required => true
 
@@ -41,7 +37,9 @@ module Mutations
     # Resolver
     #
     def resolve(params)
-      user = User.new params
+      # Find or create user
+      user = User.find_by_phone(params[:phone]) || User.new(params)
+
       if user.save
         user.send_verification_pin
         {

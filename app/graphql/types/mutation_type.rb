@@ -5,8 +5,8 @@ module Types
     ##
     # Root-level mutations
     #
-    field :create_user,
-          :mutation => Mutations::CreateUser
+    field :verify_phone,
+          :mutation => Mutations::VerifyPhone
 
     field :verify_user,
           :mutation => Mutations::VerifyUser

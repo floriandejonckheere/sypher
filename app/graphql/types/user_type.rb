@@ -11,7 +11,7 @@ module Types
 
     field :name,
           String,
-          :null => false
+          :null => true
 
     ##
     # Authorization
