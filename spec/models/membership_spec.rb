@@ -10,22 +10,19 @@ RSpec.describe Membership do
   # Stubs and mocks
   #
   ##
-  # Test variables
-  #
-  let(:membership) { build :membership }
-
-  ##
   # Subject
   #
-  subject { membership }
+  subject(:membership) { build :membership }
 
+  ##
+  # Test variables
+  #
   ##
   # Tests
   #
   describe 'attributes' do
-    it { is_expected.to validate_inclusion_of(:admin).in_array [true, false] }
-    it { is_expected.not_to allow_value(nil).for :admin }
-    it { is_expected.not_to allow_value('').for :admin }
+    it { is_expected.to allow_values(true, false).for :admin }
+    it { is_expected.not_to allow_values(nil, '').for :admin }
 
     it { is_expected.to allow_value('foobar').for :nickname }
 

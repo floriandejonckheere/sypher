@@ -10,34 +10,34 @@ describe MembershipPolicy do
   # Stubs and mocks
   #
   ##
+  # Subject
+  #
+  subject(:policy) { described_class.new user, record }
+
+  ##
   # Test variables
   #
   let(:user) { create :user }
   let(:record) { create :membership }
 
   ##
-  # Subject
-  #
-  subject { described_class.new user, record }
-
-  ##
   # Tests
   #
-  context 'signed out user' do
+  context 'when there is no user' do
     let(:user) { nil }
 
     it { is_expected.to forbid_actions %i[create show update destroy] }
   end
 
-  context 'signed in user' do
-    context 'member of the group' do
-      context 'admins' do
+  context 'when there is a user' do
+    context 'when the user is a member of the group' do
+      context 'when the user is an admin' do
         before { create :membership, :user => user, :channel => record.channel, :admin => true }
 
         it { is_expected.to permit_actions %i[create show update destroy] }
       end
 
-      context 'non-admins' do
+      context 'when the user is not an admin' do
         before { create :membership, :user => user, :channel => record.channel, :admin => false }
 
         it { is_expected.to permit_action :show }
@@ -45,7 +45,7 @@ describe MembershipPolicy do
       end
     end
 
-    context 'non-members of the group' do
+    context 'when the user is not a member of the group' do
       it { is_expected.to forbid_actions %i[create show update destroy] }
     end
   end

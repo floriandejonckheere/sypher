@@ -10,15 +10,13 @@ RSpec.describe Group do
   # Stubs and mocks
   #
   ##
-  # Test variables
-  #
-  let(:group) { build :group }
-
-  ##
   # Subject
   #
-  subject { group }
+  subject(:group) { build :group }
 
+  ##
+  # Test variables
+  #
   ##
   # Tests
   #
@@ -46,17 +44,17 @@ RSpec.describe Group do
     it { is_expected.to have_many(:users).through(:memberships) }
 
     describe 'maximum members' do
-      describe 'no members' do
+      context 'when there are no members' do
         it { is_expected.not_to be_valid }
       end
 
-      describe 'one member' do
+      context 'when there is one member' do
         before { group.memberships << build(:membership, :channel => group) }
 
         it { is_expected.not_to be_valid }
       end
 
-      describe 'two members' do
+      context 'when there are two members' do
         before do
           group.memberships << build_list(:membership, 2, :channel => group)
           group.save
@@ -65,7 +63,7 @@ RSpec.describe Group do
         it { is_expected.to be_valid }
       end
 
-      describe 'three members' do
+      context 'when there are three members' do
         before do
           group.memberships << build_list(:membership, 3, :channel => group)
           group.save

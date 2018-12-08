@@ -1,7 +1,10 @@
+require: rubocop-rspec
+
 AllCops:
   Exclude:
     - db/schema.rb
     - node_modules/**/*
+    - bin/*
 
 Documentation:
   Enabled: false
@@ -23,6 +26,9 @@ Metrics/BlockLength:
 
 Rails/HasAndBelongsToMany:
   Enabled: False
+
+RSpec/NestedGroups:
+  Max: 5
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets

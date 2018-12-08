@@ -60,8 +60,7 @@ class User < ApplicationRecord
   ##
   # Callbacks
   #
-  after_initialize :set_default_read_scope,
-                   :set_default_seen_scope,
+  after_initialize :set_default_scopes,
                    :set_last_seen_at
 
   ##
@@ -140,12 +139,10 @@ class User < ApplicationRecord
   ##
   # Helpers and callback methods
   #
-  def set_default_read_scope
+  def set_default_scopes
     self.read_scope = :contacts unless read_scope?
-  end
-
-  def set_default_seen_scope
     self.seen_scope = :everyone unless seen_scope?
+    self.profile_scope = :everyone unless profile_scope?
   end
 
   def set_last_seen_at

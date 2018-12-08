@@ -10,36 +10,36 @@ describe UserPolicy do
   # Stubs and mocks
   #
   ##
+  # Subject
+  #
+  subject(:policy) { described_class.new user, record }
+
+  ##
   # Test variables
   #
   let(:user) { build :user }
   let(:record) { build :user }
 
   ##
-  # Subject
-  #
-  subject { described_class.new user, record }
-
-  ##
   # Tests
   #
-  context 'signed out user' do
+  context 'when there is no user' do
     let(:user) { nil }
 
     it { is_expected.to permit_action :create }
     it { is_expected.to forbid_actions %i[show update destroy] }
   end
 
-  context 'signed in user' do
+  context 'when there is a user' do
     it { is_expected.to permit_actions %i[create show] }
 
-    context 'on itself' do
+    context 'when the record is itself' do
       let(:user) { record }
 
       it { is_expected.to permit_actions %i[update destroy] }
     end
 
-    context 'on another user' do
+    context 'when the record is another user' do
       it { is_expected.to forbid_actions %i[update destroy] }
     end
   end

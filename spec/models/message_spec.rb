@@ -10,15 +10,13 @@ RSpec.describe Message do
   # Stubs and mocks
   #
   ##
-  # Test variables
-  #
-  let(:message) { build :message }
-
-  ##
   # Subject
   #
-  subject { message }
+  subject(:message) { build :message }
 
+  ##
+  # Test variables
+  #
   ##
   # Tests
   #

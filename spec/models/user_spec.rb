@@ -10,15 +10,13 @@ RSpec.describe User do
   # Stubs and mocks
   #
   ##
-  # Test variables
-  #
-  let(:user) { create :user }
-
-  ##
   # Subject
   #
-  subject { user }
+  subject(:user) { create :user }
 
+  ##
+  # Test variables
+  #
   ##
   # Tests
   #
@@ -51,20 +49,20 @@ RSpec.describe User do
     it { is_expected.to allow_value(:nobody).for :read_scope }
     it { is_expected.to allow_value(:contacts).for :read_scope }
     it 'raises ArgumentError on invalid read_scope values' do
-      expect { subject.read_scope = :everyone }.to raise_error ArgumentError
+      expect { user.read_scope = :everyone }.to raise_error ArgumentError
     end
 
     it { is_expected.to allow_value(:nobody).for :seen_scope }
     it { is_expected.to allow_value(:contacts).for :seen_scope }
     it { is_expected.to allow_value(:everyone).for :seen_scope }
     it 'raises ArgumentError on invalid seen_scope values' do
-      expect { subject.seen_scope = :foobar }.to raise_error ArgumentError
+      expect { user.seen_scope = :foobar }.to raise_error ArgumentError
     end
 
     it { is_expected.to allow_value(:contacts).for :profile_scope }
     it { is_expected.to allow_value(:everyone).for :profile_scope }
     it 'raises ArgumentError on invalid profile_scope values' do
-      expect { subject.profile_scope = :foobar }.to raise_error ArgumentError
+      expect { user.profile_scope = :foobar }.to raise_error ArgumentError
     end
 
     describe 'last_seen_at' do
@@ -103,14 +101,13 @@ RSpec.describe User do
     end
 
     describe 'has a default country code' do
-      let(:user) { create :user, :phone => '494456789' }
+      subject { create :user, :phone => '494456789' }
 
       it { is_expected.to have_attributes :phone => '+32494456789' }
     end
 
     describe 'unique over phone number' do
-      before(:each) { create :user }
-      let(:user) { build :user, :phone => User.first.phone }
+      subject { build :user, :phone => user.phone }
 
       it { is_expected.not_to be_valid }
     end
@@ -138,8 +135,7 @@ RSpec.describe User do
       end
 
       it 'returns only users with a verified_at timestamp' do
-        expect(User.count).to eq 2
-        expect(User.verified.count).to eq 1
+        expect(described_class.verified.count).to eq 1
       end
     end
   end
@@ -151,17 +147,20 @@ RSpec.describe User do
       # Make sure the user is created
       before { user }
 
-      it 'normalizes phone number' do
-        expect(User.find_by_phone '0032474123456').to eq user
-        expect(User.find_by_phone '474123456').to eq user
+      it 'normalizes phone number with country code' do
+        expect(described_class.find_by_phone '0032474123456').to eq user
+      end
+
+      it 'normalizes phone number without country code' do
+        expect(described_class.find_by_phone '474123456').to eq user
       end
 
       describe '#verified?' do
-        describe 'unverified user' do
+        context 'when the user is unverified' do
           it { is_expected.not_to be_verified }
         end
 
-        describe 'verified user' do
+        context 'when the user is verified' do
           let(:user) { create :user, :verified }
 
           it { is_expected.to be_verified }
@@ -172,51 +171,70 @@ RSpec.describe User do
     describe '#verify' do
       let(:user) { create :user, :verified_at => nil }
 
-      it 'sets verified_at' do
-        user.verify
-        expect(user).to be_valid
-        expect(user.verified_at).not_to be nil
-      end
+      before { user.verify }
+
+      it { is_expected.to be_valid }
+      it { is_expected.to be_verified }
     end
 
     describe '#verify_with_pin' do
-      describe 'invalid pin' do
+      context 'when the pin is invalid' do
         let(:user) { create :user, :pin => 123_456 }
 
+        it { is_expected.not_to be_verified }
+
         it 'returns false' do
-          expect(user).not_to be_verified
           expect(user.verify_with_pin 654_321).to eq false
+        end
+
+        it 'does not verify the user' do
+          user.verify_with_pin 654_321
           expect(user).not_to be_verified
         end
       end
 
-      describe 'expired pin' do
+      context 'when the pin has expired' do
         let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.day.ago }
 
+        it { is_expected.not_to be_verified }
+
         it 'returns false' do
-          expect(user).not_to be_verified
           expect(user.verify_with_pin user.pin).to eq false
+        end
+
+        it 'does not verify the user' do
+          user.verify_with_pin user.pin
           expect(user).not_to be_verified
         end
       end
 
-      describe 'valid pin' do
-        describe 'unverified user' do
+      context 'when the pin is valid' do
+        context 'when the user is unverified' do
           let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.minute.ago }
 
-          it 'returns true and verifies the user' do
-            expect(user).not_to be_verified
+          it { is_expected.not_to be_verified }
+
+          it 'returns true' do
             expect(user.verify_with_pin user.pin).to eq true
+          end
+
+          it 'verifies the user' do
+            user.verify_with_pin user.pin
             expect(user).to be_verified
           end
         end
 
-        describe 'verified user' do
-          let(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 1.minute.ago }
+        context 'when the user is verified' do
+          subject(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 1.minute.ago }
+
+          it { is_expected.to be_verified }
 
           it 'returns false' do
-            expect(user).to be_verified
             expect(user.verify_with_pin user.pin).to eq false
+          end
+
+          it 'does not change the verification status the user' do
+            user.verify_with_pin user.pin
             expect(user).to be_verified
           end
         end
@@ -224,46 +242,37 @@ RSpec.describe User do
     end
 
     describe '#send_verification_pin' do
-      describe 'unverified user' do
-        it 'sets pin and pin_sent_at on the user' do
-          expect(user.pin).to be_nil
-          expect(user.pin_sent_at).to be_nil
+      context 'when the user is unverified' do
+        it { is_expected.to have_attributes :pin => nil, :pin_sent_at => nil }
 
+        it 'generates a pin for the user' do
           user.send_verification_pin
 
-          expect(user.pin).not_to be_nil
-          expect(user.pin_sent_at).not_to be_nil
+          expect(user).to have_attributes :pin => a_value, :pin_sent_at => a_value
         end
       end
 
-      describe 'verified user' do
+      context 'when the user is verified' do
         let(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 2.months.ago }
 
-        it 'return false' do
-          expect(user.pin).not_to be_nil
-          expect(user.pin_sent_at).not_to be_nil
-
+        it 'returns false' do
           expect(user.send_verification_pin).to eq false
-
-          expect(user.pin).not_to be_nil
-          expect(user.pin_sent_at).not_to be_nil
         end
       end
     end
 
     describe '#touch' do
+      let(:time) { 10.minutes.ago }
+
       before do
-        user.update :updated_at => 10.minutes.ago,
-                    :last_seen_at => 10.minutes.ago
+        user.update :updated_at => time,
+                    :last_seen_at => time
       end
 
-      it 'updates `updated_at` and `last_seen_at`' do
-        updated_at = user.updated_at
-        last_seen_at = user.last_seen_at
-
+      it 'updates timestamps' do
         user.touch
-        expect(user.updated_at).not_to eq updated_at
-        expect(user.last_seen_at).not_to eq last_seen_at
+
+        expect(user).not_to have_attributes :updated_at => time, :last_seen_at => time
       end
     end
   end

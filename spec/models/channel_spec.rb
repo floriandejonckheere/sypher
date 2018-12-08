@@ -8,17 +8,14 @@ RSpec.describe Channel do
   #
   ##
   # Stubs and mocks
-  #
-  ##
-  # Test variables
-  #
-  let(:channel) { build :channel }
-
   ##
   # Subject
   #
-  subject { channel }
+  subject(:channel) { build :channel }
 
+  ##
+  # Test variables
+  #
   ##
   # Tests
   #
@@ -37,17 +34,17 @@ RSpec.describe Channel do
     it { is_expected.to have_many(:users).through(:memberships) }
 
     describe 'minimum members' do
-      describe 'no members' do
+      context 'when there are no members' do
         it { is_expected.not_to be_valid }
       end
 
-      describe 'one member' do
+      context 'when there is one member' do
         before { channel.memberships << build(:membership, :channel => channel) }
 
         it { is_expected.not_to be_valid }
       end
 
-      describe 'two members' do
+      context 'when there are two members' do
         before do
           channel.memberships << build_list(:membership, 2, :channel => channel)
           channel.save
@@ -56,7 +53,7 @@ RSpec.describe Channel do
         it { is_expected.to be_valid }
       end
 
-      describe 'three members' do
+      context 'when there are three members' do
         before do
           channel.memberships << build_list(:membership, 3, :channel => channel)
           channel.save

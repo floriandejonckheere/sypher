@@ -9,14 +9,14 @@ RSpec.configure do |config|
   end
 
   # Default strategy is transaction (very fast)
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.start
   end
-  config.after(:each) do
+  config.after do
     DatabaseCleaner.clean
   end
 end
