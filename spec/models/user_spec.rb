@@ -57,8 +57,14 @@ RSpec.describe User do
     it { is_expected.to allow_value(:nobody).for :seen_scope }
     it { is_expected.to allow_value(:contacts).for :seen_scope }
     it { is_expected.to allow_value(:everyone).for :seen_scope }
-    it 'raises ArgumentError on invalid read_scope values' do
+    it 'raises ArgumentError on invalid seen_scope values' do
       expect { subject.seen_scope = :foobar }.to raise_error ArgumentError
+    end
+
+    it { is_expected.to allow_value(:contacts).for :profile_scope }
+    it { is_expected.to allow_value(:everyone).for :profile_scope }
+    it 'raises ArgumentError on invalid profile_scope values' do
+      expect { subject.profile_scope = :foobar }.to raise_error ArgumentError
     end
 
     describe 'last_seen_at' do
@@ -85,6 +91,15 @@ RSpec.describe User do
       before { user.reload }
 
       it { is_expected.to have_attributes :seen_scope => 'everyone' }
+    end
+
+    describe 'has a default profile scope' do
+      let(:user) { create :user }
+
+      # Reload user from database to ensure default values are set
+      before { user.reload }
+
+      it { is_expected.to have_attributes :profile_scope => 'everyone' }
     end
 
     describe 'has a default country code' do

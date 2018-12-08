@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_135622) do
+ActiveRecord::Schema.define(version: 2018_12_06_192454) do
 
   create_table "blocked", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 2018_09_26_135622) do
     t.string "seen_scope"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "profile_scope"
   end
 
 end
