@@ -68,9 +68,9 @@
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          const phone = `${this.country}${this.phone}`
+          const phone = `+${this.country}${this.phone}`
 
-          this.$store.dispatch('auth/verifyPhone', { phone })
+          this.$store.dispatch('auth/verifyPhone', phone)
         }
       },
       verifyPhone: () => {
