@@ -30,7 +30,7 @@ module Mutations
     # Resolver
     #
     def resolve(params)
-      user = User.find_by_phone params[:phone]
+      user = User.verified.find_by_phone params[:phone]
 
       if user.update params.except(:phone)
         {
