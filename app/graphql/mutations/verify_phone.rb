@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Mutations
+  ##
+  # Verify a phone number
+  #
+  # A `User` is created if it doesn't exist already, and a verification PIN is sent to the phone number
+  #
   class VerifyPhone < BaseMutation
     null true
 

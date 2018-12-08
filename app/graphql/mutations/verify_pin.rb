@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module Mutations
+  ##
+  # Verify a PIN number
+  #
+  # Verify a phone number and the PIN it was sent
+  #
   class VerifyPIN < BaseMutation
     null true
 

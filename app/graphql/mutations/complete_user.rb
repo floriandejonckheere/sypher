@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class UpdateUser < BaseMutation
+  class CompleteUser < BaseMutation
     null true
 
     ##
@@ -13,7 +13,7 @@ module Mutations
 
     argument :name,
              String,
-             :required => false
+             :required => true
 
     ##
     # Fields
@@ -32,7 +32,7 @@ module Mutations
     def resolve(params)
       user = User.find_by_phone params[:phone]
 
-      if user.update params
+      if user.update params.except(:phone)
         {
           :user => user,
           :errors => []

@@ -11,10 +11,7 @@ module Types
     field :verify_pin,
           :mutation => Mutations::VerifyPIN
 
-    field :request_verify_user,
-          :mutation => Mutations::RequestVerifyUser
-
-    field :update_user,
-          :mutation => Mutations::UpdateUser
+    field :complete_user,
+          :mutation => Mutations::CompleteUser
   end
 end
