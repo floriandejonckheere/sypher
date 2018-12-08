@@ -19,8 +19,8 @@ module Mutations
     ##
     # Fields
     #
-    field :user,
-          Types::UserType,
+    field :phone,
+          String,
           :null => true
 
     field :errors,
@@ -48,12 +48,12 @@ module Mutations
       if user.save
         user.send_verification_pin
         {
-          :user => user,
+          :phone => user.phone,
           :errors => []
         }
       else
         {
-          :user => nil,
+          :phone => nil,
           :errors => user.errors.full_messages
         }
       end

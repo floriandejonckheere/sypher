@@ -17,9 +17,6 @@ module Types
     # Authorization
     #
     def self.authorized?(record, context)
-      # Allow showing user when signing up (technically disallowed because unauthenticated)
-      return true if context.query.operation_name == 'signup'
-
       Pundit.policy!(context[:current_user], record).show?
     end
   end
