@@ -30,7 +30,7 @@ module Sypher
     # the framework and any gems in your application.
 
     # Autoload lib
-    config.autoload_paths += %W[#{config.root}/lib]
+    config.autoload_paths += %W[#{config.root}/lib #{config.root}/app/graphql/concerns]
 
     # Don't generate system test files.
     config.generators.system_tests = nil

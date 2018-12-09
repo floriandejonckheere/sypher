@@ -7,6 +7,8 @@ module Mutations
   # A `User` is created if it doesn't exist already, and a verification PIN is sent to the phone number
   #
   class VerifyPhone < BaseMutation
+    include Authorizable
+
     null true
 
     ##

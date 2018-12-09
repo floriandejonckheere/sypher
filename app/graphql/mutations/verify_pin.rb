@@ -7,6 +7,8 @@ module Mutations
   # Verify a phone number and the PIN it was sent
   #
   class VerifyPIN < BaseMutation
+    include Authorizable
+
     null true
 
     ##
