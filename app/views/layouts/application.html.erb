@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sypher</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Sypher</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
-    <link ref="icon" href="favicon.ico">
-    <link rel="icon" sizes="192x192" href="apple-touch-icon.png">
+  <link ref="icon" href="favicon-32x32.png">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application' %>
-  </head>
+  <% [57, 72, 114, 120, 144, 152, 180, 192].each do |dimension| %>
+    <link
+      rel="apple-touch-icon"
+      sizes="<%= dimension %>x<%= dimension %>"
+      href="apple-touch-icon-<%= dimension %>x<%= dimension %>.png">
+  <% end %>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application' %>
+</head>
+
+<body>
+<%= yield %>
+</body>
 </html>
