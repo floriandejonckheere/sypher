@@ -21,10 +21,10 @@
 
         <v-list-tile-content>
           <v-list-tile-title class="title">
-            Florian Dejonckheere
+            {{ user.name }}
           </v-list-tile-title>
           <v-list-tile-sub-title>
-            +32 123 45 67 89
+            {{ user.phone }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -75,3 +75,15 @@
     </v-list>
   </v-content>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters({
+        user: 'auth/getUser',
+      }),
+    }
+  }
+</script>
