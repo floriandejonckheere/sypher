@@ -16,7 +16,7 @@
               <v-layout row>
                 <v-flex xs2>
                   <v-text-field
-                          :autofocus="true"
+                          autofocus
                           name="country"
                           type="number"
                           v-model="country"

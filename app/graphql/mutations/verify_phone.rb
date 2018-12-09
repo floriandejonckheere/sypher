@@ -25,7 +25,7 @@ module Mutations
 
     field :errors,
           [String],
-          :null => true
+          :null => false
 
     ##
     # Authorization

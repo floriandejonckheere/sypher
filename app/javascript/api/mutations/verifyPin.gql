@@ -1,0 +1,6 @@
+mutation verifyPin($phone: String!, $pin: Int!) {
+  verifyPin(input: { phone: $phone, pin: $pin }) {
+    token
+    errors
+  }
+}

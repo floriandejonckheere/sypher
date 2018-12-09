@@ -17,23 +17,19 @@ module Mutations
              :required => true
 
     argument :pin,
-             String,
+             Int,
              :required => true
 
     ##
     # Fields
     #
-    field :user,
-          Types::UserType,
+    field :token,
+          String,
           :null => true
 
     field :errors,
           [String],
-          :null => true
-
-    field :token,
-          String,
-          :null => true
+          :null => false
 
     ##
     # Resolver

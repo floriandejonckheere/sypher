@@ -1,5 +1,8 @@
 <template>
   <v-content>
+    <RequestSpinner type="verifyPIN" />
+    <Alert :errors="errors" />
+
     <v-container fill-height>
       <v-layout column align-center>
         <v-flex class="text-xs-center">
@@ -7,15 +10,72 @@
           <p class="caption">Please enter the six-digit code that was sent to your phone</p>
         </v-flex>
         <v-flex xs8>
-          <v-text-field autofocus placeholder="Code" mask="######" />
+          <v-form ref="form" v-model="valid">
+            <v-text-field
+                    autofocus
+                    name="pin"
+                    type="number"
+                    v-model="pin"
+                    required
+                    placeholder="Code"
+                    :rules="pinRules"
+            />
+          </v-form>
           <div class="text-xs-center">
-            <a href="#" class="caption">Resend verification text</a>
+            <a href="#" class="caption">Resend verification code</a>
           </div>
         </v-flex>
-        <v-flex xs1>
-          <v-btn to="/auth/complete" block class="primary">Next</v-btn>
+        <v-flex xs1 style="width: 100%;">
+          <v-container fluid>
+            <v-layout row>
+              <v-flex>
+                <v-btn
+                        block
+                        class="primary"
+                        :disabled="!valid"
+                        @click="submit"
+                >Next</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-flex>
+
       </v-layout>
     </v-container>
   </v-content>
 </template>
+
+
+<script>
+  import RequestSpinner from 'components/RequestSpinner'
+  import Alert from 'components/Alert'
+
+  export default {
+    data: () => ({
+      valid: false,
+      pin: '',
+      pinRules: [
+        v => !!v || 'Code is required',
+        v => /^[0-9]{6}$/.test(v) || 'Invalid code',
+      ],
+
+      errors: null,
+    }),
+    methods: {
+      submit () {
+        if (this.$refs.form.validate()) {
+          const phone = this.$store.getters['auth/getUser'].phone
+          const pin = parseInt(this.pin)
+
+          this.$store.dispatch('auth/verifyPIN', { phone, pin })
+            .then(() => { this.$router.push({ name: 'complete' }) })
+            .catch((e) => { this.errors = e })
+        }
+      },
+    },
+    components: {
+      RequestSpinner,
+      Alert,
+    },
+  }
+</script>
