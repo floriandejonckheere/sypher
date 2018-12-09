@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import auth from './modules/auth'
 import requests from './modules/requests'
@@ -13,6 +14,11 @@ const store = new Vuex.Store({
     requests,
     users,
   },
+  plugins: [
+    createPersistedState({
+      paths: ['auth'],
+    }),
+  ],
 })
 
 export default store

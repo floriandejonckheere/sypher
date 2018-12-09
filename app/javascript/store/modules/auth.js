@@ -80,7 +80,7 @@ const mutations = {
 
 export default {
   namespaced: true,
-  state: dummyAuthState,
+  state,
   getters,
   actions,
   mutations,
