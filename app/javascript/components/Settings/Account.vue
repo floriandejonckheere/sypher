@@ -68,6 +68,16 @@
           </v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
+
+      <v-divider />
+
+      <v-list-tile @click="signout">
+        <v-list-tile-content>
+          <v-list-tile-title>
+            Sign out
+          </v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
     </v-list>
 
     <!-- Delete Modal -->
@@ -103,6 +113,11 @@
         this.dialog = false
 
         this.$store.dispatch('auth/deleteUser')
+          .then(() => { this.$router.push({ name: 'welcome' }) })
+          .catch((e) => { this.errors = e })
+      },
+      signout () {
+        this.$store.dispatch('auth/signout')
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },

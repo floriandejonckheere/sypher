@@ -70,6 +70,10 @@ const actions = {
     }, { root: true }).then(() => {
       commit('reset', null, { root: true })
     })
+  },
+  signout: async ({ commit }) => {
+    commit('setUser', { user: { name: null, phone: null } })
+    commit('setToken', { token: null })
   }
 }
 
