@@ -17,8 +17,8 @@
       <v-layout pa-2 column fill-height class="lightbox white--text">
         <v-spacer></v-spacer>
         <v-flex shrink>
-          <div class="title py-1">Florian Dejonckheere</div>
-          <div class="subheading py-1">+32 123 45 67 89</div>
+          <div class="title py-1">{{ user.name }}</div>
+          <div class="subheading py-1">{{ user.phone }}</div>
         </v-flex>
       </v-layout>
     </v-img>
@@ -44,3 +44,15 @@
     </v-list>
   </v-content>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+
+  export default {
+    computed: {
+      ...mapGetters({
+        user: 'auth/getUser',
+      }),
+    }
+  }
+</script>
