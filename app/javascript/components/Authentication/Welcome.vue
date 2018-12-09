@@ -47,7 +47,7 @@
   import TermsOfService from './TermsOfService'
 
   export default {
-    data () {
+    data: () => {
       return {
         dialog: false,
       }

@@ -79,7 +79,7 @@
 
 <script>
   module.exports = {
-    data: function() {
+    data: () => {
       return {
         fab: false,
         items: [

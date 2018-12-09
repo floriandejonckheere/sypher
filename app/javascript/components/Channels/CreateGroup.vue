@@ -48,7 +48,7 @@
 
 <script>
   module.exports = {
-    data: function() {
+    data: () => {
       return {
         selected: {
           0: false,
