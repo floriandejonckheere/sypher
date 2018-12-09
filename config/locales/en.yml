@@ -30,6 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  pundit:
+    unauthorized: "You don't have permission to perform this action"
   activerecord:
     errors:
       models:

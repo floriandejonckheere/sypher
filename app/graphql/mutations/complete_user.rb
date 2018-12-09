@@ -7,10 +7,6 @@ module Mutations
     ##
     # Arguments
     #
-    argument :phone,
-             String,
-             :required => true
-
     argument :name,
              String,
              :required => true
@@ -27,10 +23,25 @@ module Mutations
           :null => true
 
     ##
+    # Authorization
+    #
+    def ready?(**args)
+      # TODO: extract into concern
+      if Pundit.policy!(context[:current_user], :mutation).complete_user?
+        true
+      else
+        [false, {
+          :user => nil,
+          :errors => [I18n.t('pundit.unauthorized')]
+        }]
+      end
+    end
+
+    ##
     # Resolver
     #
     def resolve(params)
-      user = User.verified.find_by_phone params[:phone]
+      user = context[:current_user]
 
       if user.update params.except(:phone)
         {
