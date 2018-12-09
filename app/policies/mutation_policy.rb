@@ -16,6 +16,11 @@ class MutationPolicy < ApplicationPolicy
     !user.nil?
   end
 
+  def delete_user?
+    # Only signed in users can delete user
+    !user.nil?
+  end
+
   class Scope < ApplicationPolicy::Scope
     def resolve
       scope.all

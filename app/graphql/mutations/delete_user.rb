@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Mutations
-  class CompleteUser < BaseMutation
+  class DeleteUser < BaseMutation
     include Authorizable
 
     null true
@@ -9,17 +9,9 @@ module Mutations
     ##
     # Arguments
     #
-    argument :name,
-             String,
-             :required => true
-
     ##
     # Fields
     #
-    field :user,
-          Types::UserType,
-          :null => true
-
     field :errors,
           [String],
           :null => false
@@ -32,12 +24,10 @@ module Mutations
 
       if user.update params.except(:phone)
         {
-          :user => user,
           :errors => []
         }
       else
         {
-          :user => nil,
           :errors => user.errors.full_messages
         }
       end

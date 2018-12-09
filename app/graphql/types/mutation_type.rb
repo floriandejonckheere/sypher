@@ -13,5 +13,8 @@ module Types
 
     field :complete_user,
           :mutation => Mutations::CompleteUser
+
+    field :delete_user,
+          :mutation => Mutations::DeleteUser
   end
 end
