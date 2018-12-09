@@ -2,9 +2,10 @@
   <div class="alert">
     <div v-for="error in errors">
       <v-alert
-              :value="error"
               type="error"
+              value="true"
               transition="slide-y-transition"
+              dismissible
       >
         {{ error }}
       </v-alert>
