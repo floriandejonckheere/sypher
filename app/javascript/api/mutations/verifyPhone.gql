@@ -1,5 +1,5 @@
 mutation verifyPhone($phone: String!) {
-  verifyPhone(input:{ phone: $phone }) {
+  verifyPhone(input: { phone: $phone }) {
     phone
     errors
   }

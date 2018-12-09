@@ -29,6 +29,35 @@ const getters = {
 
 // Actions
 const actions = {
+  doRequest: async ({ commit, dispatch }, payload) => {
+    const { requestType, request } = payload
+
+    return new Promise(async (resolve, reject) => {
+      dispatch('setPending', { requestType })
+
+      try {
+        const response = await request()
+
+        const errorKeys = Object.keys(response.data).filter((m) => response.data[m].errors.length > 0)
+
+        if (errorKeys.length > 0) {
+          // Errors, reject with all errors
+          dispatch('setFailure', { requestType })
+
+          const errors = errorKeys.map(key => response.data[key].errors).flat()
+          reject(errors)
+        } else {
+          // No errors, resolve with response data
+          dispatch('setSuccess', { requestType })
+          resolve(response.data)
+        }
+      } catch(e) {
+        dispatch('setFailure', { requestType })
+        reject([e.message])
+      }
+    })
+  },
+
   // Mark request as pending
   setPending: ({ commit }, payload) => {
     const { requestType } = payload
