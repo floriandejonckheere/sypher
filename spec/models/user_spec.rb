@@ -169,12 +169,13 @@ RSpec.describe User do
     end
 
     describe '#verify' do
-      let(:user) { create :user, :verified_at => nil }
+      let(:user) { create :user, :verified_at => nil, :token_version => 1 }
 
       before { user.verify }
 
       it { is_expected.to be_valid }
       it { is_expected.to be_verified }
+      it { is_expected.to have_attributes :token_version => 2 }
     end
 
     describe '#verify_with_pin' do

@@ -79,6 +79,7 @@ class User < ApplicationRecord
 
   def verify
     self.verified_at = Time.now.utc
+    increment :token_version
     save
   end
 
