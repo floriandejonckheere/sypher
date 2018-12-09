@@ -19,10 +19,10 @@ module Mutations
     ##
     # Resolver
     #
-    def resolve(params)
+    def resolve
       user = context[:current_user]
 
-      if user.update params.except(:phone)
+      if user.destroy
         {
           :errors => []
         }
