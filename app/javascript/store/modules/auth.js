@@ -32,27 +32,16 @@ const actions = {
   verifyPhone: async ({ commit, dispatch }, payload) => {
     const { phone } = payload
 
-    return new Promise(async (resolve, reject) => {
-      dispatch('requests/setPending', { requestType: 'verifyPhone' }, { root: true })
+    const options = {
+      mutation: verifyPhone,
+      variables: { phone },
+    }
 
-      try {
-        const response = await client.mutate({
-          mutation: verifyPhone,
-          variables: {phone},
-        })
-
-        if (response.data.verifyPhone.errors.length > 0) {
-          dispatch('requests/setFailure', { requestType: 'verifyPhone' }, { root: true })
-          reject(response.data.verifyPhone.errors)
-        } else {
-          dispatch('requests/setSuccess', { requestType: 'verifyPhone' }, { root: true })
-          commit('setUser', { user: { name: null, phone: response.data.verifyPhone.phone } })
-          resolve()
-        }
-      } catch(e) {
-        dispatch('requests/setFailure', { requestType: 'verifyPhone' }, { root: true })
-        reject([e.message])
-      }
+    return dispatch('requests/doRequest', {
+      requestType: 'verifyPhone',
+      request: () => client.mutate(options)
+    }, { root: true }).then((data) => {
+      commit('setUser', { user: { name: null, phone: data.verifyPhone.phone } })
     })
   },
   verifyPIN: async ({ commit, dispatch }, payload) => {
