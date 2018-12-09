@@ -1,5 +1,8 @@
 <template>
   <v-content>
+    <RequestSpinner type="verifyPhone" />
+    <Alert :errors="errors" />
+
     <v-container fill-height>
       <v-layout column align-center>
         <v-flex class="text-xs-center">
@@ -8,7 +11,7 @@
             apply)</p>
         </v-flex>
         <v-flex xs8>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-model="valid">
             <v-container fluid grid-list-md>
               <v-layout row>
                 <v-flex xs2>
@@ -49,6 +52,9 @@
 </template>
 
 <script>
+  import RequestSpinner from 'components/RequestSpinner'
+  import Alert from 'components/Alert'
+
   export default {
     data: () => ({
       valid: false,
@@ -63,18 +69,22 @@
         v => !!v || 'Phone is required',
         v => /^[0-9]{5,15}$/.test(v) || 'Invalid phone number',
       ],
-
+      errors: null,
     }),
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
           const phone = `+${this.country}${this.phone}`
 
-          this.$store.dispatch('auth/verifyPhone', phone)
+          this.$store.dispatch('auth/verifyPhone', { phone })
+            .then(() => { this.$router.push({ name: 'pin' }) })
+            .catch((e) => { this.errors = e })
         }
       },
-      verifyPhone: () => {
-      },
+    },
+    components: {
+      RequestSpinner,
+      Alert,
     },
   }
 </script>

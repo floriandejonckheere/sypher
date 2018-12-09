@@ -26,15 +26,32 @@ const getters = {
 
 // Actions
 const actions = {
-  verifyPhone: async ({ commit }, phone) => {
-    const response = await client.mutate({
-      mutation: verifyPhone,
-      variables: { phone },
+  verifyPhone: async ({ commit, dispatch }, payload) => {
+    const { phone } = payload
+
+    return new Promise(async (resolve, reject) => {
+      dispatch('requests/setPending', { requestType: 'verifyPhone' }, { root: true })
+
+      try {
+        const response = await client.mutate({
+          mutation: verifyPhone,
+          variables: {phone},
+        })
+
+        if (response.data.verifyPhone.errors.length > 0) {
+          dispatch('requests/setFailure', { requestType: 'verifyPhone' }, { root: true })
+          reject(response.data.verifyPhone.errors)
+        } else {
+          dispatch('requests/setSuccess', { requestType: 'verifyPhone' }, { root: true })
+          console.log(response.data)
+          commit('setUser', { name: null, phone: response.data.verifyPhone.phone })
+          resolve()
+        }
+      } catch(e) {
+        dispatch('requests/setFailure', { requestType: 'verifyPhone' }, { root: true })
+        reject([e.message])
+      }
     })
-
-    console.log(response.data.verifyPhone.errors)
-
-    commit('setUser', { name: null, phone: response.data.phone })
   },
 }
 
