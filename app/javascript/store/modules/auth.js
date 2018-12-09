@@ -4,6 +4,7 @@ import client from '../../apollo'
 
 import { verifyPhone } from '../../api/mutations/verifyPhone.gql'
 import { verifyPin } from '../../api/mutations/verifyPin.gql'
+import { completeUser } from '../../api/mutations/completeUser.gql'
 
 // Initial state
 const state = {
@@ -25,6 +26,8 @@ const getters = {
   },
   // Get user object
   getUser: state => state.user,
+  // Get authentication token
+  getToken: state => state.token,
 }
 
 // Actions
@@ -32,14 +35,9 @@ const actions = {
   verifyPhone: async ({ commit, dispatch }, payload) => {
     const { phone } = payload
 
-    const options = {
-      mutation: verifyPhone,
-      variables: { phone },
-    }
-
     return dispatch('requests/doRequest', {
       requestType: 'verifyPhone',
-      request: () => client.mutate(options)
+      request: () => client.mutate({ mutation: verifyPhone, variables: { phone } })
     }, { root: true }).then((data) => {
       commit('setUser', { user: { name: null, phone: data.verifyPhone.phone } })
     })
@@ -47,16 +45,21 @@ const actions = {
   verifyPIN: async ({ commit, dispatch }, payload) => {
     const { phone, pin } = payload
 
-    const options = {
-      mutation: verifyPin,
-      variables: { phone, pin },
-    }
-
     return dispatch('requests/doRequest', {
       requestType: 'verifyPin',
-      request: () => client.mutate(options)
+      request: () => client.mutate({ mutation: verifyPin, variables: { phone, pin } })
     }, { root: true }).then((data) => {
       commit('setToken', { token: data.verifyPin.token })
+    })
+  },
+  completeUser: async ({ commit, dispatch }, payload) => {
+    const { name } = payload
+
+    return dispatch('requests/doRequest', {
+      requestType: 'completeUser',
+      request: () => client.mutate({ mutation: completeUser, variables: { name } })
+    }, { root: true }).then((data) => {
+      commit('setUser', { user: data.completeUser.user })
     })
   },
 }
