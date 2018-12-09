@@ -69,13 +69,13 @@
       country: '',
       countryRules: [
         v => !!v || 'Country code is required',
-        v => /^[0-9]{1,4}$/.test(v) || 'Invalid country code',
+        v => /^[0-9]{1,3}$/.test(v) || 'Invalid country code',
       ],
 
       phone: '',
       phoneRules: [
         v => !!v || 'Phone is required',
-        v => /^[0-9]{5,15}$/.test(v) || 'Invalid phone number',
+        v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
       ],
       errors: null,
     }),
