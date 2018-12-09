@@ -18,6 +18,7 @@
                   <v-text-field
                           :autofocus="true"
                           name="country"
+                          type="number"
                           v-model="country"
                           required
                           placeholder="32"
@@ -28,6 +29,7 @@
                 <v-flex>
                   <v-text-field
                           name="phone"
+                          type="number"
                           v-model="phone"
                           required
                           placeholder="Phone number"
@@ -38,13 +40,19 @@
             </v-container>
           </v-form>
         </v-flex>
-        <v-flex xs1>
-          <v-btn
-            block
-            class="primary"
-            :disabled="!valid"
-            @click="submit"
-          >Next</v-btn>
+        <v-flex xs1 style="width: 100%;">
+          <v-container fluid>
+            <v-layout row>
+              <v-flex>
+                <v-btn
+                  block
+                  class="primary"
+                  :disabled="!valid"
+                  @click="submit"
+                >Next</v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
         </v-flex>
       </v-layout>
     </v-container>
