@@ -209,55 +209,28 @@ RSpec.describe User do
       end
 
       context 'when the pin is valid' do
-        context 'when the user is unverified' do
-          let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.minute.ago }
+        let(:user) { create :user, :pin => 123_456, :pin_sent_at => 1.minute.ago }
 
-          it { is_expected.not_to be_verified }
+        it { is_expected.not_to be_verified }
 
-          it 'returns true' do
-            expect(user.verify_with_pin user.pin).to eq true
-          end
-
-          it 'verifies the user' do
-            user.verify_with_pin user.pin
-            expect(user).to be_verified
-          end
+        it 'returns true' do
+          expect(user.verify_with_pin user.pin).to eq true
         end
 
-        context 'when the user is verified' do
-          subject(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 1.minute.ago }
-
-          it { is_expected.to be_verified }
-
-          it 'returns false' do
-            expect(user.verify_with_pin user.pin).to eq false
-          end
-
-          it 'does not change the verification status the user' do
-            user.verify_with_pin user.pin
-            expect(user).to be_verified
-          end
+        it 'verifies the user' do
+          user.verify_with_pin user.pin
+          expect(user).to be_verified
         end
       end
     end
 
     describe '#send_verification_pin' do
-      context 'when the user is unverified' do
-        it { is_expected.to have_attributes :pin => nil, :pin_sent_at => nil }
+      it { is_expected.to have_attributes :pin => nil, :pin_sent_at => nil }
 
-        it 'generates a pin for the user' do
-          user.send_verification_pin
+      it 'generates a pin for the user' do
+        user.send_verification_pin
 
-          expect(user).to have_attributes :pin => a_value, :pin_sent_at => a_value
-        end
-      end
-
-      context 'when the user is verified' do
-        let(:user) { create :user, :verified, :pin => 123_456, :pin_sent_at => 2.months.ago }
-
-        it 'returns false' do
-          expect(user.send_verification_pin).to eq false
-        end
+        expect(user).to have_attributes :pin => a_value, :pin_sent_at => a_value
       end
     end
 

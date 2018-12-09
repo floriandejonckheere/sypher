@@ -35,8 +35,6 @@ en:
       models:
         user:
           attributes:
-            phone:
-              already_verified: "is already verified"
             pin:
               expired: "has expired"
               invalid: "is invalid"
