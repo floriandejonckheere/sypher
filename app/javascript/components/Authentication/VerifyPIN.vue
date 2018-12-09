@@ -39,12 +39,10 @@
             </v-layout>
           </v-container>
         </v-flex>
-
       </v-layout>
     </v-container>
   </v-content>
 </template>
-
 
 <script>
   import RequestSpinner from 'components/RequestSpinner'
