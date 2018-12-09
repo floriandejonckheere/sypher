@@ -3,8 +3,8 @@
   "short_name": "Sypher",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "deeppurple",
-  "background_color": "#E53935",
+  "theme_color": "#5E35B1",
+  "background_color": "white",
   "description": "End-to-end encrypted instant messaging web application",
   "icons": [{
     "src": "/homescreen-48x48.png",
