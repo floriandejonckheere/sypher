@@ -15,7 +15,7 @@ namespace :favicon do
       dimensions.each do |dimension|
         name = "#{type}-#{dimension}x#{dimension}.png"
         puts "Generating #{name}"
-        `convert -background transparent -size #{dimension}x#{dimension} #{ICON} #{Rails.root.join 'public', name}`
+        `inkscape -z -w #{dimension} -h #{dimension} #{ICON} -e #{Rails.root.join 'public', name} > /dev/null`
       end
     end
   end
