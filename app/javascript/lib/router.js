@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import store from './store'
+import store from 'lib/store'
 
 // Components
 import Frame from 'components/Frame'

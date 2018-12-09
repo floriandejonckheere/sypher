@@ -138,7 +138,7 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
-  import { seenScopes, readScopes, profileScopes } from 'store/modules/settings'
+  import { seenScopes, readScopes, profileScopes } from 'modules/settings/state'
 
   export default {
     data: () => ({

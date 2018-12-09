@@ -6,9 +6,9 @@ import VueApollo from 'vue-apollo'
 import colors from 'vuetify/es5/util/colors'
 
 import App from '../App.vue'
-import router from '../router'
-import store from '../store'
-import provider from '../apollo'
+import router from 'lib/router'
+import store from 'lib/store'
+import provider from 'lib/apollo'
 
 Vue.use(Vuetify, {
   theme: {

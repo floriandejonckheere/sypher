@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner type="verifyPIN" />
+    <RequestSpinner type="verifyPin" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -65,7 +65,7 @@
           const phone = this.$store.getters['auth/getUser'].phone
           const pin = parseInt(this.pin)
 
-          this.$store.dispatch('auth/verifyPIN', { phone, pin })
+          this.$store.dispatch('auth/verifyPin', { phone, pin })
             .then(() => { this.$router.push({ name: 'complete' }) })
             .catch((e) => { this.errors = e })
         }

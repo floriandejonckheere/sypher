@@ -3,8 +3,8 @@ import { HttpLink } from 'apollo-link-http'
 import { setContext } from 'apollo-link-context'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 
-import config from './config'
-import store from './store'
+import config from 'lib/config'
+import store from 'lib/store'
 
 const httpLink = new HttpLink({
   uri: config.api.uri,
