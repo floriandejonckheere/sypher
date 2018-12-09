@@ -19,7 +19,7 @@
     <v-list two-line>
       <v-subheader>Privacy</v-subheader>
 
-      <v-list-tile to="#">
+      <v-list-tile @click="dialog.privacy = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Last seen
@@ -33,7 +33,7 @@
 
       <v-divider />
 
-      <v-list-tile to="#">
+      <v-list-tile @click="dialog.privacy = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Receive read notifications
@@ -47,7 +47,7 @@
 
       <v-divider />
 
-      <v-list-tile to="#">
+      <v-list-tile @click="dialog.privacy = true">
         <v-list-tile-content>
           <v-list-tile-title>
             My profile
@@ -61,7 +61,7 @@
 
       <v-subheader>Account</v-subheader>
 
-      <v-list-tile @click="dialog = true">
+      <v-list-tile @click="dialog.delete = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Delete my account
@@ -80,8 +80,41 @@
       </v-list-tile>
     </v-list>
 
+    <!-- Privacy Modal -->
+    <v-dialog v-model="dialog.privacy" scrollable>
+      <v-card>
+        <v-card-title class="headline">Last seen</v-card-title>
+        <v-card-text>
+          <v-radio-group v-model="seenScope">
+            <v-list one-line>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-radio label="Nobody" :value="seenScopes.NOBODY" />
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-radio label="My contacts" :value="seenScopes.CONTACTS" />
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-radio label="Everyone" :value="seenScopes.EVERYONE" />
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-radio-group>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn flat @click="dialog.privacy = false">Cancel</v-btn>
+          <v-btn color="primary" flat @click="updateSettings">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Delete Modal -->
-    <v-dialog v-model="dialog" scrollable>
+    <v-dialog v-model="dialog.delete" scrollable>
       <v-card>
         <v-card-title class="headline">Delete account?</v-card-title>
         <v-card-text>
@@ -90,7 +123,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn flat @click="dialog = false">Cancel</v-btn>
+          <v-btn flat @click="dialog.delete = false">Cancel</v-btn>
           <v-btn color="red darken-1" flat @click="deleteUser">Delete my account</v-btn>
         </v-card-actions>
       </v-card>
@@ -100,26 +133,49 @@
 
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
+  import { seenScopes, readScopes, profileScopes } from 'store/modules/settings'
+
   export default {
     data: () => ({
-      dialog: false,
+      dialog: {
+        delete: false,
+        privacy: false,
+      },
+      seenScopes,
+      readScopes,
+      profileScopes,
+
+      seenScope: seenScopes.EVERYONE,
+
       errors: null,
     }),
+    getters: {
+      ...mapGetters({
+        seenScope: 'settings/getSeenScope',
+        readScope: 'settings/getReadScope',
+        profileScope: 'settings/getProfileScope',
+      })
+    },
     methods: {
-      deleteUser () {
+      deleteUser() {
         this.dialog = false
 
         this.$store.dispatch('auth/deleteUser')
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },
-      signout () {
+      signout() {
         this.$store.dispatch('auth/signout')
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
+      },
+      updateSettings() {
+
       },
     },
     components: {

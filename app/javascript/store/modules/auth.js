@@ -61,6 +61,7 @@ const actions = {
       request: () => client.mutate({ mutation: completeUser, variables: { name } })
     }, { root: true }).then((data) => {
       commit('setUser', { user: data.completeUser.user })
+      // TODO: dispatch action to sync user data
     })
   },
   deleteUser: async ({ commit, dispatch }) => {
