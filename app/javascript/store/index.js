@@ -8,6 +8,12 @@ import users from './modules/users'
 
 Vue.use(Vuex)
 
+const initialState = {
+  auth: auth.state,
+  requests: requests.state,
+  users: users.state,
+}
+
 const store = new Vuex.Store({
   modules: {
     auth,
@@ -19,6 +25,16 @@ const store = new Vuex.Store({
       paths: ['auth'],
     }),
   ],
+
+  // Root mutations
+  mutations: {
+    // Reset state
+    reset (state) {
+      Object.keys(state).forEach(key => {
+        Object.assign(state[key], initialState[key])
+      })
+    }
+  }
 })
 
 export default store

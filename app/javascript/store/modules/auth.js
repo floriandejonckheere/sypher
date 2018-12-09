@@ -2,9 +2,10 @@ import { dummyAuthState } from './dummyStates'
 
 import client from '../../apollo'
 
-import { verifyPhone } from '../../api/mutations/verifyPhone.gql'
-import { verifyPin } from '../../api/mutations/verifyPin.gql'
-import { completeUser } from '../../api/mutations/completeUser.gql'
+import { verifyPhone } from 'api/mutations/verifyPhone.gql'
+import { verifyPin } from 'api/mutations/verifyPin.gql'
+import { completeUser } from 'api/mutations/completeUser.gql'
+import { deleteUser } from 'api/mutations/deleteUser.gql'
 
 // Initial state
 const state = {
@@ -62,6 +63,14 @@ const actions = {
       commit('setUser', { user: data.completeUser.user })
     })
   },
+  deleteUser: async ({ commit, dispatch }) => {
+    return dispatch('requests/doRequest', {
+      requestType: 'deleteUser',
+      request: () => client.mutate({ mutation: deleteUser })
+    }, { root: true }).then(() => {
+      commit('reset', null, { root: true })
+    })
+  }
 }
 
 // Mutations
