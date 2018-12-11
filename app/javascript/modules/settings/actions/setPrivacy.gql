@@ -1,4 +1,4 @@
-mutation setPrivacy($seenScope: Boolean!, $readScope: Boolean!) {
+mutation setPrivacy($seenScope: String!, $readScope: String!) {
   setPrivacy(input: { seenScope: $seenScope, readScope: $readScope }) {
     errors
   }

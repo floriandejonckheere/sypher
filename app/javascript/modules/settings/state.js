@@ -1,19 +1,14 @@
-const seenScopes = {
-  NOBODY: 'settings/NOBODY',
-  CONTACTS: 'settings/CONTACTS',
-  EVERYONE: 'settings/EVERYONE',
+const scopes = {
+  NOBODY: 'nobody',
+  CONTACTS: 'contacts',
+  EVERYONE: 'everyone',
 }
 
-const readScopes = {
-  NOBODY: 'settings/NOBODY',
-  CONTACTS: 'settings/CONTACTS',
-}
-
-export { seenScopes, readScopes }
+export { scopes }
 export default {
   account: {
-    seenScope: seenScopes.EVERYONE,
-    readScope: readScopes.CONTACTS,
+    seenScope: scopes.EVERYONE,
+    readScope: scopes.CONTACTS,
   },
   device: {
     notifications: true,

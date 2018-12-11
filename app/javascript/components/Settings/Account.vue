@@ -1,6 +1,7 @@
 <template>
   <v-content class="white">
     <RequestSpinner type="deleteUser" />
+    <RequestSpinner type="setPrivacy" />
     <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
@@ -19,45 +20,32 @@
     <v-list two-line>
       <v-subheader>Privacy</v-subheader>
 
-      <v-list-tile @click="dialog.privacy = true">
+      <v-list-tile @click="dialog.seen = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Last seen
           </v-list-tile-title>
 
           <v-list-tile-sub-title>
-            My contacts
+            {{ seenScope | formatScope }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
 
       <v-divider />
 
-      <v-list-tile @click="dialog.privacy = true">
+      <v-list-tile @click="dialog.read = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Receive read notifications
           </v-list-tile-title>
 
           <v-list-tile-sub-title>
-            My contacts
+            {{ readScope | formatScope }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
 
-      <v-divider />
-
-      <v-list-tile @click="dialog.privacy = true">
-        <v-list-tile-content>
-          <v-list-tile-title>
-            My profile
-          </v-list-tile-title>
-
-          <v-list-tile-sub-title>
-            Everyone
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
 
       <v-subheader>Account</v-subheader>
 
@@ -80,8 +68,8 @@
       </v-list-tile>
     </v-list>
 
-    <!-- Privacy Modal -->
-    <v-dialog v-model="dialog.privacy" scrollable>
+    <!-- Privacy Modal: seen scope -->
+    <v-dialog v-model="dialog.seen" scrollable>
       <v-card>
         <v-card-title class="headline">Last seen</v-card-title>
         <v-card-text>
@@ -89,17 +77,17 @@
             <v-list one-line>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-radio label="Nobody" :value="seenScopes.NOBODY" />
+                  <v-radio label="Nobody" :value="scopes.NOBODY" />
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-radio label="My contacts" :value="seenScopes.CONTACTS" />
+                  <v-radio label="My contacts" :value="scopes.CONTACTS" />
                 </v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>
-                  <v-radio label="Everyone" :value="seenScopes.EVERYONE" />
+                  <v-radio label="Everyone" :value="scopes.EVERYONE" />
                 </v-list-tile-content>
               </v-list-tile>
             </v-list>
@@ -107,8 +95,36 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer />
-          <v-btn flat @click="dialog.privacy = false">Cancel</v-btn>
-          <v-btn color="primary" flat @click="updateSettings">OK</v-btn>
+          <v-btn flat @click="dialog.seen = false">Cancel</v-btn>
+          <v-btn color="primary" flat @click="setPrivacy">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Privacy Modal: read scope -->
+    <v-dialog v-model="dialog.read" scrollable>
+      <v-card>
+        <v-card-title class="headline">Receive read notifications</v-card-title>
+        <v-card-text>
+          <v-radio-group v-model="readScope">
+            <v-list one-line>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-radio label="Nobody" :value="scopes.NOBODY" />
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
+                <v-list-tile-content>
+                  <v-radio label="My contacts" :value="scopes.CONTACTS" />
+                </v-list-tile-content>
+              </v-list-tile>
+            </v-list>
+          </v-radio-group>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn flat @click="dialog.read = false">Cancel</v-btn>
+          <v-btn color="primary" flat @click="setPrivacy">OK</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -138,27 +154,26 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
-  import { seenScopes, readScopes, profileScopes } from 'modules/settings/state'
+  import { scopes } from 'modules/settings/state'
 
   export default {
     data: () => ({
       dialog: {
         delete: false,
-        privacy: false,
+        seen: false,
+        read: false,
       },
-      seenScopes,
-      readScopes,
-      profileScopes,
+      scopes,
 
-      seenScope: seenScopes.EVERYONE,
+      seenScope: scopes.EVERYONE,
+      readScope: scopes.CONTACTS,
 
       errors: null,
     }),
-    getters: {
+    computed: {
       ...mapGetters({
-        seenScope: 'settings/getSeenScope',
-        readScope: 'settings/getReadScope',
-        profileScope: 'settings/getProfileScope',
+        getSeenScope: 'settings/getSeenScope',
+        getReadScope: 'settings/getReadScope',
       })
     },
     methods: {
@@ -174,13 +189,36 @@
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },
-      updateSettings() {
-
+      setPrivacy() {
+        this.$store.dispatch('settings/setPrivacy', { seenScope: this.seenScope, readScope: this.readScope })
+          .then(() => {
+            this.dialog.seen = false
+            this.dialog.read = false
+          })
+          .catch((e) => { this.errors = e })
       },
+    },
+    mounted: function() {
+      this.seenScope = this.getSeenScope;
+      this.readScope = this.getReadScope;
     },
     components: {
       RequestSpinner,
       Alert,
+    },
+    filters: {
+      formatScope: function (value) {
+        switch (value) {
+          case scopes.NOBODY:
+            return 'Nobody'
+          case scopes.CONTACTS:
+            return 'My contacts'
+          case scopes.EVERYONE:
+            return 'Everyone'
+          default:
+            return ''
+        }
+      }
     },
   }
 </script>
