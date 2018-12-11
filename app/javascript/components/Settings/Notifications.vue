@@ -19,7 +19,7 @@
           <v-checkbox v-model="notifications" />
         </v-list-tile-action>
 
-        <v-list-tile-content @click="notifications = !notifications">
+        <v-list-tile-content @click="toggleNotifications">
           <v-list-tile-title>
             Message notifications
           </v-list-tile-title>
@@ -37,7 +37,7 @@
           <v-checkbox v-model="vibrate" />
         </v-list-tile-action>
 
-        <v-list-tile-content @click="vibrate = !vibrate">
+        <v-list-tile-content @click="toggleVibrate">
           <v-list-tile-title>
             Vibrate
           </v-list-tile-title>
@@ -52,12 +52,36 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     data () {
       return {
         notifications: false,
         vibrate: false,
       }
+    },
+    computed: {
+      ...mapGetters({
+        getNotifications: 'settings/getNotifications',
+        getVibrate: 'settings/getVibrate',
+      })
+    },
+    methods: {
+      toggleNotifications() {
+        this.notifications = !this.notifications
+
+        this.$store.dispatch('settings/setNotifications', { notifications: this.notifications, vibrate: this.vibrate })
+      },
+      toggleVibrate() {
+        this.vibrate = !this.vibrate
+
+        this.$store.dispatch('settings/setNotifications', { notifications: this.notifications, vibrate: this.vibrate })
+      },
+    },
+    mounted: function() {
+      this.notifications = this.getNotifications;
+      this.vibrate = this.getVibrate;
     },
   }
 </script>

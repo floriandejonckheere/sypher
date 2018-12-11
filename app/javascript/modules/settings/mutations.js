@@ -7,4 +7,12 @@ export default {
       readScope,
     }
   },
+  setNotifications: (state, payload) => {
+    const { notifications, vibrate } = payload
+
+    state.device = {
+      notifications,
+      vibrate,
+    }
+  },
 }
