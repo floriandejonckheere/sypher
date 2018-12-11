@@ -9,17 +9,11 @@ const readScopes = {
   CONTACTS: 'settings/CONTACTS',
 }
 
-const profileScopes = {
-  CONTACTS: 'settings/CONTACTS',
-  EVERYONE: 'settings/EVERYONE',
-}
-
-export { seenScopes, readScopes, profileScopes }
+export { seenScopes, readScopes }
 export default {
   account: {
     seenScope: seenScopes.EVERYONE,
     readScope: readScopes.CONTACTS,
-    profileScope: profileScopes.EVERYONE,
   },
   device: {
     notifications: true,
