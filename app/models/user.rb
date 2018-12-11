@@ -18,9 +18,6 @@ class User < ApplicationRecord
   enum :seen_scope => { :nobody => 0, :contacts => 1, :everyone => 2 },
        :_prefix => :seen_by
 
-  enum :profile_scope => { :contacts => 1, :everyone => 2 },
-       :_prefix => :find_by
-
   # Phone verification PIN
   property :pin
   property :pin_sent_at
@@ -138,7 +135,6 @@ class User < ApplicationRecord
   def set_default_scopes
     self.read_scope = :contacts unless read_scope?
     self.seen_scope = :everyone unless seen_scope?
-    self.profile_scope = :everyone unless profile_scope?
   end
 
   def set_last_seen_at

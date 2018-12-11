@@ -59,12 +59,6 @@ RSpec.describe User do
       expect { user.seen_scope = :foobar }.to raise_error ArgumentError
     end
 
-    it { is_expected.to allow_value(:contacts).for :profile_scope }
-    it { is_expected.to allow_value(:everyone).for :profile_scope }
-    it 'raises ArgumentError on invalid profile_scope values' do
-      expect { user.profile_scope = :foobar }.to raise_error ArgumentError
-    end
-
     describe 'last_seen_at' do
       let(:user) { create :user }
 
