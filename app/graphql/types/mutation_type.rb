@@ -16,5 +16,8 @@ module Types
 
     field :delete_user,
           :mutation => Mutations::DeleteUser
+
+    field :set_privacy,
+          :mutation => Mutations::SetPrivacy
   end
 end

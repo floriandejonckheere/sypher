@@ -21,9 +21,8 @@ class MutationPolicy < ApplicationPolicy
     !user.nil?
   end
 
-  class Scope < ApplicationPolicy::Scope
-    def resolve
-      scope.all
-    end
+  def set_privacy?
+    # Only signed in users can set privacy
+    !user.nil?
   end
 end
