@@ -12,9 +12,14 @@ class User < ApplicationRecord
   property :last_seen_at
 
   # Privacy settings (read notifications and last seen at)
-  enum :read_scope => %i[nobody contacts], :_prefix => :read_by
-  enum :seen_scope => %i[nobody contacts everyone], :_prefix => :seen_by
-  enum :profile_scope => %i[contacts everyone], :_prefix => :find_by
+  enum :read_scope => { :nobody => 0, :contacts => 1 },
+       :_prefix => :read_by
+
+  enum :seen_scope => { :nobody => 0, :contacts => 1, :everyone => 2 },
+       :_prefix => :seen_by
+
+  enum :profile_scope => { :contacts => 1, :everyone => 2 },
+       :_prefix => :find_by
 
   # Phone verification PIN
   property :pin
