@@ -1,7 +1,6 @@
 <template>
   <v-content class="white">
-    <RequestSpinner :type="requests.destroy" />
-    <RequestSpinner :type="requests.setPrivacy" />
+    <RequestSpinner :types="requestTypes" />
     <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
@@ -173,10 +172,10 @@
 
       errors: null,
 
-      requests: {
-        destroy: users.requests.destroy,
-        setPrivacy: settings.requests.setPrivacy,
-      }
+      requestTypes: [
+        users.requests.destroy,
+        settings.requests.setPrivacy,
+      ],
     }),
     computed: {
       ...mapGetters({

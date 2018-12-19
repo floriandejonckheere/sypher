@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner :type="requests.verifyPhone" />
+    <RequestSpinner :type="requestTypes" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -82,9 +82,9 @@
 
       errors: null,
 
-      requests: {
-        verifyPhone: auth.requests.verifyPhone,
-      },
+      requestTypes: [
+        auth.requests.verifyPhone,
+      ],
     }),
     methods: {
       submit () {

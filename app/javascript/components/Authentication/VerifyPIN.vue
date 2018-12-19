@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner :type="requests.verifyPin" />
+    <RequestSpinner :type="requestTypes" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -61,9 +61,9 @@
 
       errors: null,
 
-      requests: {
-        verifyPin: auth.requests.verifyPin,
-      },
+      requestTypes: [
+        auth.requests.verifyPin,
+      ],
     }),
     methods: {
       submit () {

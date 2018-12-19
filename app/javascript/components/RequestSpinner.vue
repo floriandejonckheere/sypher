@@ -12,15 +12,18 @@
 
 <script>
   export default {
-    data: function () {
-      return {}
-    },
+    // data: function () {
+    //   return {}
+    // },
     props: {
-      type: { type: String, default: '' },
+      types: { type: Array, default: () => [] },
     },
     computed: {
       isPending() {
-        return this.$store.getters['requests/isPending'](this.type)
+        // Return false if no requests are pending
+        return this.types
+          .map(t => this.$store.getters['requests/isPending'](t))
+          .reduce((acc, curr) => acc || curr, false)
       }
     }
   }

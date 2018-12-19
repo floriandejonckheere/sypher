@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner :type="requests.complete" />
+    <RequestSpinner :type="requestTypes" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -58,9 +58,9 @@
 
       errors: null,
 
-      requests: {
-        complete: users.requests.complete,
-      },
+      requestTypes: [
+        users.requests.complete,
+      ],
     }),
     methods: {
       submit () {
