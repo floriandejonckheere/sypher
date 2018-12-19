@@ -45,7 +45,7 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
-  import auth from 'modules/auth'
+  import users from 'modules/users'
 
   export default {
     data: () => ({
@@ -59,7 +59,7 @@
       errors: null,
 
       requests: {
-        complete: auth.requests.complete,
+        complete: users.requests.complete,
       },
     }),
     methods: {

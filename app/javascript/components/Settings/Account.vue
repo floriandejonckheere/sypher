@@ -1,6 +1,6 @@
 <template>
   <v-content class="white">
-    <RequestSpinner :type="requests.delete" />
+    <RequestSpinner :type="requests.destroy" />
     <RequestSpinner :type="requests.setPrivacy" />
     <Alert :errors="errors" />
 
@@ -140,7 +140,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn flat @click="dialog.delete = false">Cancel</v-btn>
-          <v-btn color="red darken-1" flat @click="deleteUser">Delete my account</v-btn>
+          <v-btn color="red darken-1" flat @click="destroy">Delete my account</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -154,7 +154,7 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
-  import auth from 'modules/auth'
+  import users from 'modules/users'
   import settings from 'modules/settings'
 
   import { scopes } from 'modules/settings/state'
@@ -174,7 +174,7 @@
       errors: null,
 
       requests: {
-        delete: auth.requests.delete,
+        destroy: users.requests.destroy,
         setPrivacy: settings.requests.setPrivacy,
       }
     }),
@@ -185,10 +185,10 @@
       }),
     },
     methods: {
-      deleteUser() {
-        this.dialog = false
+      destroy() {
+        this.dialog.delete = false
 
-        this.$store.dispatch('auth/deleteUser')
+        this.$store.dispatch(users.requests.destroy)
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },

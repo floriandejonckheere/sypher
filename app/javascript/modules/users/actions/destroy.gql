@@ -1,4 +1,4 @@
-mutation deleteUser {
+mutation destroy {
   deleteUser(input: {}) {
     errors
   }

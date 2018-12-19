@@ -2,12 +2,12 @@ import client from 'lib/apollo'
 
 import requests from '../requests'
 
-import deleteUser from './deleteUser.gql'
+import destroy from './destroy.gql'
 
 export default async ({ commit, dispatch }) => {
   return dispatch('requests/doRequest', {
-    requestType: requests.delete,
-    request: () => client.mutate({ mutation: deleteUser })
+    requestType: requests.destroy,
+    request: () => client.mutate({ mutation: destroy })
   }, { root: true }).then(() => {
     commit('reset', null, { root: true })
   })
