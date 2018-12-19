@@ -1,14 +1,10 @@
 import client from 'lib/apollo'
 
-import requests from '../requests'
-
-import completeUser from './completeUser.gql'
+import sync from './sync.gql'
 
 export default async ({ commit, dispatch }, payload) => {
-  const { name } = payload
-
   return dispatch('requests/doRequest', {
-    requestType: requests.complete,
+    requestType: requests.sync,
     request: () => client.mutate({ mutation: completeUser, variables: { name } })
   }, { root: true }).then((data) => {
     commit('setUser', { user: data.completeUser.user })

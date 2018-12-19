@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner type="verifyPin" />
+    <RequestSpinner :type="requests.verifyPin" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -48,6 +48,8 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
+  import auth from 'modules/auth'
+
   export default {
     data: () => ({
       valid: false,
@@ -58,6 +60,10 @@
       ],
 
       errors: null,
+
+      requests: {
+        verifyPin: auth.requests.verifyPin,
+      },
     }),
     methods: {
       submit () {

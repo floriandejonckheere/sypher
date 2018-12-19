@@ -1,7 +1,7 @@
 <template>
   <v-content class="white">
-    <RequestSpinner type="deleteUser" />
-    <RequestSpinner type="setPrivacy" />
+    <RequestSpinner :type="requests.delete" />
+    <RequestSpinner :type="requests.setPrivacy" />
     <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
@@ -154,6 +154,9 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
+  import auth from 'modules/auth'
+  import settings from 'modules/settings'
+
   import { scopes } from 'modules/settings/state'
 
   export default {
@@ -169,12 +172,17 @@
       readScope: scopes.CONTACTS,
 
       errors: null,
+
+      requests: {
+        delete: auth.requests.delete,
+        setPrivacy: settings.requests.setPrivacy,
+      }
     }),
     computed: {
       ...mapGetters({
         getSeenScope: 'settings/getSeenScope',
         getReadScope: 'settings/getReadScope',
-      })
+      }),
     },
     methods: {
       deleteUser() {

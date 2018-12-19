@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <RequestSpinner type="verifyPhone" />
+    <RequestSpinner :type="requests.verifyPhone" />
     <Alert :errors="errors" />
 
     <v-container fill-height>
@@ -63,6 +63,8 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
+  import auth from 'modules/auth'
+
   export default {
     data: () => ({
       valid: false,
@@ -77,7 +79,12 @@
         v => !!v || 'Phone is required',
         v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
       ],
+
       errors: null,
+
+      requests: {
+        verifyPhone: auth.requests.verifyPhone,
+      },
     }),
     methods: {
       submit () {

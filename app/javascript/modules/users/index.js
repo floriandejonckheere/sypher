@@ -1,6 +1,7 @@
 import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
+import requests from './requests'
 import state from './state'
 
 export default {
@@ -8,5 +9,6 @@ export default {
   actions,
   getters,
   mutations,
+  requests,
   state,
 }
