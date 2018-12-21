@@ -5,8 +5,7 @@ export default {
   },
   // State contains an authenticated, complete user
   isComplete: (state, getters, rootState, rootGetters) => {
-    const phone = getters['getCurrentPhone']
-    const user = rootGetters['users/get'](phone)
+    const user = rootGetters['users/get'](state.currentPhone)
 
     return state.currentPhone != null && state.token != null && user != null
   },
