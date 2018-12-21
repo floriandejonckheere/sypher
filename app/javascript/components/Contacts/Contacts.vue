@@ -42,7 +42,7 @@
   export default {
     computed: {
       ...mapGetters({
-        users: 'users/getAllUsersAlphabetically',
+        users: 'users/getAllAlphabetically',
       }),
     },
   }

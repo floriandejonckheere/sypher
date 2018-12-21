@@ -24,7 +24,7 @@ const store = new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: ['auth', 'settings'],
+      paths: ['auth', 'settings', 'users'],
     }),
   ],
 

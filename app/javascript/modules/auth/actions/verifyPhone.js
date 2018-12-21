@@ -11,6 +11,6 @@ export default async ({ commit, dispatch }, payload) => {
     requestType: requests.verifyPhone,
     request: () => client.mutate({ mutation: verifyPhone, variables: { phone } })
   }, { root: true }).then((data) => {
-    commit('setUser', { user: { name: null, phone: data.verifyPhone.phone } })
+    commit('setCurrentPhone', { phone: data.verifyPhone.phone })
   })
 }

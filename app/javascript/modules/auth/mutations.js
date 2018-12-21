@@ -4,9 +4,9 @@ export default {
 
     state.token = token
   },
-  setUser: (state, payload) => {
-    const { user } = payload
+  setCurrentPhone: (state, payload) => {
+    const { phone } = payload
 
-    state.user = user
+    state.currentPhone = phone
   },
 }

@@ -65,7 +65,7 @@
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          this.$store.dispatch('auth/completeUser', { name: this.name })
+          this.$store.dispatch('users/complete', { name: this.name })
             .then(() => { this.$router.push({ name: 'channels' }) })
             .catch((e) => { this.errors = e })
         }

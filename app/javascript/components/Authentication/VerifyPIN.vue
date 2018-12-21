@@ -68,7 +68,7 @@
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          const phone = this.$store.getters['auth/getUser'].phone
+          const phone = this.$store.getters['auth/getCurrentPhone']
           const pin = parseInt(this.pin)
 
           this.$store.dispatch('auth/verifyPin', { phone, pin })

@@ -1,18 +1,24 @@
 export default {
   setPrivacy: (state, payload) => {
-    const { seenScope, readScope } = payload
+    const { phone, seenScope, readScope } = payload
 
-    state.account = {
-      seenScope,
-      readScope,
+    state[phone] = {
+      ...state[phone],
+      account: {
+        seenScope,
+        readScope,
+      },
     }
   },
   setNotifications: (state, payload) => {
-    const { notifications, vibrate } = payload
+    const { phone, notifications, vibrate } = payload
 
-    state.device = {
-      notifications,
-      vibrate,
+    state[phone] = {
+      ...state[phone],
+      device: {
+        notifications,
+        vibrate,
+      },
     }
   },
 }

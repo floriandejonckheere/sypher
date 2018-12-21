@@ -1,6 +1,6 @@
 export default {
-  // Signed in user (identifier)
-  user: { phone: null, name: null },
+  // Current signed in phone
+  currentPhone: null,
   // API token
   token: null,
 }
