@@ -100,7 +100,7 @@ class User < ApplicationRecord
   end
 
   def send_verification_pin
-    self.pin = rand.to_s[2..7].to_i
+    self.pin = rand 100_000..999_999
     self.pin_sent_at = Time.now.utc
 
     save
