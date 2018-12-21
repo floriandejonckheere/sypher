@@ -77,11 +77,13 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     computed: {
-      user() {
-        return this.$store.getters['users/get'](this.$store.getters['auth/getCurrentPhone'])
-      },
-    }
+      ...mapGetters({
+        user: 'auth/getCurrent',
+      }),
+    },
   }
 </script>
