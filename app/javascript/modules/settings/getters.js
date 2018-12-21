@@ -1,23 +1,29 @@
 export default {
-  getSeenScope: (state, getters, rootState, rootGetters) => {
+  getCurrentSettings: (state, getters, rootState, rootGetters) => {
     const phone = rootGetters['auth/getCurrentPhone']
 
-    return state[phone].account.seenScope
-  },
-  getReadScope: (state, getters, rootState, rootGetters) => {
-    const phone = rootGetters['auth/getCurrentPhone']
-
-    return state[phone].account.readScope
+    if (phone && state[phone]) return state[phone]
   },
 
-  getNotifications: (state, getters, rootState, rootGetters) => {
-    const phone = rootGetters['auth/getCurrentPhone']
+  getSeenScope: (state, getters) => {
+    const settings = getters['getCurrentSettings']
 
-    return state[phone].device.notifications
+    if (settings) return settings.account.seenScope
   },
-  getVibrate: (state, getters, rootState, rootGetters) => {
-    const phone = rootGetters['auth/getCurrentPhone']
+  getReadScope: (state, getters) => {
+    const settings = getters['getCurrentSettings']
 
-    return state[phone].device.vibrate
+    if (settings) return settings.account.readScope
+  },
+
+  getNotifications: (state, getters) => {
+    const settings = getters['getCurrentSettings']
+
+    if (settings) return settings.device.notifications
+  },
+  getVibrate: (state, getters) => {
+    const settings = getters['getCurrentSettings']
+
+    if (settings) return settings.device.vibrate
   },
 }
