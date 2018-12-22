@@ -5,7 +5,7 @@ export default {
   getCurrent: (state, getters, rootState, rootGetters) => {
     const phone = rootGetters['auth/getCurrentPhone']
 
-    getters['get'](phone)
+    return getters['get'](phone)
   },
   getAllAlphabetically: state => {
     return Object.values(state).sort((a, b) => {

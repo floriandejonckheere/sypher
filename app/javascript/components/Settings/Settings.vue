@@ -82,7 +82,7 @@
   export default {
     computed: {
       ...mapGetters({
-        user: 'auth/getCurrent',
+        user: 'users/getCurrent',
       }),
     },
   }
