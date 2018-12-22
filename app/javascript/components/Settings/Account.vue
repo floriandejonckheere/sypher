@@ -167,8 +167,8 @@
       },
       scopes,
 
-      seenScope: scopes.EVERYONE,
-      readScope: scopes.CONTACTS,
+      seenScope: null,
+      readScope: null,
 
       errors: null,
 

@@ -25,4 +25,9 @@ class MutationPolicy < ApplicationPolicy
     # Only signed in users can set privacy
     !user.nil?
   end
+
+  def update_user?
+    # Only signed in users can update user
+    !user.nil?
+  end
 end

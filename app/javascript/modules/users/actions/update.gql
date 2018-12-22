@@ -1,0 +1,6 @@
+mutation updateUser($name: String!) {
+  updateUser(input: { name: $name }) {
+    user { name phone }
+    errors
+  }
+}

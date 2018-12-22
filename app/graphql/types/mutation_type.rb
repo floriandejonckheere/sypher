@@ -19,5 +19,8 @@ module Types
 
     field :set_privacy,
           :mutation => Mutations::SetPrivacy
+
+    field :update_user,
+          :mutation => Mutations::UpdateUser
   end
 end
