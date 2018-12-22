@@ -11,7 +11,7 @@
             apply)</p>
         </v-flex>
         <v-flex xs8>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-model="valid" @submit="submit">
             <v-container fluid grid-list-md>
               <v-layout row>
                 <v-flex xs2>
@@ -87,7 +87,9 @@
       ],
     }),
     methods: {
-      submit () {
+      submit (e) {
+        e.preventDefault()
+
         if (this.$refs.form.validate()) {
           const phone = `+${this.country}${this.phone}`
 

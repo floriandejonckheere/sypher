@@ -51,7 +51,7 @@
       <v-card>
         <v-card-title class="headline">Change name</v-card-title>
         <v-card-text>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-model="valid" @submit="update">
             <v-text-field
                     autofocus
                     name="name"
@@ -106,11 +106,15 @@
       }),
     },
     methods: {
-      update() {
-        this.dialog.name = false
+      update(e) {
+        e.preventDefault()
 
-        this.$store.dispatch('users/update', { name: this.name })
-          .catch((e) => { this.errors = e })
+        if (this.$refs.form.validate()) {
+          this.dialog.name = false
+
+          this.$store.dispatch('users/update', {name: this.name})
+            .catch((e) => { this.errors = e })
+        }
       },
     },
     mounted: function() {

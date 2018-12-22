@@ -10,7 +10,7 @@
           <p class="caption">Please enter the six-digit code that was sent to your phone</p>
         </v-flex>
         <v-flex xs8>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-model="valid" @submit="submit">
             <v-text-field
                     autofocus
                     name="pin"
@@ -66,7 +66,9 @@
       ],
     }),
     methods: {
-      submit () {
+      submit (e) {
+        e.preventDefault()
+
         if (this.$refs.form.validate()) {
           const phone = this.$store.getters['auth/getCurrentPhone']
           const pin = parseInt(this.pin)

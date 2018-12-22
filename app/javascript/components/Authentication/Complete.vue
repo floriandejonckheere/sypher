@@ -10,7 +10,7 @@
           <p class="caption">Enter your name to let people know who you are</p>
         </v-flex>
         <v-flex xs8>
-          <v-form ref="form" v-model="valid">
+          <v-form ref="form" v-model="valid" @submit="submit">
             <v-text-field
                     autofocus
                     name="name"
@@ -63,7 +63,9 @@
       ],
     }),
     methods: {
-      submit () {
+      submit (e) {
+        e.preventDefault()
+
         if (this.$refs.form.validate()) {
           this.$store.dispatch('users/complete', { name: this.name })
             .then(() => { this.$router.push({ name: 'channels' }) })
