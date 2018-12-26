@@ -1,7 +1,9 @@
 import Vue from 'vue'
 
+export const setType = 'users/SET'
+
 export default {
-  set: (state, payload) => {
+  [setType]: (state, payload) => {
     const { user }  = payload
 
     Vue.set(state, user.phone, user)

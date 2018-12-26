@@ -1,6 +1,0 @@
-mutation completeUser($name: String!) {
-  completeUser(input: { name: $name }) {
-    user { name phone }
-    errors
-  }
-}

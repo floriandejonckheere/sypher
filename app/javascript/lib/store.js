@@ -9,6 +9,8 @@ import users from 'modules/users'
 
 Vue.use(Vuex)
 
+export const resetType = 'root/RESET'
+
 const initialState = {
   auth: auth.state,
   requests: requests.state,
@@ -31,7 +33,7 @@ const store = new Vuex.Store({
   // Root mutations
   mutations: {
     // Reset state
-    reset (state) {
+    [resetType] (state) {
       Object.keys(state).forEach(key => {
         Object.assign(state[key], initialState[key])
       })

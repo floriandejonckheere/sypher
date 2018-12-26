@@ -1,14 +1,16 @@
 import client from 'lib/apollo'
+import { resetType } from 'lib/store'
 
-import requests from '../requests'
+import { type as requestType } from 'modules/requests/actions/doRequest'
 
 import destroy from './destroy.gql'
 
+export const type = 'users/DESTROY'
 export default async ({ commit, dispatch }) => {
-  return dispatch('requests/doRequest', {
-    requestType: requests.destroy,
+  return dispatch(requestType, {
+    requestType: type,
     request: () => client.mutate({ mutation: destroy })
   }, { root: true }).then(() => {
-    commit('reset', null, { root: true })
+    commit(resetType, null, { root: true })
   })
 }
