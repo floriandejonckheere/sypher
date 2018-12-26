@@ -1,12 +1,14 @@
 import client from 'lib/apollo'
 
+import { type as requestType } from 'modules/requests/actions/doRequest'
+
 import setPrivacy from './setPrivacy.gql'
 
 export const type = 'settings/SET_PRIVACY'
 export default async ({ commit, dispatch, rootGetters }, payload) => {
   const { seenScope, readScope } = payload
 
-  return dispatch('requests/doRequest', {
+  return dispatch(requestType, {
     requestType: type,
     request: () => client.mutate({ mutation: setPrivacy, variables: { seenScope, readScope } })
   }, { root: true }).then(() => {
