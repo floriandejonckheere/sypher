@@ -2,8 +2,10 @@ import signout from './signout'
 import verifyPhone from './verifyPhone'
 import verifyPin from './verifyPin'
 
+import { actions as t } from '../types'
+
 export default {
-  [signout.type]: signout,
-  [verifyPhone.type]: verifyPhone,
-  [verifyPin.type]: verifyPin,
+  [t.signout]: signout,
+  [t.verifyPhone]: verifyPhone,
+  [t.verifyPin]: verifyPin,
 }

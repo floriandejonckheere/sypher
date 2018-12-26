@@ -1,7 +1,6 @@
-import { setCurrentPhoneType, setTokenType } from '../mutations'
+import { mutations } from '../types'
 
-export const type = 'auth/SIGNOUT'
 export default async ({ commit }) => {
-  commit(setCurrentPhoneType, { phone: null })
-  commit(setTokenType, { token: null })
+  commit(mutations.setCurrentPhone, { phone: null })
+  commit(mutations.setToken, { token: null })
 }
