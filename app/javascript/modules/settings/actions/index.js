@@ -2,6 +2,6 @@ import setNotifications from './setNotifications'
 import setPrivacy from './setPrivacy'
 
 export default {
-  setNotifications,
-  setPrivacy,
+  [setNotifications.type]: setNotifications,
+  [setPrivacy.type]: setPrivacy,
 }
