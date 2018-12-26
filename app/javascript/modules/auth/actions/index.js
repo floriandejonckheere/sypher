@@ -3,7 +3,7 @@ import verifyPhone from './verifyPhone'
 import verifyPin from './verifyPin'
 
 export default {
-  signout,
-  verifyPhone,
-  verifyPin,
+  [signout.type]: signout,
+  [verifyPhone.type]: verifyPhone,
+  [verifyPin.type]: verifyPin,
 }
