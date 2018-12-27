@@ -1,5 +1,7 @@
-import doRequest from './doRequest'
+import request from './request'
+
+import { actions as t } from '../types'
 
 export default {
-  [doRequest.type]: doRequest,
+  [t.request]: request,
 }

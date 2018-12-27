@@ -1,8 +1,9 @@
 import Vue from 'vue'
 
-export const setStateType = 'requests/SET_STATE'
+import { mutations as  t } from './types'
+
 export default {
-  [setStateType]: (state, payload) => {
+  [t.setState]: (state, payload) => {
     const { requestType, requestState } = payload
 
     Vue.set(state.requests, requestType, requestState)
