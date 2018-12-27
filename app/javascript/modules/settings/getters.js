@@ -1,28 +1,31 @@
+import auth from 'modules/auth'
+
+import { getters as t } from './types'
+
 export default {
-  getCurrentSettings: (state, getters, rootState, rootGetters) => {
-    const phone = rootGetters['auth/getCurrentPhone']
+  [t.getCurrent]: (state, getters) => {
+    const phone = getters[auth.types.getters.getCurrentPhone]
 
     if (phone && state[phone]) return state[phone]
   },
-
-  getSeenScope: (state, getters) => {
-    const settings = getters['getCurrentSettings']
+  [t.getSeenScope]: (state, getters) => {
+    const settings = getters[t.getCurrent]
 
     if (settings) return settings.account.seenScope
   },
-  getReadScope: (state, getters) => {
-    const settings = getters['getCurrentSettings']
+  [t.getReadScope]: (state, getters) => {
+    const settings = getters[t.getCurrent]
 
     if (settings) return settings.account.readScope
   },
 
-  getNotifications: (state, getters) => {
-    const settings = getters['getCurrentSettings']
+  [t.getNotifications]: (state, getters) => {
+    const settings = getters[t.getCurrent]
 
     if (settings) return settings.device.notifications
   },
-  getVibrate: (state, getters) => {
-    const settings = getters['getCurrentSettings']
+  [t.getVibrate]: (state, getters) => {
+    const settings = getters[t.getCurrent]
 
     if (settings) return settings.device.vibrate
   },

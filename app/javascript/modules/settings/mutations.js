@@ -1,15 +1,14 @@
 import Vue from 'vue'
 
-import setPrivacy from './actions/setPrivacy'
-import setNotifications from './actions/setNotifications'
+import { mutations as t } from './types'
 
 export default {
-  [setPrivacy.type]: (state, payload) => {
+  [t.setPrivacy]: (state, payload) => {
     const { phone, seenScope, readScope } = payload
 
     Vue.set(state[phone], 'account', { seenScope, readScope })
   },
-  [setNotifications.type]: (state, payload) => {
+  [t.setNotifications]: (state, payload) => {
     const { phone, notifications, vibrate } = payload
 
     Vue.set(state[phone], 'device', { notifications, vibrate })
