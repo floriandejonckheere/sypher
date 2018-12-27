@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
-export const setType = 'users/SET'
+import { mutations as t } from './types'
 
 export default {
-  [setType]: (state, payload) => {
+  [t.set]: (state, payload) => {
     const { user }  = payload
 
     Vue.set(state, user.phone, user)

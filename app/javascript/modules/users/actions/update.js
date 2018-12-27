@@ -1,19 +1,18 @@
 import client from 'lib/apollo'
 
-import { type as requestType } from 'modules/requests/actions/doRequest'
+import requests from 'modules/requests'
 
-import { setType } from '../mutations'
+import { actions as t, mutations as mt } from '../types'
 
 import updateUser from './update.gql'
 
-export const type = 'users/UPDATE'
 export default async ({ commit, dispatch }, payload) => {
   const { name } = payload
 
-  return dispatch(requestType, {
-    requestType: type,
+  return dispatch(requests.types.actions.request, {
+    requestType: t.update,
     request: () => client.mutate({ mutation: updateUser, variables: { name } })
-  }, { root: true }).then((data) => {
-    commit(setType, { user: data.updateUser.user })
+  }).then((data) => {
+    commit(mt.set, { user: data.updateUser.user })
   })
 }

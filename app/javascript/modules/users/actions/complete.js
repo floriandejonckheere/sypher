@@ -1,26 +1,31 @@
 import client from 'lib/apollo'
 
-import { type as requestType } from 'modules/requests/actions/doRequest'
-import { scopes } from 'modules/settings/state'
-import { type as setPrivacyType } from 'modules/settings/actions/setPrivacy'
-import { type as setNotificationsType } from 'modules/settings/actions/setNotifications'
+import requests from 'modules/requests'
+import settings from 'modules/settings'
 
-import { setType } from '../mutations'
+import { actions as t, mutations as mt } from '../types'
 
 import completeUser from './complete.gql'
 
-export const type = 'users/COMPLETE'
+const { scopes } = settings
+
 export default async ({ commit, dispatch }, payload) => {
   const { name } = payload
 
-  return dispatch(requestType, {
-    requestType: type,
+  return dispatch(requests.types.actions.request, {
+    requestType: t.complete,
     request: () => client.mutate({ mutation: completeUser, variables: { name } })
-  }, { root: true }).then((data) => {
-    commit(setType, { user: data.completeUser.user })
+  }).then((data) => {
+    commit(mt.set, { user: data.completeUser.user })
 
     // TODO: sync user data, set defaults
-    dispatch(setPrivacyType, { seenScope: scopes.EVERYONE, readScope: scopes.CONTACTS }, { root: true })
-    dispatch(setNotificationsType, { notifications: true, vibrate: true }, { root: true })
+    dispatch(settings.types.actions.setPrivacy, {
+      seenScope: scopes.EVERYONE,
+      readScope: scopes.CONTACTS,
+    })
+    dispatch(settings.types.actions.setNotifications, {
+      notifications: true,
+      vibrate: true,
+    })
   })
 }

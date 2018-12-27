@@ -1,13 +1,17 @@
+import auth from 'modules/auth'
+
+import { getters as t } from './types'
+
 export default {
-  get: state => phone => {
+  [t.get]: state => phone => {
     return state[phone]
   },
-  getCurrent: (state, getters, rootState, rootGetters) => {
-    const phone = rootGetters['auth/getCurrentPhone']
+  [t.getCurrent]: (state, getters) => {
+    const phone = getters[auth.types.getters.getCurrentPhone]
 
-    return getters['get'](phone)
+    return getters[t.get](phone)
   },
-  getAllAlphabetically: state => {
+  [t.getAll]: state => {
     return Object.values(state).sort((a, b) => {
       return (a.name < b.name) ? -1 : ((a.name > b.name) ? 1 : 0)
     })
