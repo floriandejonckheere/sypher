@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 import store from 'lib/store'
 
+import auth from 'modules/auth'
+
 // Components
 import Frame from 'components/Frame'
 
@@ -34,8 +36,8 @@ Vue.use(Router)
  */
 // Navigation guard for application pages
 const applicationGuard = (to, from, next) => {
-  const authenticated = store.getters['auth/isAuthenticated']
-  const complete = store.getters['auth/isComplete']
+  const authenticated = store.getters[auth.types.getters.isAuthenticated]
+  const complete = store.getters[auth.types.getters.isComplete]
 
   if (authenticated) {
     complete ? next() : next({ name: 'complete' })
@@ -44,8 +46,8 @@ const applicationGuard = (to, from, next) => {
 
 // Navigation guard for auth/{welcome,verify,pin} pages
 const authenticationGuard = (to, from, next) => {
-  const authenticated = store.getters['auth/isAuthenticated']
-  const complete = store.getters['auth/isComplete']
+  const authenticated = store.getters[auth.types.getters.isAuthenticated]
+  const complete = store.getters[auth.types.getters.isComplete]
 
   if (authenticated) {
     complete ? next({ name: 'root' }) : next({ name: 'complete' })
@@ -54,8 +56,8 @@ const authenticationGuard = (to, from, next) => {
 
 // Navigation guard for auth/complete page
 const authorizationGuard = (to, from, next) => {
-  const authenticated = store.getters['auth/isAuthenticated']
-  const complete = store.getters['auth/isComplete']
+  const authenticated = store.getters[auth.types.getters.isAuthenticated]
+  const complete = store.getters[auth.types.getters.isComplete]
 
   if (authenticated) {
     complete ? next({ name: 'root' }) : next()

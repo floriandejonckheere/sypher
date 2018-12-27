@@ -11,10 +11,9 @@
 </template>
 
 <script>
+  import requests from 'modules/requests'
+
   export default {
-    // data: function () {
-    //   return {}
-    // },
     props: {
       types: { type: Array, default: () => [] },
     },
@@ -22,7 +21,7 @@
       isPending() {
         // Return false if no requests are pending
         return this.types
-          .map(t => this.$store.getters['requests/isPending'](t))
+          .map(t => this.$store.getters[requests.types.getters.isPending](t))
           .reduce((acc, curr) => acc || curr, false)
       }
     }

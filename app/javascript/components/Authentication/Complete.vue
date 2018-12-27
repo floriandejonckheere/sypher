@@ -59,7 +59,7 @@
       errors: null,
 
       requestTypes: [
-        users.requests.complete,
+        users.types.actions.complete,
       ],
     }),
     methods: {
@@ -67,7 +67,7 @@
         e.preventDefault()
 
         if (this.$refs.form.validate()) {
-          this.$store.dispatch('users/complete', { name: this.name })
+          this.$store.dispatch(users.types.actions.complete, { name: this.name })
             .then(() => { this.$router.push({ name: 'channels' }) })
             .catch((e) => { this.errors = e })
         }

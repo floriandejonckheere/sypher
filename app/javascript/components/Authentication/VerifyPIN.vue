@@ -62,7 +62,7 @@
       errors: null,
 
       requestTypes: [
-        auth.requests.verifyPin,
+        auth.types.actions.verifyPin,
       ],
     }),
     methods: {
@@ -70,10 +70,10 @@
         e.preventDefault()
 
         if (this.$refs.form.validate()) {
-          const phone = this.$store.getters['auth/getCurrentPhone']
+          const phone = this.$store.getters[auth.types.getters.getCurrentPhone]
           const pin = parseInt(this.pin)
 
-          this.$store.dispatch('auth/verifyPin', { phone, pin })
+          this.$store.dispatch(auth.types.actions.verifyPin, { phone, pin })
             .then(() => { this.$router.push({ name: 'complete' }) })
             .catch((e) => { this.errors = e })
         }

@@ -1,3 +1,5 @@
+import users from 'modules/users'
+
 import { getters as t } from './types'
 
 export default {
@@ -6,8 +8,8 @@ export default {
     return state.token != null
   },
   // State contains an authenticated, complete user
-  [t.isComplete]: (state, getters, rootState, rootGetters) => {
-    const user = rootGetters['users/get'](state.currentPhone)
+  [t.isComplete]: (state, getters) => {
+    const user = getters[users.types.getters.get](state.currentPhone)
 
     return state.currentPhone != null && state.token != null && user != null
   },

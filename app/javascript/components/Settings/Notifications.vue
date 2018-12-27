@@ -54,6 +54,8 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import settings from 'modules/settings'
+
   export default {
     data () {
       return {
@@ -63,20 +65,20 @@
     },
     computed: {
       ...mapGetters({
-        getNotifications: 'settings/getNotifications',
-        getVibrate: 'settings/getVibrate',
+        getNotifications: settings.types.getters.getNotifications,
+        getVibrate: settings.types.getters.getVibrate,
       })
     },
     methods: {
       toggleNotifications() {
         this.notifications = !this.notifications
 
-        this.$store.dispatch('settings/setNotifications', { notifications: this.notifications, vibrate: this.vibrate })
+        this.$store.dispatch(settings.types.actions.setNotifications, { notifications: this.notifications, vibrate: this.vibrate })
       },
       toggleVibrate() {
         this.vibrate = !this.vibrate
 
-        this.$store.dispatch('settings/setNotifications', { notifications: this.notifications, vibrate: this.vibrate })
+        this.$store.dispatch(settings.types.actions.setNotifications, { notifications: this.notifications, vibrate: this.vibrate })
       },
     },
     mounted: function() {

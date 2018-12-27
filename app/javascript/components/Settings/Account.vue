@@ -153,6 +153,7 @@
   import RequestSpinner from 'components/RequestSpinner'
   import Alert from 'components/Alert'
 
+  import auth from 'modules/auth'
   import users from 'modules/users'
   import settings from 'modules/settings'
 
@@ -173,31 +174,32 @@
       errors: null,
 
       requestTypes: [
-        users.requests.destroy,
-        settings.requests.setPrivacy,
+        users.types.actions.destroy,
+        settings.types.actions.setPrivacy,
       ],
     }),
     computed: {
       ...mapGetters({
-        getSeenScope: 'settings/getSeenScope',
-        getReadScope: 'settings/getReadScope',
+        getSeenScope: settings.types.getters.getSeenScope,
+        getReadScope: settings.types.getters.getReadScope,
       }),
     },
     methods: {
       destroy() {
         this.dialog.delete = false
 
-        this.$store.dispatch(users.requests.destroy)
+        this.$store.dispatch(users.actions.types.destroy)
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },
       signout() {
-        this.$store.dispatch('auth/signout')
+        this.$store.dispatch(auth.types.actions.signout)
           .then(() => { this.$router.push({ name: 'welcome' }) })
           .catch((e) => { this.errors = e })
       },
       setPrivacy() {
-        this.$store.dispatch('settings/setPrivacy', { seenScope: this.seenScope, readScope: this.readScope })
+        this.$store.dispatch(settings.types.actions.setPrivacy,
+          { seenScope: this.seenScope, readScope: this.readScope })
           .then(() => {
             this.dialog.seen = false
             this.dialog.read = false

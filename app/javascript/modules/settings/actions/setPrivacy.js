@@ -13,7 +13,7 @@ export default async ({ commit, dispatch, getters }, payload) => {
   return dispatch(requests.types.actions.request, {
     requestType: t.setPrivacy,
     request: () => client.mutate({ mutation: setPrivacy, variables: { seenScope, readScope } })
-  }, { root: true }).then(() => {
+  }).then(() => {
     const phone = getters[auth.types.getters.getCurrentPhone]
 
     commit(mt.setPrivacy, { phone, seenScope, readScope })

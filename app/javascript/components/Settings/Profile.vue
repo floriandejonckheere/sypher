@@ -97,12 +97,12 @@
       errors: null,
 
       requestTypes: [
-        users.requests.update,
+        users.types.actions.update,
       ]
     }),
     computed: {
       ...mapGetters({
-        user: 'users/getCurrent',
+        user: users.types.getters.getCurrent,
       }),
     },
     methods: {
@@ -112,7 +112,7 @@
         if (this.$refs.form.validate()) {
           this.dialog.name = false
 
-          this.$store.dispatch('users/update', {name: this.name})
+          this.$store.dispatch(users.types.actions.update, { name: this.name })
             .catch((e) => { this.errors = e })
         }
       },

@@ -79,10 +79,12 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import users from 'modules/users'
+
   export default {
     computed: {
       ...mapGetters({
-        user: 'users/getCurrent',
+        user: users.types.getters.getCurrent,
       }),
     },
   }

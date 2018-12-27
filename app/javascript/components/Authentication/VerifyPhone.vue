@@ -83,7 +83,7 @@
       errors: null,
 
       requestTypes: [
-        auth.requests.verifyPhone,
+        auth.types.actions.verifyPhone,
       ],
     }),
     methods: {
@@ -93,7 +93,7 @@
         if (this.$refs.form.validate()) {
           const phone = `+${this.country}${this.phone}`
 
-          this.$store.dispatch('auth/verifyPhone', { phone })
+          this.$store.dispatch(auth.types.actions.verifyPhone, { phone })
             .then(() => { this.$router.push({ name: 'pin' }) })
             .catch((e) => { this.errors = e })
         }
