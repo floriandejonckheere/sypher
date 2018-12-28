@@ -30,4 +30,9 @@ class MutationPolicy < ApplicationPolicy
     # Only signed in users can update user
     !user.nil?
   end
+
+  def add_contact?
+    # Only signed in users can add contact
+    !user.nil?
+  end
 end

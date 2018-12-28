@@ -26,10 +26,10 @@ describe MutationPolicy do
     let(:user) { nil }
 
     it { is_expected.to permit_actions %i[verify_phone verify_pin] }
-    it { is_expected.to forbid_actions %i[complete_user delete_user set_privacy] }
+    it { is_expected.to forbid_actions %i[complete_user delete_user set_privacy update_user] }
   end
 
   context 'when there is a user' do
-    it { is_expected.to permit_actions %i[verify_phone verify_pin complete_user delete_user set_privacy] }
+    it { is_expected.to permit_actions %i[verify_phone verify_pin complete_user delete_user set_privacy update_user add_contact] }
   end
 end

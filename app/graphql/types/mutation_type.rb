@@ -22,5 +22,9 @@ module Types
 
     field :update_user,
           :mutation => Mutations::UpdateUser
+
+    # Contacts
+    field :add_contact,
+          :mutation => Mutations::AddContact
   end
 end

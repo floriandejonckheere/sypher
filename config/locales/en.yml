@@ -52,3 +52,7 @@ en:
           attributes:
             memberships:
               maximum_members: "must contain at most two members"
+        contact:
+          attributes:
+            contact:
+              cannot_be_the_same: "cannot be the same as user"
