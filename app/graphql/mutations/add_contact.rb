@@ -28,11 +28,9 @@ module Mutations
     # Resolver
     #
     def resolve(params)
-      user = context[:current_user]
       contact_user = User.find_by_phone(params[:phone])
 
-      contact = Contact.new :user => user,
-                            :contact => contact_user
+      contact = context[:current_user].contacts.build :contact => contact_user
 
       if contact.save
         {
