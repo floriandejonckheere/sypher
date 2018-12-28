@@ -9,7 +9,7 @@
 
       <v-toolbar-title>
         Contacts
-        <div class="caption">{{ users.length }} contacts</div>
+        <div class="caption">{{ contacts.length }} contacts</div>
       </v-toolbar-title>
       <v-spacer />
 
@@ -19,15 +19,15 @@
     </v-toolbar>
 
     <v-list one-line>
-      <template v-for="(user, index) in users">
-        <v-list-tile avatar :to="`/channels/${user.id}`">
+      <template v-for="(contact, index) in contacts">
+        <v-list-tile avatar :to="`/channels/${contact.id}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <strong>{{ user.name }}</strong>
+              <strong>{{ contact.name }}</strong>
             </v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -39,11 +39,18 @@
 <script>
   import { mapGetters } from 'vuex'
 
+  import contacts from 'modules/contacts'
+  import users from 'modules/users'
+
   export default {
     computed: {
       ...mapGetters({
-        users: 'users/getAllAlphabetically',
+        getUser: users.types.getters.get,
+        getAll: contacts.types.getters.getAll,
       }),
+      contacts() {
+        return this.getAll.map(c => this.getUser(c))
+      },
     },
   }
 </script>
