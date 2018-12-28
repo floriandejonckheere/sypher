@@ -1,0 +1,6 @@
+mutation deleteContact($phone: String!) {
+  deleteContact(input: { phone: $phone }) {
+    phone
+    errors
+  }
+}
