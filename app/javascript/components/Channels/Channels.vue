@@ -67,12 +67,16 @@
         <v-icon>message</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
-      <v-btn fab dark small color="secondary" to="/channels/group">
-        <v-icon>group_add</v-icon>
-      </v-btn>
-      <v-btn fab dark small color="secondary" to="/channels/conversation">
-        <v-icon>person_add</v-icon>
-      </v-btn>
+      <router-link to="/channels/group">
+        <v-btn fab dark small color="secondary" >
+          <v-icon>group_add</v-icon>
+        </v-btn>
+      </router-link>
+      <router-link to="/channels/conversation">
+        <v-btn fab dark small color="secondary">
+          <v-icon>person_add</v-icon>
+        </v-btn>
+      </router-link>
     </v-speed-dial>
   </v-content>
 </template>

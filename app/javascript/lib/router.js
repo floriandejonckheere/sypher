@@ -18,6 +18,7 @@ import Channel from 'components/Channels/Channel'
 
 import Contacts from 'components/Contacts/Contacts'
 import Contact from 'components/Contacts/Contact'
+import AddContact from 'components/Contacts/Add'
 
 import CreateConversation from 'components/Channels/CreateConversation'
 import CreateGroup from 'components/Channels/CreateGroup'
@@ -111,6 +112,11 @@ const router = new Router({
           path: '',
           name: 'contacts',
           component: Contacts,
+        },
+        {
+          path: 'add',
+          name: 'add',
+          component: AddContact,
         },
         {
           path: ':id',

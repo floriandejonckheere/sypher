@@ -1,0 +1,6 @@
+mutation addContact($phone: String!) {
+  addContact(input: { phone: $phone }) {
+    phone
+    errors
+  }
+}

@@ -1,4 +1,5 @@
 export const actions = {
+  add: 'contacts/ADD',
 }
 
 export const getters = {
@@ -6,6 +7,7 @@ export const getters = {
 }
 
 export const mutations = {
+  add: 'contacts/ADD',
 }
 
 export default {

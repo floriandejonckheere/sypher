@@ -12,27 +12,34 @@
         <div class="caption">{{ contacts.length }} contacts</div>
       </v-toolbar-title>
       <v-spacer />
-
-      <v-btn icon>
-        <v-icon>add</v-icon>
-      </v-btn>
     </v-toolbar>
 
     <v-list one-line>
       <template v-for="(contact, index) in contacts">
-        <v-list-tile avatar :to="`/channels/${contact.id}`">
+        <v-list-tile avatar :to="`/contacts/${contact.phone}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <strong>{{ contact.name }}</strong>
+              <strong>{{ contact.name || contact.phone }}</strong>
             </v-list-tile-title>
+            <v-list-tile-sub-title>
+              <strong>{{ contact.name ? contact.phone : null}}</strong>
+            </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </template>
     </v-list>
+
+    <router-link to="/contacts/add">
+      <v-btn
+        dark fab hover large fixed bottom right color="primary"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </router-link>
   </v-content>
 </template>
 
@@ -49,7 +56,7 @@
         getAll: contacts.types.getters.getAll,
       }),
       contacts() {
-        return this.getAll.map(c => this.getUser(c))
+        return this.getAll.map(c => this.getUser(c) || { phone: c })
       },
     },
   }
