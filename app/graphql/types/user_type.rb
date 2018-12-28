@@ -13,6 +13,17 @@ module Types
           String,
           :null => true
 
+    field :contacts,
+          [UserType],
+          :null => true
+
+    ##
+    # Field methods
+    #
+    def contacts
+      object.contact_users if context[:current_user].phone == phone
+    end
+
     ##
     # Authorization
     #
