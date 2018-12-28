@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_194247) do
+ActiveRecord::Schema.define(version: 2018_12_28_084206) do
 
   create_table "blocked", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 2018_12_11_194247) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "contacts", id: false, force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "contact_user_id", null: false
+    t.index ["contact_user_id"], name: "index_contacts_on_contact_user_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "memberships", force: :cascade do |t|
