@@ -119,7 +119,7 @@ const router = new Router({
           component: AddContact,
         },
         {
-          path: ':id',
+          path: ':phone',
           name: 'contact',
           component: Contact,
         }
