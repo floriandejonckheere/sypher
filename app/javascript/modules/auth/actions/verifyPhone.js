@@ -12,7 +12,7 @@ export default async ({ commit, dispatch }, payload) => {
   return dispatch(requests.types.actions.request, {
     requestType: t.verifyPhone,
     request: () => client.mutate({ mutation: verifyPhone, variables: { phone } })
-  }).then((data) => {
+  }).then(data => {
     commit(mutations.setCurrentPhone, { phone: data.verifyPhone.phone })
   })
 }

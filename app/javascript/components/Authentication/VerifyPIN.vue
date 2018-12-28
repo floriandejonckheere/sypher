@@ -75,7 +75,7 @@
 
           this.$store.dispatch(auth.types.actions.verifyPin, { phone, pin })
             .then(() => { this.$router.push({ name: 'complete' }) })
-            .catch((e) => { this.errors = e })
+            .catch(e => { this.errors = e })
         }
       },
     },

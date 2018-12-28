@@ -4,15 +4,15 @@ import requests from 'modules/requests'
 
 import { actions as t, mutations as mt } from '../types'
 
-import updateUser from './update.gql'
+import getUser from './get.gql'
 
 export default async ({ commit, dispatch }, payload) => {
-  const { name } = payload
+  const { phone } = payload
 
   return dispatch(requests.types.actions.request, {
-    requestType: t.update,
-    request: () => client.mutate({ mutation: updateUser, variables: { name } })
+    requestType: t.get,
+    request: () => client.query({ query: getUser, variables: { phone } })
   }).then(data => {
-    commit(mt.set, { user: data.updateUser.user })
+    commit(mt.set, { user: data.user })
   })
 }

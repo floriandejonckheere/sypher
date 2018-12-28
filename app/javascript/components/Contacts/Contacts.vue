@@ -14,7 +14,7 @@
       <v-spacer />
     </v-toolbar>
 
-    <v-list one-line>
+    <v-list two-line>
       <template v-for="(contact, index) in contacts">
         <v-list-tile avatar :to="`/contacts/${contact.phone}`">
           <v-list-tile-avatar>

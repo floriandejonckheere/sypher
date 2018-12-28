@@ -1,0 +1,6 @@
+query user($phone: String!) {
+  user(phone: $phone) {
+    name
+    phone
+  }
+}

@@ -62,13 +62,13 @@
   export default {
     data: () => ({
       valid: false,
-      country: '',
+      country: '32',
       countryRules: [
         v => !!v || 'Country code is required',
         v => /^[0-9]{1,3}$/.test(v) || 'Invalid country code',
       ],
 
-      phone: '',
+      phone: '471457121',
       phoneRules: [
         v => !!v || 'Phone is required',
         v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
@@ -89,7 +89,7 @@
 
           this.$store.dispatch(contacts.types.actions.add, { phone })
             .then(() => { this.$router.push({ name: 'contacts' }) })
-            .catch((e) => { this.errors = e })
+            .catch(e => { this.errors = e })
         }
       },
     },

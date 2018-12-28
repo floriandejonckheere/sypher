@@ -1,9 +1,13 @@
 import complete from './complete'
 import destroy from './destroy'
+import get from './get'
 import update from './update'
 
+import { actions as t } from '../types'
+
 export default {
-  [complete.type]: complete,
-  [destroy.type]: destroy,
+  [t.complete]: complete,
+  [t.destroy]: destroy,
+  [t.get]: get,
   [update.type]: update,
 }

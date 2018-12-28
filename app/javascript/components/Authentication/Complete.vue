@@ -69,7 +69,7 @@
         if (this.$refs.form.validate()) {
           this.$store.dispatch(users.types.actions.complete, { name: this.name })
             .then(() => { this.$router.push({ name: 'channels' }) })
-            .catch((e) => { this.errors = e })
+            .catch(e => { this.errors = e })
         }
       },
     },

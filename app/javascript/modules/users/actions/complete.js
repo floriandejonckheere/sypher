@@ -15,7 +15,7 @@ export default async ({ commit, dispatch }, payload) => {
   return dispatch(requests.types.actions.request, {
     requestType: t.complete,
     request: () => client.mutate({ mutation: completeUser, variables: { name } })
-  }).then((data) => {
+  }).then(data => {
     commit(mt.set, { user: data.completeUser.user })
 
     // TODO: sync user data, set defaults

@@ -113,7 +113,7 @@
           this.dialog.name = false
 
           this.$store.dispatch(users.types.actions.update, { name: this.name })
-            .catch((e) => { this.errors = e })
+            .catch(e => { this.errors = e })
         }
       },
     },

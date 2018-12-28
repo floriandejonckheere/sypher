@@ -11,7 +11,9 @@ export default async ({ commit }, payload) => {
     try {
       const response = await request()
 
-      const errorKeys = Object.keys(response.data).filter((m) => response.data[m].errors.length > 0)
+      const errorKeys = Object.keys(response.data).filter(m => {
+        return response.data[m].errors && response.data[m].errors.length > 0
+      })
 
       if (errorKeys.length > 0) {
         // Errors, reject with all errors
