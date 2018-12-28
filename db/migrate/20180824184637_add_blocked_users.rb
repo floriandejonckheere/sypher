@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Blocked < ActiveRecord::Migration[5.2]
+class AddBlockedUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :blocked, :force => true, :id => false do |t|
       t.integer :user_id, :null => false
