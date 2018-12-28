@@ -116,9 +116,11 @@ RSpec.describe User do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:messages).dependent(:destroy) }
-    it { is_expected.to have_many(:memberships).dependent(:destroy) }
-    it { is_expected.to have_many(:channels).through(:memberships) }
+    it { is_expected.to have_many(:messages).dependent :destroy }
+    it { is_expected.to have_many(:memberships).dependent :destroy }
+    it { is_expected.to have_many(:channels).through :memberships }
+    it { is_expected.to have_many(:contacts).dependent :destroy }
+    it { is_expected.to have_many(:contact_users).through(:contacts).source :contact }
   end
 
   describe 'scopes' do

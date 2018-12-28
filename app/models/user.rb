@@ -34,6 +34,13 @@ class User < ApplicationRecord
   has_many :channels,
            :through => :memberships
 
+  has_many :contacts,
+           :dependent => :destroy
+
+  has_many :contact_users,
+           :through => :contacts,
+           :source => :contact
+
   ##
   # Validations
   #
