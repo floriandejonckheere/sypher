@@ -85,15 +85,6 @@ RSpec.describe User do
       it { is_expected.to have_attributes :seen_scope => 'everyone' }
     end
 
-    describe 'has a default profile scope' do
-      let(:user) { create :user }
-
-      # Reload user from database to ensure default values are set
-      before { user.reload }
-
-      it { is_expected.to have_attributes :profile_scope => 'everyone' }
-    end
-
     describe 'has a default country code' do
       subject { create :user, :phone => '494456789' }
 
