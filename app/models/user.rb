@@ -34,12 +34,11 @@ class User < ApplicationRecord
   has_many :channels,
            :through => :memberships
 
-  has_many :contacts,
-           :dependent => :destroy
-
-  has_many :contact_users,
-           :through => :contacts,
-           :source => :contact
+  has_and_belongs_to_many :contacts,
+                          :class_name => 'User',
+                          :join_table => 'contacts',
+                          :foreign_key => 'user_id',
+                          :association_foreign_key => 'contact_id'
 
   ##
   # Validations

@@ -119,8 +119,8 @@ RSpec.describe User do
     it { is_expected.to have_many(:messages).dependent :destroy }
     it { is_expected.to have_many(:memberships).dependent :destroy }
     it { is_expected.to have_many(:channels).through :memberships }
-    it { is_expected.to have_many(:contacts).dependent :destroy }
-    it { is_expected.to have_many(:contact_users).through(:contacts).source :contact }
+    # FIXME: shoulda-matchers does not have a `association_foreign_key` qualifier
+    it { is_expected.to have_and_belong_to_many(:contacts).class_name('User').join_table('contacts').with_foreign_key 'user_id' }
   end
 
   describe 'scopes' do

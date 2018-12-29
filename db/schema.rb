@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_084206) do
+ActiveRecord::Schema.define(version: 2018_12_28_182459) do
 
   create_table "blocked", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "blocked_user_id", null: false
     t.index ["blocked_user_id"], name: "index_blocked_on_blocked_user_id"
+    t.index ["user_id", "blocked_user_id"], name: "index_blocked_on_user_id_and_blocked_user_id", unique: true
     t.index ["user_id"], name: "index_blocked_on_user_id"
   end
 
@@ -29,8 +30,9 @@ ActiveRecord::Schema.define(version: 2018_12_28_084206) do
 
   create_table "contacts", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "contact_user_id", null: false
-    t.index ["contact_user_id"], name: "index_contacts_on_contact_user_id"
+    t.integer "contact_id", null: false
+    t.index ["contact_id"], name: "index_contacts_on_contact_id"
+    t.index ["user_id", "contact_id"], name: "index_contacts_on_user_id_and_contact_id", unique: true
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
