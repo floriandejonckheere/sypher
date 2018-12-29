@@ -35,4 +35,9 @@ class MutationPolicy < ApplicationPolicy
     # Only signed in users can add contact
     !user.nil?
   end
+
+  def delete_contact?
+    # Only signed in users can delete contact
+    !user.nil?
+  end
 end

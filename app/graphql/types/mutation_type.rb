@@ -26,5 +26,8 @@ module Types
     # Contacts
     field :add_contact,
           :mutation => Mutations::AddContact
+
+    field :delete_contact,
+          :mutation => Mutations::DeleteContact
   end
 end
