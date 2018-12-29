@@ -171,7 +171,7 @@
       seenScope: null,
       readScope: null,
 
-      errors: null,
+      errors: [],
 
       requestTypes: [
         users.types.actions.destroy,
@@ -190,12 +190,12 @@
 
         this.$store.dispatch(users.actions.types.destroy)
           .then(() => { this.$router.push({ name: 'welcome' }) })
-          .catch(e => { this.errors = e })
+          .catch(e => { this.errors.push(e) })
       },
       signout() {
         this.$store.dispatch(auth.types.actions.signout)
           .then(() => { this.$router.push({ name: 'welcome' }) })
-          .catch(e => { this.errors = e })
+          .catch(e => { this.errors.push(e) })
       },
       setPrivacy() {
         this.$store.dispatch(settings.types.actions.setPrivacy,
@@ -204,7 +204,7 @@
             this.dialog.seen = false
             this.dialog.read = false
           })
-          .catch(e => { this.errors = e })
+          .catch(e => { this.errors.push(e) })
       },
     },
     mounted: function() {

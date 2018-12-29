@@ -59,7 +59,7 @@
         v => /^[0-9]{6}$/.test(v) || 'Invalid code',
       ],
 
-      errors: null,
+      errors: [],
 
       requestTypes: [
         auth.types.actions.verifyPin,
@@ -75,7 +75,7 @@
 
           this.$store.dispatch(auth.types.actions.verifyPin, { phone, pin })
             .then(() => { this.$router.push({ name: 'complete' }) })
-            .catch(e => { this.errors = e })
+            .catch(e => { this.errors.push(e) })
         }
       },
     },

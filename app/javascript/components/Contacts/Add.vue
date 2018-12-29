@@ -74,7 +74,7 @@
         v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
       ],
 
-      errors: null,
+      errors: [],
 
       requestTypes: [
         contacts.types.actions.add,
@@ -89,7 +89,7 @@
 
           this.$store.dispatch(contacts.types.actions.add, { phone })
             .then(() => { this.$router.push({ name: 'contacts' }) })
-            .catch(e => { this.errors = e })
+            .catch(e => { this.errors.push(e) })
         }
       },
     },

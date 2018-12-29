@@ -94,7 +94,7 @@
         v => /^.{1,20}/.test(v) || 'Name must be between 1 and 20 characters',
       ],
 
-      errors: null,
+      errors: [],
 
       requestTypes: [
         users.types.actions.update,
@@ -113,7 +113,7 @@
           this.dialog.name = false
 
           this.$store.dispatch(users.types.actions.update, { name: this.name })
-            .catch(e => { this.errors = e })
+            .catch(e => { this.errors.push(e) })
         }
       },
     },
