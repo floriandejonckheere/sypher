@@ -1,6 +1,6 @@
 export default {
   // Current signed in phone
-  currentPhone: null,
+  phone: null,
   // API token
   token: null,
 }

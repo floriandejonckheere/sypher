@@ -9,12 +9,12 @@ export default {
   },
   // State contains an authenticated, complete user
   [t.isComplete]: (state, getters) => {
-    const user = getters[users.types.getters.get](state.currentPhone)
+    const user = getters[users.types.getters.get](state.phone)
 
-    return state.currentPhone != null && state.token != null && user != null
+    return state.phone != null && state.token != null && user != null
   },
   // Get current signed in phone
-  [t.getCurrentPhone]: state => state.currentPhone,
+  [t.getPhone]: state => state.phone,
   // Get authentication token
   [t.getToken]: state => state.token,
 }

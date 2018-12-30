@@ -4,7 +4,7 @@ import { getters as t } from './types'
 
 export default {
   [t.getCurrent]: (state, getters) => {
-    const phone = getters[auth.types.getters.getCurrentPhone]
+    const phone = getters[auth.types.getters.getPhone]
 
     if (phone && state[phone]) return state[phone]
   },

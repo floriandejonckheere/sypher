@@ -66,7 +66,7 @@
         e.preventDefault()
 
         if (this.$refs.form.validate()) {
-          const phone = this.$store.getters[auth.types.getters.getCurrentPhone]
+          const phone = this.$store.getters[auth.types.getters.getPhone]
           const pin = parseInt(this.pin)
 
           this.$store.dispatch(auth.types.actions.verifyPin, { phone, pin })

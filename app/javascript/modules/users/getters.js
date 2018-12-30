@@ -7,7 +7,7 @@ export default {
     return state[phone]
   },
   [t.getCurrent]: (state, getters) => {
-    const phone = getters[auth.types.getters.getCurrentPhone]
+    const phone = getters[auth.types.getters.getPhone]
 
     return getters[t.get](phone)
   },

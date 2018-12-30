@@ -3,11 +3,11 @@ import client from 'lib/apollo'
 import requests from 'modules/requests'
 import settings from 'modules/settings'
 
+import { scopes } from 'modules/settings/state'
+
 import { actions as t, mutations as mt } from '../types'
 
 import completeUser from './complete.gql'
-
-const { scopes } = settings
 
 export default async ({ commit, dispatch }, payload) => {
   const { name } = payload

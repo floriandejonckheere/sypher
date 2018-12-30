@@ -6,9 +6,9 @@ export default {
 
     state.token = token
   },
-  [t.setCurrentPhone]: (state, payload) => {
+  [t.setPhone]: (state, payload) => {
     const { phone } = payload
 
-    state.currentPhone = phone
+    state.phone = phone
   },
 }

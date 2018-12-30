@@ -5,14 +5,14 @@ export const actions = {
 }
 
 export const getters = {
-  getCurrentPhone: 'auth/GET_CURRENT_PHONE',
+  getPhone: 'auth/GET_PHONE',
   getToken: 'auth/GET_TOKEN',
   isAuthenticated: 'auth/IS_AUTHENTICATED',
   isComplete: 'auth/IS_COMPLETE',
 }
 
 export const mutations = {
-  setCurrentPhone: 'auth/SET_CURRENT_PHONE',
+  setPhone: 'auth/SET_PHONE',
   setToken: 'auth/SET_TOKEN',
 }
 
