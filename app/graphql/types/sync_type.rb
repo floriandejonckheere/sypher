@@ -18,11 +18,11 @@ module Types
           :null => true
 
     field :read_scope,
-          Boolean,
+          String,
           :null => true
 
     field :seen_scope,
-          Boolean,
+          String,
           :null => true
 
     ##
