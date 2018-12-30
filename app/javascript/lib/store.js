@@ -40,11 +40,11 @@ const store = new Vuex.Store({
   // Root mutations
   mutations: {
     // Reset state
-    [resetType] (state) {
+    [resetType]: state => {
       Object.keys(state).forEach(key => {
-        Object.assign(state[key], initialState[key])
+        Vue.set(state, key, initialState[key])
       })
-    }
+    },
   }
 })
 
