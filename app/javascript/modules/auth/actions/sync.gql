@@ -1,0 +1,9 @@
+query sync {
+  sync {
+    name
+    phone
+    contacts { name phone }
+    readScope
+    seenScope
+  }
+}

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Types
-  class UserType < Types::BaseObject
+  class SyncType < Types::BaseObject
     ##
     # Fields
     #
@@ -11,6 +11,18 @@ module Types
 
     field :name,
           String,
+          :null => true
+
+    field :contacts,
+          [UserType],
+          :null => true
+
+    field :read_scope,
+          Boolean,
+          :null => true
+
+    field :seen_scope,
+          Boolean,
           :null => true
 
     ##

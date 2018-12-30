@@ -1,9 +1,7 @@
 import client from 'lib/apollo'
 
+import auth from 'modules/auth'
 import requests from 'modules/requests'
-import settings from 'modules/settings'
-
-import { scopes } from 'modules/settings/state'
 
 import { actions as t, mutations as mt } from '../types'
 
@@ -18,14 +16,6 @@ export default async ({ commit, dispatch }, payload) => {
   }).then(data => {
     commit(mt.set, { user: data.completeUser.user })
 
-    // TODO: sync user data, set defaults
-    dispatch(settings.types.actions.setPrivacy, {
-      seenScope: scopes.EVERYONE,
-      readScope: scopes.CONTACTS,
-    })
-    dispatch(settings.types.actions.setNotifications, {
-      notifications: true,
-      vibrate: true,
-    })
+    dispatch(auth.types.actions.sync)
   })
 }

@@ -1,5 +1,6 @@
 export const actions = {
   signout: 'auth/SIGNOUT',
+  sync: 'auth/SYNC',
   verifyPhone: 'auth/VERIFY_PHONE',
   verifyPin: 'auth/VERIFY_PIN',
 }
