@@ -30,10 +30,10 @@ export default async ({ commit, dispatch }, payload) => {
         resolve(response.data)
       }
     } catch(e) {
-      // Exception, dispatch alert action
+      // Exception
       commit(mt.setState, { requestType, requestState: requestStates.FAILURE })
 
-      dispatch(alerts.types.actions.add, { type: types.ERROR, message: e.message })
+      throw(e)
     }
   })
 }
