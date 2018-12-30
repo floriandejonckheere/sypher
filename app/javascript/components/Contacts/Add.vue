@@ -1,7 +1,6 @@
 <template>
   <v-content class="white">
     <RequestSpinner :type="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
       <router-link to="/contacts">
@@ -55,8 +54,8 @@
 
 <script>
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
+  import alerts from 'modules/alerts'
   import contacts from 'modules/contacts'
 
   export default {
@@ -68,13 +67,11 @@
         v => /^[0-9]{1,3}$/.test(v) || 'Invalid country code',
       ],
 
-      phone: '471457121',
+      phone: '471451721',
       phoneRules: [
         v => !!v || 'Phone is required',
         v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
       ],
-
-      errors: [],
 
       requestTypes: [
         contacts.types.actions.add,
@@ -89,13 +86,11 @@
 
           this.$store.dispatch(contacts.types.actions.add, { phone })
             .then(() => { this.$router.push({ name: 'contacts' }) })
-            .catch(e => { this.errors.push(e) })
         }
       },
     },
     components: {
       RequestSpinner,
-      Alert,
     },
   }
 </script>

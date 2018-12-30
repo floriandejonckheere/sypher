@@ -1,7 +1,6 @@
 <template>
   <v-content class="white">
     <RequestSpinner :type="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
       <router-link to="/contacts">
@@ -62,15 +61,15 @@
   import { mapGetters } from 'vuex'
 
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
-  import users from 'modules/users'
+  import alerts from 'modules/alerts'
   import contacts from 'modules/contacts'
+  import users from 'modules/users'
+
+  import { types } from 'modules/alerts/state'
 
   export default {
     data: () => ({
-      errors: [],
-
       requestTypes: [
         contacts.types.actions.delete,
       ]
@@ -86,13 +85,14 @@
     methods: {
       delete() {
         this.$store.dispatch(contacts.types.actions.delete, { phone: this.user.phone })
-          .then(() => { this.$router.push({ name: 'contacts' }) })
-          .catch(e => { this.errors.push(e) })
+          .then(() => {
+            this.$store.dispatch(alerts.types.actions.add, { type: types.INFO, message: 'Contact deleted' })
+            this.$router.push({ name: 'contacts' })
+          })
       },
     },
     components: {
       RequestSpinner,
-      Alert,
     },
   }
 </script>

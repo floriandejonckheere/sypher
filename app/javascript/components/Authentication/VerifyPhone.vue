@@ -1,7 +1,6 @@
 <template>
   <v-content>
     <RequestSpinner :type="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-container fill-height>
       <v-layout column align-center>
@@ -61,7 +60,6 @@
 
 <script>
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
   import auth from 'modules/auth'
 
@@ -80,8 +78,6 @@
         v => /^[0-9]{8,14}$/.test(v) || 'Invalid phone number',
       ],
 
-      errors: [],
-
       requestTypes: [
         auth.types.actions.verifyPhone,
       ],
@@ -95,13 +91,11 @@
 
           this.$store.dispatch(auth.types.actions.verifyPhone, { phone })
             .then(() => { this.$router.push({ name: 'pin' }) })
-            .catch(e => { this.errors.push(e) })
         }
       },
     },
     components: {
       RequestSpinner,
-      Alert,
     },
   }
 </script>

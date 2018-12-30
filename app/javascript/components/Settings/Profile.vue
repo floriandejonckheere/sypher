@@ -1,7 +1,6 @@
 <template>
   <v-content class="white">
     <RequestSpinner :type="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
       <router-link to="/settings">
@@ -77,7 +76,6 @@
   import { mapGetters } from 'vuex'
 
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
   import users from 'modules/users'
 
@@ -93,8 +91,6 @@
         v => !!v || 'Name is required',
         v => /^.{1,20}/.test(v) || 'Name must be between 1 and 20 characters',
       ],
-
-      errors: [],
 
       requestTypes: [
         users.types.actions.update,
@@ -113,7 +109,6 @@
           this.dialog.name = false
 
           this.$store.dispatch(users.types.actions.update, { name: this.name })
-            .catch(e => { this.errors.push(e) })
         }
       },
     },
@@ -122,7 +117,6 @@
     },
     components: {
       RequestSpinner,
-      Alert,
     },
   }
 </script>

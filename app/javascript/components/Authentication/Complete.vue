@@ -1,7 +1,6 @@
 <template>
   <v-content>
     <RequestSpinner :type="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-container fill-height>
       <v-layout column align-center>
@@ -43,7 +42,6 @@
 
 <script>
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
   import users from 'modules/users'
 
@@ -56,8 +54,6 @@
         v => /^.{1,20}/.test(v) || 'Name must be between 1 and 20 characters',
       ],
 
-      errors: [],
-
       requestTypes: [
         users.types.actions.complete,
       ],
@@ -69,13 +65,11 @@
         if (this.$refs.form.validate()) {
           this.$store.dispatch(users.types.actions.complete, { name: this.name })
             .then(() => { this.$router.push({ name: 'channels' }) })
-            .catch(e => { this.errors.push(e) })
         }
       },
     },
     components: {
       RequestSpinner,
-      Alert,
     },
   }
 </script>

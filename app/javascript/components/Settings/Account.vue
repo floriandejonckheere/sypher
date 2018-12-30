@@ -1,7 +1,6 @@
 <template>
   <v-content class="white">
     <RequestSpinner :types="requestTypes" />
-    <Alert :errors="errors" />
 
     <v-toolbar dark color="primary">
       <router-link to="/settings">
@@ -151,7 +150,6 @@
   import { mapGetters } from 'vuex'
 
   import RequestSpinner from 'components/RequestSpinner'
-  import Alert from 'components/Alert'
 
   import auth from 'modules/auth'
   import users from 'modules/users'
@@ -171,8 +169,6 @@
       seenScope: null,
       readScope: null,
 
-      errors: [],
-
       requestTypes: [
         users.types.actions.destroy,
         settings.types.actions.setPrivacy,
@@ -190,12 +186,10 @@
 
         this.$store.dispatch(users.actions.types.destroy)
           .then(() => { this.$router.push({ name: 'welcome' }) })
-          .catch(e => { this.errors.push(e) })
       },
       signout() {
         this.$store.dispatch(auth.types.actions.signout)
           .then(() => { this.$router.push({ name: 'welcome' }) })
-          .catch(e => { this.errors.push(e) })
       },
       setPrivacy() {
         this.$store.dispatch(settings.types.actions.setPrivacy,
@@ -204,7 +198,6 @@
             this.dialog.seen = false
             this.dialog.read = false
           })
-          .catch(e => { this.errors.push(e) })
       },
     },
     mounted: function() {
@@ -213,7 +206,6 @@
     },
     components: {
       RequestSpinner,
-      Alert,
     },
     filters: {
       formatScope: function (value) {

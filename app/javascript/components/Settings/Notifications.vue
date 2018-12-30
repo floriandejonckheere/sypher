@@ -57,7 +57,7 @@
   import settings from 'modules/settings'
 
   export default {
-    data () {
+    data() {
       return {
         notifications: false,
         vibrate: false,
@@ -81,7 +81,7 @@
         this.$store.dispatch(settings.types.actions.setNotifications, { notifications: this.notifications, vibrate: this.vibrate })
       },
     },
-    mounted: function() {
+    mounted() {
       this.notifications = this.getNotifications;
       this.vibrate = this.getVibrate;
     },
