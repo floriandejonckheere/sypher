@@ -1,10 +1,7 @@
-import auth from 'modules/auth'
-
 import { mutations as mt } from '../types'
 
-export default async ({ commit, getters }, payload) => {
+export default async ({ commit }, payload) => {
   const { notifications, vibrate } = payload
-  const phone = getters[auth.types.getters.getPhone]
 
-  commit(mt.setNotifications, { phone, notifications, vibrate })
+  commit(mt.setNotifications, { notifications, vibrate })
 }

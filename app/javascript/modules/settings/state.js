@@ -1,8 +1,16 @@
-const scopes = {
+export const scopes = {
   NOBODY: 'nobody',
   CONTACTS: 'contacts',
   EVERYONE: 'everyone',
 }
 
-export { scopes }
-export default {}
+export default {
+  account: {
+    readScope: scopes.CONTACTS,
+    seenScope: scopes.EVERYONE,
+  },
+  device: {
+    notifications: true,
+    vibrate: true,
+  },
+}

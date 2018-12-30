@@ -4,7 +4,6 @@ export const actions = {
 }
 
 export const getters = {
-  getCurrent: 'settings/GET_CURRENT',
   getSeenScope: 'settings/GET_SEEN_SCOPE',
   getReadScope: 'settings/GET_READ_SCOPE',
   getNotifications: 'settings/GET_NOTIFICATIONS',
