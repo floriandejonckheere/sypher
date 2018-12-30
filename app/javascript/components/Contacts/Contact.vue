@@ -14,6 +14,10 @@
         {{ user.name }}
       </v-toolbar-title>
       <v-spacer />
+
+      <v-btn icon @click="this.delete">
+        <v-icon>delete</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/cards/desert.jpg">
@@ -61,12 +65,14 @@
   import Alert from 'components/Alert'
 
   import users from 'modules/users'
+  import contacts from 'modules/contacts'
 
   export default {
     data: () => ({
       errors: [],
 
       requestTypes: [
+        contacts.types.actions.delete,
       ]
     }),
     computed: {
@@ -75,6 +81,13 @@
       }),
       user() {
         return this.get(this.$route.params.phone)
+      },
+    },
+    methods: {
+      delete() {
+        this.$store.dispatch(contacts.types.actions.delete, { phone: this.user.phone })
+          .then(() => { this.$router.push({ name: 'contacts' }) })
+          .catch(e => { this.errors.push(e) })
       },
     },
     components: {
