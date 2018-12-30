@@ -57,7 +57,7 @@
 
       <v-divider />
 
-      <v-list-tile @click="signout">
+      <v-list-tile @click="dialog.signout = true">
         <v-list-tile-content>
           <v-list-tile-title>
             Sign out
@@ -130,15 +130,31 @@
     <!-- Delete Modal -->
     <v-dialog v-model="dialog.delete" scrollable>
       <v-card>
-        <v-card-title class="headline">Delete account?</v-card-title>
+        <v-card-title class="headline">Delete account</v-card-title>
         <v-card-text>
           <p>Are you sure you want to delete your account? This will remove all data from your device and from our servers permanently!</p>
-          <p><strong>This operation cannot be undone</strong></p>
+          <p><strong>You will lose all your messages, media and contacts irreversibly</strong></p>
         </v-card-text>
         <v-card-actions>
           <v-spacer />
           <v-btn flat @click="dialog.delete = false">Cancel</v-btn>
           <v-btn color="red darken-1" flat @click="destroy">Delete my account</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Signout Modal -->
+    <v-dialog v-model="dialog.signout" scrollable>
+      <v-card>
+        <v-card-title class="headline">Sign out</v-card-title>
+        <v-card-text>
+          <p>Are you sure you want to sign out? This will remove all data from your device permanently! Your contacts and other settings are still stored on our servers.</p>
+          <p><strong>You will lose all your messages and media irreversibly</strong></p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn flat @click="dialog.signout = false">Cancel</v-btn>
+          <v-btn color="red darken-1" flat @click="signout">Sign out</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -151,16 +167,19 @@
 
   import RequestSpinner from 'components/RequestSpinner'
 
+  import alerts from 'modules/alerts'
   import auth from 'modules/auth'
   import users from 'modules/users'
   import settings from 'modules/settings'
 
+  import { types } from 'modules/alerts/state'
   import { scopes } from 'modules/settings/state'
 
   export default {
     data: () => ({
       dialog: {
         delete: false,
+        signout: false,
         seen: false,
         read: false,
       },
@@ -184,12 +203,18 @@
       destroy() {
         this.dialog.delete = false
 
-        this.$store.dispatch(users.actions.types.destroy)
-          .then(() => { this.$router.push({ name: 'welcome' }) })
+        this.$store.dispatch(users.types.actions.destroy)
+          .then(() => {
+            this.$store.dispatch(alerts.types.actions.add, { type: types.SUCCESS, message: 'Account deleted' })
+            this.$router.push({ name: 'welcome' })
+          })
       },
       signout() {
         this.$store.dispatch(auth.types.actions.signout)
-          .then(() => { this.$router.push({ name: 'welcome' }) })
+          .then(() => {
+            this.$store.dispatch(alerts.types.actions.add, { type: types.SUCCESS, message: 'Signed out' })
+            this.$router.push({ name: 'welcome' })
+          })
       },
       setPrivacy() {
         this.$store.dispatch(settings.types.actions.setPrivacy,
