@@ -1,6 +1,5 @@
-import { mutations } from '../types'
+import { resetType } from 'lib/store'
 
 export default async ({ commit }) => {
-  commit(mutations.setCurrentPhone, { phone: null })
-  commit(mutations.setToken, { token: null })
+  commit(resetType)
 }
