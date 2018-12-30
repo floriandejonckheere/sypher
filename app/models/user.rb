@@ -78,6 +78,10 @@ class User < ApplicationRecord
     User.find_by :phone => PhonyRails.normalize_number(phone)
   end
 
+  def self.find_by_phone!(phone)
+    User.find_by! :phone => PhonyRails.normalize_number(phone)
+  end
+
   ##
   # Instance methods
   #
