@@ -29,7 +29,7 @@ module Mutations
     #
     def resolve(params)
       user = context[:current_user]
-      contact = User.find_by_phone! params[:phone]
+      contact = User.verified.find_by_phone! params[:phone]
 
       if user.contacts << contact
         {
