@@ -33,6 +33,7 @@
       <v-list-tile>
         <v-list-tile-content>
           <v-list-tile-title>
+            <span v-if="!user.name"><em>(empty)</em></span>
             {{ user.name }}
           </v-list-tile-title>
           <v-list-tile-sub-title>

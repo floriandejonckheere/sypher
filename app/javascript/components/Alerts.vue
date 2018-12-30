@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(alert, index) in alerts">
+    <div v-for="alert in alerts">
       <div class="alert">
         <v-alert
                 :type="alert.type"
