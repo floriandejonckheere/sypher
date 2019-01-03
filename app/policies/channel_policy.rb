@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class GroupPolicy < ApplicationPolicy
+class ChannelPolicy < ApplicationPolicy
   def create?
     # Only signed in users can create
     !user.nil?

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe GroupPolicy do
+describe ChannelPolicy do
   ##
   # Configuration
   #
@@ -32,7 +32,7 @@ describe GroupPolicy do
   context 'when there is a user' do
     it { is_expected.to permit_action :create }
 
-    context 'when the user is a member of the group' do
+    context 'when the user is a member of the channel' do
       context 'when the user is an admin' do
         before { create :membership, :user => user, :channel => record, :admin => true }
 
@@ -47,7 +47,7 @@ describe GroupPolicy do
       end
     end
 
-    context 'when the user is not a member of the group' do
+    context 'when the user is not a member of the channel' do
       it { is_expected.to permit_action :create }
       it { is_expected.to forbid_actions %i[show update destroy] }
     end
