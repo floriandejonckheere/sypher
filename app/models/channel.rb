@@ -8,6 +8,7 @@ class Channel < ApplicationRecord
   # Properties
   #
   property :uuid
+  property :name
   property :topic
 
   # STI type
@@ -36,7 +37,8 @@ class Channel < ApplicationRecord
   ##
   # Callbacks
   #
-  after_initialize :set_random_uuid
+  after_initialize :set_random_uuid,
+                   :if => :new_record?
 
   ##
   # Class methods

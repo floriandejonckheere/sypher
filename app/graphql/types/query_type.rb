@@ -13,6 +13,12 @@ module Types
 
     field :sync, SyncType, :null => true
 
+    field :channel, ChannelType, :null => true do
+      argument :uuid,
+               String,
+               :required => true
+    end
+
     ##
     # Field methods
     #
@@ -22,6 +28,10 @@ module Types
 
     def sync
       context[:current_user]
+    end
+
+    def channel(args)
+      Channel.find_by :uuid => args[:uuid]
     end
   end
 end

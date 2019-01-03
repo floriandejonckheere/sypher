@@ -31,7 +31,8 @@ class Message < ApplicationRecord
   ##
   # Callbacks
   #
-  after_initialize :set_random_uuid
+  after_initialize :set_random_uuid,
+                   :if => :new_record?
 
   ##
   # Class methods
