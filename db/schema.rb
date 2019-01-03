@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_182459) do
+ActiveRecord::Schema.define(version: 2019_01_03_163855) do
 
   create_table "blocked", id: false, force: :cascade do |t|
     t.integer "user_id", null: false
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2018_12_28_182459) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "uuid"
   end
 
   create_table "contacts", id: false, force: :cascade do |t|

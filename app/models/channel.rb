@@ -7,6 +7,7 @@ class Channel < ApplicationRecord
   ##
   # Properties
   #
+  property :uuid
   property :topic
 
   # STI type
@@ -35,6 +36,8 @@ class Channel < ApplicationRecord
   ##
   # Callbacks
   #
+  after_initialize :set_random_uuid
+
   ##
   # Class methods
   #
@@ -47,6 +50,10 @@ class Channel < ApplicationRecord
   ##
   # Helpers and callback methods
   #
+  def set_random_uuid
+    self.uuid = SecureRandom.uuid
+  end
+
   def minimum_members
     return if memberships.size >= 2
 
