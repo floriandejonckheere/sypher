@@ -15,7 +15,11 @@ module Types
 
     field :contacts,
           [UserType],
-          :null => true
+          :null => false
+
+    field :channels,
+          [ChannelType],
+          :null => false
 
     field :read_scope,
           String,
