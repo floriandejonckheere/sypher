@@ -4,6 +4,7 @@ export const actions = {
 
 export const getters = {
   isPending: 'requests/IS_PENDING',
+  isAnyPending: 'requests/IS_ANY_PENDING',
 }
 
 export const mutations = {

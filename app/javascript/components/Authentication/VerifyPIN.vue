@@ -1,7 +1,5 @@
 <template>
   <v-content>
-    <RequestSpinner :type="requestTypes" />
-
     <v-container fill-height>
       <v-layout column align-center>
         <v-flex class="text-xs-center">
@@ -44,8 +42,6 @@
 </template>
 
 <script>
-  import RequestSpinner from 'components/RequestSpinner'
-
   import auth from 'modules/auth'
 
   export default {
@@ -55,10 +51,6 @@
       pinRules: [
         v => !!v || 'Code is required',
         v => /^[0-9]{6}$/.test(v) || 'Invalid code',
-      ],
-
-      requestTypes: [
-        auth.types.actions.verifyPin,
       ],
     }),
     methods: {
@@ -73,9 +65,6 @@
             .then(() => { this.$router.push({ name: 'complete' }) })
         }
       },
-    },
-    components: {
-      RequestSpinner,
     },
   }
 </script>

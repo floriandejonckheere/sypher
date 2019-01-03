@@ -1,7 +1,5 @@
 <template>
   <v-content>
-    <RequestSpinner :type="requestTypes" />
-
     <v-container fill-height>
       <v-layout column align-center>
         <v-flex class="text-xs-center">
@@ -41,8 +39,6 @@
 </template>
 
 <script>
-  import RequestSpinner from 'components/RequestSpinner'
-
   import users from 'modules/users'
 
   export default {
@@ -52,10 +48,6 @@
       nameRules: [
         v => !!v || 'Name is required',
         v => /^.{1,20}/.test(v) || 'Name must be between 1 and 20 characters',
-      ],
-
-      requestTypes: [
-        users.types.actions.complete,
       ],
     }),
     methods: {
@@ -67,9 +59,6 @@
             .then(() => { this.$router.push({ name: 'channels' }) })
         }
       },
-    },
-    components: {
-      RequestSpinner,
     },
   }
 </script>

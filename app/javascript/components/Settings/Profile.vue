@@ -1,7 +1,5 @@
 <template>
   <v-content class="white">
-    <RequestSpinner :type="requestTypes" />
-
     <v-toolbar dark color="primary">
       <router-link to="/settings">
         <v-btn icon>
@@ -75,8 +73,6 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import RequestSpinner from 'components/RequestSpinner'
-
   import users from 'modules/users'
 
   export default {
@@ -91,10 +87,6 @@
         v => !!v || 'Name is required',
         v => /^.{1,20}/.test(v) || 'Name must be between 1 and 20 characters',
       ],
-
-      requestTypes: [
-        users.types.actions.update,
-      ]
     }),
     computed: {
       ...mapGetters({
@@ -114,9 +106,6 @@
     },
     mounted: function() {
       this.name = this.user.name
-    },
-    components: {
-      RequestSpinner,
     },
   }
 </script>

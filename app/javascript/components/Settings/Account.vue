@@ -1,7 +1,5 @@
 <template>
   <v-content class="white">
-    <RequestSpinner :types="requestTypes" />
-
     <v-toolbar dark color="primary">
       <router-link to="/settings">
         <v-btn icon>
@@ -165,8 +163,6 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import RequestSpinner from 'components/RequestSpinner'
-
   import alerts from 'modules/alerts'
   import auth from 'modules/auth'
   import users from 'modules/users'
@@ -187,11 +183,6 @@
 
       seenScope: null,
       readScope: null,
-
-      requestTypes: [
-        users.types.actions.destroy,
-        settings.types.actions.setPrivacy,
-      ],
     }),
     computed: {
       ...mapGetters({
@@ -228,9 +219,6 @@
     mounted: function() {
       this.seenScope = this.getSeenScope;
       this.readScope = this.getReadScope;
-    },
-    components: {
-      RequestSpinner,
     },
     filters: {
       formatScope: function (value) {

@@ -1,7 +1,5 @@
 <template>
   <v-content class="white">
-    <RequestSpinner :type="requestTypes" />
-
     <v-toolbar dark color="primary">
       <router-link to="/contacts">
         <v-btn icon>
@@ -61,8 +59,6 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import RequestSpinner from 'components/RequestSpinner'
-
   import alerts from 'modules/alerts'
   import contacts from 'modules/contacts'
   import users from 'modules/users'
@@ -70,11 +66,6 @@
   import { types } from 'modules/alerts/state'
 
   export default {
-    data: () => ({
-      requestTypes: [
-        contacts.types.actions.delete,
-      ]
-    }),
     computed: {
       ...mapGetters({
         get: users.types.getters.get,
@@ -91,9 +82,6 @@
             this.$router.push({ name: 'contacts' })
           })
       },
-    },
-    components: {
-      RequestSpinner,
     },
   }
 </script>
