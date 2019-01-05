@@ -4,6 +4,7 @@ import createPersistedState from 'vuex-persistedstate'
 
 import alerts from 'modules/alerts'
 import auth from 'modules/auth'
+import channels from 'modules/channels'
 import contacts from 'modules/contacts'
 import requests from 'modules/requests'
 import settings from 'modules/settings'
@@ -16,6 +17,7 @@ export const resetType = 'root/RESET'
 const initialState = {
   alerts: alerts.state,
   auth: auth.state,
+  channels: channels.state,
   contacts: contacts.state,
   requests: requests.state,
   settings: settings.state,
@@ -26,6 +28,7 @@ const store = new Vuex.Store({
   modules: {
     alerts,
     auth,
+    channels,
     contacts,
     requests,
     settings,
@@ -33,7 +36,7 @@ const store = new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: ['auth', 'contacts', 'settings', 'users'],
+      paths: ['auth', 'channels', 'contacts', 'settings', 'users'],
     }),
   ],
 
