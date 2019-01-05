@@ -2,8 +2,9 @@ query sync {
   sync {
     name
     phone
-    contacts { name phone }
     readScope
     seenScope
+    contacts { name phone }
+    channels { uuid type name topic users { name phone } }
   }
 }

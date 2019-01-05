@@ -1,5 +1,6 @@
 import client from 'lib/apollo'
 
+import channels from 'modules/channels'
 import contacts from 'modules/contacts'
 import requests from 'modules/requests'
 import settings from 'modules/settings'
@@ -14,10 +15,13 @@ export default async ({ commit, dispatch }) => {
     requestType: t.sync,
     request: () => client.query({ query: sync })
   }).then(data => {
-    const { name, phone, contacts: userContacts, readScope, seenScope } = data.sync
+    const { name, phone, readScope, seenScope, contacts: userContacts, channels: userChannels } = data.sync
 
     // Current user
     commit(users.types.mutations.set, { user: { name, phone }})
+
+    // Settings
+    commit(settings.types.mutations.setPrivacy, { readScope, seenScope })
 
     // Contacts
     userContacts.forEach(contact => {
@@ -25,7 +29,19 @@ export default async ({ commit, dispatch }) => {
       commit(users.types.mutations.set, { user: { name, phone } })
     })
 
-    // Settings
-    commit(settings.types.mutations.setPrivacy, { readScope, seenScope })
+    // Channels
+    userChannels.forEach(channel => {
+      const c = {
+        uuid: channel.uuid,
+        type: channel.type,
+        name: channel.name,
+        topic: channel.topic,
+      }
+      commit(channels.types.mutations.set, { channel: c })
+
+      channel.users.forEach(user => {
+        commit(users.types.mutations.set, { user })
+      })
+    })
   })
 }
