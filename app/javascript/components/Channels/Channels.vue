@@ -63,7 +63,7 @@
     </v-list>
 
     <v-speed-dial fixed bottom right color="primary" transition="slide-y-reverse-transition" v-model="fab">
-      <v-btn slot="activator" color="primary" dark fab hover large v-model="fab" @click="sync">
+      <v-btn slot="activator" color="primary" dark fab hover large v-model="fab">
         <v-icon>message</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
@@ -89,11 +89,6 @@
       ...mapGetters({
         getAll: channels.types.getters.getAll,
       }),
-    },
-    methods: {
-      sync() {
-        this.$store.dispatch(auth.types.actions.sync)
-      },
     },
     data: () => {
       return {
