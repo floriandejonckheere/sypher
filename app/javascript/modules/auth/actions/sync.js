@@ -31,13 +31,7 @@ export default async ({ commit, dispatch }) => {
 
     // Channels
     userChannels.forEach(channel => {
-      const c = {
-        uuid: channel.uuid,
-        type: channel.type,
-        name: channel.name,
-        topic: channel.topic,
-      }
-      commit(channels.types.mutations.set, { channel: c })
+      commit(channels.types.mutations.set, { channel: channels.parse(channel) })
 
       channel.users.forEach(user => {
         commit(users.types.mutations.set, { user: users.parse(user) })
