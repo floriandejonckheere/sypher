@@ -30,7 +30,7 @@
     </v-toolbar>
 
     <v-list two-line>
-      <template v-for="(channel, index) in getAll">
+      <template v-for="(channel, index) in channels">
         <v-list-tile :key="channel.uuid" avatar :to="`/channels/${channel.uuid}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
@@ -81,13 +81,11 @@
   import { mapGetters } from 'vuex'
 
   import channels from 'modules/channels'
-  import auth from 'modules/auth'
-  import users from 'modules/users'
 
   export default {
     computed: {
       ...mapGetters({
-        getAll: channels.types.getters.getAll,
+        channels: channels.types.getters.getAll,
       }),
     },
     data: () => {

@@ -13,10 +13,10 @@
       </v-toolbar-title>
     </v-toolbar>
 
-    <v-container fluid class="mb-5 pb-5">
+    <v-container fluid class="my-5 pb-5">
       <v-layout column>
-        <template v-for="item in items">
-          <Message :message="item" />
+        <template v-for="message in messages">
+          <Message :message="message" />
         </template>
       </v-layout>
     </v-container>
@@ -46,9 +46,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
+  import messages from 'modules/messages'
+
   import Message from './Message'
 
   export default {
+    computed: {
+      ...mapGetters({
+        messages: messages.types.getters.getAll,
+      }),
+    },
     data: () => {
       return {
         type: 'group',
