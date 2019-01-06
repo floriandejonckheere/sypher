@@ -1,6 +1,6 @@
 import { types } from './state'
 
-export default (object) => {
+export default object => {
   return {
     uuid: object.uuid,
     type: types[object.type],
