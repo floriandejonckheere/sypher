@@ -10,9 +10,4 @@ JWT::Auth.configure do |config|
   # JWT secret
   #
   config.secret = Rails.application.secrets.secret_key_base
-
-  ##
-  # User model
-  #
-  config.model = User
 end
