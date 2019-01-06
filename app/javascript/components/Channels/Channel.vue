@@ -16,27 +16,7 @@
     <v-container fluid class="mb-5 pb-5">
       <v-layout column>
         <template v-for="item in items">
-          <v-flex>
-            <v-subheader v-if="item.type === 'timestamp'" :key="item.timestamp">
-              {{ item.timestamp | moment('dddd, MMMM Do') }}
-            </v-subheader>
-
-            <v-container v-else pa-1>
-              <v-layout row>
-                <v-flex xs9 :offset-xs3="item.user === 0">
-                  <v-card :color="item.user === 0 ? '#C6DCF8' : 'white'">
-                    <v-card-text>
-                      <div class="caption font-weight-bold">{{ members.find(m => m.id === item.user).name }}</div>
-                      {{ item.text }}
-                      <div class="grey--text caption pb-2">
-                        <span class="right">{{ item.timestamp | moment('HH:mm') }}</span>
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-flex>
+          <Message :message="item" />
         </template>
       </v-layout>
     </v-container>
@@ -66,6 +46,8 @@
 </template>
 
 <script>
+  import Message from './Message'
+
   export default {
     data: () => {
       return {
@@ -128,6 +110,9 @@
           },
         ]
       }
-    }
+    },
+    components: {
+      Message,
+    },
   }
 </script>
