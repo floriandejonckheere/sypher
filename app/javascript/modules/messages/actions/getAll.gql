@@ -1,0 +1,9 @@
+query getMessages {
+  messages {
+    uuid
+    text
+    timestamp
+    sender { phone }
+    channel { uuid }
+  }
+}

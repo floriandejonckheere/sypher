@@ -9,5 +9,5 @@ export default {
   [t.complete]: complete,
   [t.destroy]: destroy,
   [t.get]: get,
-  [update.type]: update,
+  [t.update]: update,
 }

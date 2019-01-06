@@ -6,6 +6,7 @@ import alerts from 'modules/alerts'
 import auth from 'modules/auth'
 import channels from 'modules/channels'
 import contacts from 'modules/contacts'
+import messages from 'modules/messages'
 import requests from 'modules/requests'
 import settings from 'modules/settings'
 import users from 'modules/users'
@@ -19,6 +20,7 @@ const initialState = {
   auth: auth.state,
   channels: channels.state,
   contacts: contacts.state,
+  messages: messages.state,
   requests: requests.state,
   settings: settings.state,
   users: users.state,
@@ -30,13 +32,21 @@ const store = new Vuex.Store({
     auth,
     channels,
     contacts,
+    messages,
     requests,
     settings,
     users,
   },
   plugins: [
     createPersistedState({
-      paths: ['auth', 'channels', 'contacts', 'settings', 'users'],
+      paths: [
+        'auth',
+        'channels',
+        'contacts',
+        'messages',
+        'settings',
+        'users',
+      ],
     }),
   ],
 
