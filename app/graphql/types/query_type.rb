@@ -19,11 +19,7 @@ module Types
                :required => true
     end
 
-    field :message, MessageType, :null => true do
-      argument :uuid,
-               String,
-               :required => true
-    end
+    field :messages, [MessageType], :null => true
 
     ##
     # Field methods
@@ -40,8 +36,8 @@ module Types
       Channel.find_by :uuid => args[:uuid]
     end
 
-    def message(args)
-      Message.find_by :uuid => args[:uuid]
+    def messages
+      context[:current_user].messages
     end
   end
 end
