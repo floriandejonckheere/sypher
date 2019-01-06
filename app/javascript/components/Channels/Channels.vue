@@ -30,59 +30,71 @@
     </v-toolbar>
 
     <v-list two-line>
-      <template v-for="(item, index) in items">
-        <v-list-tile :key="item.id" avatar :to="`/channels/${item.id}`">
+      <template v-for="(channel, index) in getAll">
+        <v-list-tile :key="channel.uuid" avatar :to="`/channels/${channel.uuid}`">
           <v-list-tile-avatar>
             <img :src="`https://cdn.vuetifyjs.com/images/lists/${index + 1}.jpg`" />
           </v-list-tile-avatar>
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <span class="black--text" v-bind:class="{ 'font-weight-black': item.count !== 0 }">
-                {{ item.title }}
+              <span class="black--text" v-bind:class="{ 'font-weight-black': index !== 0 }">
+                {{ channel.name }}
               </span>
-              <span class="primary--text pa-1" v-if="item.count !== 0">
-                {{ item.count }}
+              <span class="primary--text pa-1" v-if="index !== 0">
+                {{ index }}
               </span>
               <span class="grey--text caption right">
-                {{ item.timestamp | moment('calendar') }}
+                {{ new Date() | moment('calendar') }}
               </span>
             </v-list-tile-title>
             <v-list-tile-sub-title>
-              <v-icon size="16px" v-if="item.state == 'sending'">access_time</v-icon>
-              <v-icon size="16px" v-if="item.state == 'sent'">done</v-icon>
-              <v-icon size="16px" v-if="item.state == 'delivered'">done_all</v-icon>
-              <v-icon size="16px" color="primary" v-if="item.state == 'read'">done_all</v-icon>
-              {{ item.preview }}
+              <v-icon size="16px" v-if="channel == 'sending'">access_time</v-icon>
+              <v-icon size="16px" v-if="channel == 'sent'">done</v-icon>
+              <v-icon size="16px" v-if="channel == 'delivered'">done_all</v-icon>
+              <v-icon size="16px" color="primary" v-if="channel == 'read'">done_all</v-icon>
+              {{ channel.name }}
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
 
-        <v-divider inset  v-if="index != Object.keys(items).length - 1" />
+        <v-divider inset  v-if="index != Object.keys(getAll).length - 1" />
       </template>
     </v-list>
 
     <v-speed-dial fixed bottom right color="primary" transition="slide-y-reverse-transition" v-model="fab">
-      <v-btn slot="activator" color="primary" dark fab hover large v-model="fab">
+      <v-btn slot="activator" color="primary" dark fab hover large v-model="fab" @click="sync">
         <v-icon>message</v-icon>
         <v-icon>close</v-icon>
       </v-btn>
-      <router-link to="/channels/group">
-        <v-btn fab dark small color="secondary" >
-          <v-icon>group_add</v-icon>
-        </v-btn>
-      </router-link>
-      <router-link to="/channels/conversation">
-        <v-btn fab dark small color="secondary">
-          <v-icon>person_add</v-icon>
-        </v-btn>
-      </router-link>
+      <v-btn fab dark small color="secondary" to="/channels/group">
+        <v-icon>group_add</v-icon>
+      </v-btn>
+      <v-btn fab dark small color="secondary" to="/channels/conversation">
+        <v-icon>person_add</v-icon>
+      </v-btn>
     </v-speed-dial>
   </v-content>
 </template>
 
 <script>
-  module.exports = {
+  import { mapGetters } from 'vuex'
+
+  import channels from 'modules/channels'
+  import auth from 'modules/auth'
+  import users from 'modules/users'
+
+  export default {
+    computed: {
+      ...mapGetters({
+        getAll: channels.types.getters.getAll,
+      }),
+    },
+    methods: {
+      sync() {
+        this.$store.dispatch(auth.types.actions.sync)
+      },
+    },
     data: () => {
       return {
         fab: false,
