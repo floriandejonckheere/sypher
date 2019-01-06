@@ -15,10 +15,10 @@ export default async ({ commit, dispatch }) => {
     requestType: t.sync,
     request: () => client.query({ query: sync })
   }).then(data => {
-    const { name, phone, readScope, seenScope, contacts: userContacts, channels: userChannels } = data.sync
+    const { readScope, seenScope, contacts: userContacts, channels: userChannels } = data.sync
 
     // Current user
-    commit(users.types.mutations.set, { user: { name, phone }})
+    commit(users.types.mutations.set, { user: users.parse(data.sync) })
 
     // Settings
     commit(settings.types.mutations.setPrivacy, { readScope, seenScope })
@@ -26,7 +26,7 @@ export default async ({ commit, dispatch }) => {
     // Contacts
     userContacts.forEach(contact => {
       commit(contacts.types.mutations.add, { phone: contact.phone })
-      commit(users.types.mutations.set, { user: { name, phone } })
+      commit(users.types.mutations.set, { user: users.parse(contact) })
     })
 
     // Channels
@@ -40,7 +40,7 @@ export default async ({ commit, dispatch }) => {
       commit(channels.types.mutations.set, { channel: c })
 
       channel.users.forEach(user => {
-        commit(users.types.mutations.set, { user })
+        commit(users.types.mutations.set, { user: users.parse(user) })
       })
     })
   })

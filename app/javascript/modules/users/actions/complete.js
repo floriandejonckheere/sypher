@@ -4,6 +4,7 @@ import auth from 'modules/auth'
 import requests from 'modules/requests'
 
 import { actions as t, mutations as mt } from '../types'
+import parse from '../parse'
 
 import completeUser from './complete.gql'
 
@@ -14,7 +15,7 @@ export default async ({ commit, dispatch }, payload) => {
     requestType: t.complete,
     request: () => client.mutate({ mutation: completeUser, variables: { name } })
   }).then(data => {
-    commit(mt.set, { user: data.completeUser.user })
+    commit(mt.set, { user: parse(data.completeUser.user) })
 
     dispatch(auth.types.actions.sync)
   })

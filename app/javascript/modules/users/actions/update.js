@@ -3,6 +3,7 @@ import client from 'lib/apollo'
 import requests from 'modules/requests'
 
 import { actions as t, mutations as mt } from '../types'
+import parse from '../parse'
 
 import updateUser from './update.gql'
 
@@ -13,6 +14,6 @@ export default async ({ commit, dispatch }, payload) => {
     requestType: t.update,
     request: () => client.mutate({ mutation: updateUser, variables: { name } })
   }).then(data => {
-    commit(mt.set, { user: data.updateUser.user })
+    commit(mt.set, { user: parse(data.updateUser.user) })
   })
 }
