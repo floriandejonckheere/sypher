@@ -21,6 +21,7 @@ class Channel < ApplicationRecord
            :dependent => :destroy
 
   has_many :users,
+           :class_name => 'User',
            :through => :memberships
 
   ##

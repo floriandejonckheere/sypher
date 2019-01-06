@@ -4,6 +4,8 @@
 # User account
 #
 class User < ApplicationRecord
+  include JWT::Auth::Authenticatable
+
   ##
   # Properties
   #
